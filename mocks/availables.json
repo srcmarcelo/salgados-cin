@@ -1,0 +1,82 @@
+[
+    {
+        "name": "Tortinha de nata",
+        "available": 35,
+        "type": "doce"
+    },
+    {
+        "name": "Pastel de forno de frango",
+        "available": 30,
+        "type": "frango"
+    },
+    {
+        "name": "Coxinha",
+        "available": 20,
+        "type": "frango"
+    },
+    {
+        "name": "Esfiha de frango",
+        "available": 15,
+        "type": "frango"
+    },
+    {
+        "name": "Empada",
+        "available": 6,
+        "type": "frango"
+    },
+    {
+        "name": "Pastel de forno de queijo",
+        "available": 6,
+        "type": "queijo"
+    },
+    {
+        "name": "Esfiha de queijo",
+        "available": 6,
+        "type": "queijo"
+    },
+    {
+        "name": "Risole de queijo",
+        "available": 6,
+        "type": "queijo"
+    },
+    {
+        "name": "Pão pizza",
+        "available": 6,
+        "type": "misto"
+    },
+    {
+        "name": "Risole misto",
+        "available": 6,
+        "type": "misto"
+    },
+    {
+        "name": "Doguinho",
+        "available": 6,
+        "type": "salsicha"
+    },
+    {
+        "name": "Enroladinho",
+        "available": 6,
+        "type": "salsicha"
+    },
+    {
+        "name": "Hamburguer",
+        "available": 6,
+        "type": "carne"
+    },
+    {
+        "name": "Pastel de forno de carne",
+        "available": 6,
+        "type": "carne"
+    },
+    {
+        "name": "Esfiha de carne",
+        "available": 6,
+        "type": "carne"
+    },
+    {
+        "name": "Risole de carne",
+        "available": 6,
+        "type": "carne"
+    }
+]
