@@ -2,7 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import AvailablesList from '../components/availables';
 
 export default function Home() {
@@ -21,13 +21,6 @@ export default function Home() {
 
         <p className={styles.description}>Faça já sua reserva!</p>
 
-        <button className={styles.card} onClick={() => setShowAvailables(true)}>
-          <h2>Mostrar salgados disponiveis AGORA</h2>
-          <p>Status: Vendas acontecendo!</p>
-        </button>
-
-        {showAvailables && <AvailablesList />}
-
         <div className={styles.grid}>
           <Link href='/reserva'>
             <div className={styles.card}>
@@ -36,11 +29,23 @@ export default function Home() {
             </div>
           </Link>
         </div>
+
+        {!showAvailables && (
+          <button
+            className={styles.card}
+            onClick={() => setShowAvailables(true)}
+          >
+            <h2>Mostrar salgados disponiveis AGORA</h2>
+            <p>Status: Vendas acontecendo!</p>
+          </button>
+        )}
+
+        {showAvailables && <AvailablesList />}
       </main>
 
       <footer className={styles.footer}>
         <a
-          href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
+          href='/painel'
           target='_blank'
           rel='noopener noreferrer'
         >

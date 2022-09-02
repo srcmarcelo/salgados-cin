@@ -1,82 +1,162 @@
 [
-    {
-        "name": "Tortinha de nata",
-        "available": 35,
-        "type": "doce"
-    },
-    {
-        "name": "Pastel de forno de frango",
-        "available": 30,
-        "type": "frango"
-    },
-    {
-        "name": "Coxinha",
-        "available": 20,
-        "type": "frango"
-    },
-    {
-        "name": "Esfiha de frango",
-        "available": 15,
-        "type": "frango"
-    },
-    {
-        "name": "Empada",
-        "available": 6,
-        "type": "frango"
-    },
-    {
-        "name": "Pastel de forno de queijo",
-        "available": 6,
-        "type": "queijo"
-    },
-    {
-        "name": "Esfiha de queijo",
-        "available": 6,
-        "type": "queijo"
-    },
-    {
-        "name": "Risole de queijo",
-        "available": 6,
-        "type": "queijo"
-    },
-    {
-        "name": "Pão pizza",
-        "available": 6,
-        "type": "misto"
-    },
-    {
-        "name": "Risole misto",
-        "available": 6,
-        "type": "misto"
-    },
-    {
-        "name": "Doguinho",
-        "available": 6,
-        "type": "salsicha"
-    },
-    {
-        "name": "Enroladinho",
-        "available": 6,
-        "type": "salsicha"
-    },
-    {
-        "name": "Hamburguer",
-        "available": 6,
-        "type": "carne"
-    },
-    {
-        "name": "Pastel de forno de carne",
-        "available": 6,
-        "type": "carne"
-    },
-    {
-        "name": "Esfiha de carne",
-        "available": 6,
-        "type": "carne"
-    },
-    {
-        "name": "Risole de carne",
-        "available": 6,
-        "type": "carne"
+  {
+    "name": "Tortinha de nata",
+    "available": 35,
+    "type": "doce",
+    "media": {
+      "height": 183,
+      "width": 275,
+      "src": "/_next/static/media/tortinha.4ca36b74.jpeg"
     }
+  },
+  {
+    "name": "Pastel de forno de frango",
+    "available": 30,
+    "type": "frango",
+    "media": {
+      "height": 183,
+      "width": 275,
+      "src": "/_next/static/media/pastel_frango.94833f44.png"
+    }
+  },
+  {
+    "name": "Coxinha",
+    "available": 20,
+    "type": "frango",
+    "media": {
+      "height": 183,
+      "width": 275,
+      "src": "/_next/static/media/coxinha.cf2b58ac.jpeg"
+    }
+  },
+  {
+    "name": "Esfiha de frango",
+    "available": 15,
+    "type": "frango",
+    "media": {
+      "height": 183,
+      "width": 275,
+      "src": "/_next/static/media/esfiha_frango.277d1ee5.webp"
+    }
+  },
+  {
+    "name": "Empada",
+    "available": 6,
+    "type": "frango",
+    "media": {
+      "height": 183,
+      "width": 275,
+      "src": "/_next/static/media/empada.5e9dddb2.jpg"
+    }
+  },
+  {
+    "name": "Pastel de forno de queijo",
+    "available": 6,
+    "type": "queijo",
+    "media": {
+      "height": 183,
+      "width": 275,
+      "src": "/_next/static/media/pastel_queijo.1ad3c60f.jpg"
+    }
+  },
+  {
+    "name": "Esfiha de queijo",
+    "available": 6,
+    "type": "queijo",
+    "media": {
+      "height": 183,
+      "width": 275,
+      "src": "/_next/static/media/esfiha_queijo.e7a80d95.jpg"
+    }
+  },
+  {
+    "name": "Risole de queijo",
+    "available": 6,
+    "type": "queijo",
+    "media": {
+      "height": 183,
+      "width": 275,
+      "src": "/_next/static/media/risole_queijo.4f285764.jpg"
+    }
+  },
+  {
+    "name": "Pão pizza",
+    "available": 6,
+    "type": "misto",
+    "media": {
+      "height": 183,
+      "width": 275,
+      "src": "/_next/static/media/pao_pizza.88862de1.jpg"
+    }
+  },
+  {
+    "name": "Risole misto",
+    "available": 6,
+    "type": "misto",
+    "media": {
+      "height": 183,
+      "width": 275,
+      "src": "/_next/static/media/risole_misto.c9df946e.jpg"
+    }
+  },
+  {
+    "name": "Doguinho",
+    "available": 6,
+    "type": "salsicha",
+    "media": {
+      "height": 183,
+      "width": 275,
+      "src": "/_next/static/media/doguinho.a9e9630e.jpg"
+    }
+  },
+  {
+    "name": "Enroladinho",
+    "available": 6,
+    "type": "salsicha",
+    "media": {
+      "height": 183,
+      "width": 275,
+      "src": "/_next/static/media/enroladinho.567f7cb2.jpg"
+    }
+  },
+  {
+    "name": "Hamburguer",
+    "available": 6,
+    "type": "carne",
+    "media": {
+      "height": 183,
+      "width": 275,
+      "src": "/_next/static/media/hamburguer.9e81c5a8.jpg"
+    }
+  },
+  {
+    "name": "Pastel de forno de carne",
+    "available": 6,
+    "type": "carne",
+    "media": {
+      "height": 183,
+      "width": 275,
+      "src": "/_next/static/media/pastel_carne.970241a7.jpg"
+    }
+  },
+  {
+    "name": "Esfiha de carne",
+    "available": 6,
+    "type": "carne",
+    "media": {
+      "height": 183,
+      "width": 275,
+      "src": "/_next/static/media/esfiha_carne.ad00988b.jpg"
+    }
+  },
+  {
+    "name": "Risole de carne",
+    "available": 6,
+    "type": "carne",
+    "media": {
+      "height": 183,
+      "width": 275,
+      "src": "/_next/static/media/risole_carne.e06ee04f.jpg"
+    }
+  }
 ]
