@@ -3,8 +3,8 @@ import styles from '../../styles/Home.module.css';
 import React from 'react';
 import ControlPanel from '../../components/ControlPanel';
 
-export default function Painel() {
 
+export default function Painel() {
   return (
     <div className={styles.container}>
       <main className={styles.main}>

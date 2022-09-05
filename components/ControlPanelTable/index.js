@@ -3,18 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { Card } from 'antd';
 import Image from 'next/image';
 import styles from '../../styles/Home.module.css';
-import firebase from '../../firebase/clientApp';
-import { doc, getFirestore, onSnapshot } from 'firebase/firestore';
 
-export default function AvailablesList() {
+export default function ControlPanelTable(props) {
   const { Meta } = Card;
-  const db = getFirestore(firebase);
-
-  const [availables, setAvailables] = useState([]);
-
-  const unsub = onSnapshot(doc(db, 'salgados', 'disponiveis'), (doc) => {
-    setAvailables(doc.data().disponiveis);
-  });
+  const {availables} = props;
 
   const RenderList = ({ data }) => {
     const components = data.map((item, index) => (
@@ -26,6 +18,7 @@ export default function AvailablesList() {
           margin: '10px 0px',
         }}
         cover={<Image alt={item.name} src={item.media} />}
+        onClick={() => props.onClick(availables.indexOf(item))}
       >
         <Meta
           title={

@@ -1,11 +1,55 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Menu, Button } from 'antd';
 import React, { useState, useEffect } from 'react';
-import availables from '../../mocks/availables.json';
+import baseData from '../../mocks/availables.json';
+import ControlPanelTable from '../ControlPanelTable';
 import AvailablesList from '../Availables';
+import firebase from '../../firebase/clientApp';
+import {
+  collection,
+  getDoc,
+  updateDoc,
+  doc,
+  setDoc,
+  getFirestore,
+  onSnapshot,
+} from 'firebase/firestore';
 
 export default function ControlPanel() {
   const [copyText, setCopyText] = useState(false);
   const [mode, setMode] = useState('Vender');
+  const [availables, setAvailables] = useState([]);
+  const db = getFirestore(firebase);
+
+  const getAvailabes = async () => {
+    const docRef = doc(db, 'salgados', 'disponiveis');
+    const docSnap = await getDoc(docRef);
+    setAvailables(docSnap.data().disponiveis);
+  };
+
+  const resetAvailables = async () => {
+    await setDoc(doc(db, 'salgados', 'disponiveis'), { disponiveis: baseData });
+  };
+
+  const decreaseAvailables = async (index) => {
+    const availablesRef = doc(db, 'salgados', 'disponiveis');
+    const newAvailables = availables;
+    if (newAvailables[index].available > 0) {
+      newAvailables[index].available =
+        mode === 'Vender'
+          ? newAvailables[index].available - 1
+          : newAvailables[index].available + 1;
+      console.log('newAvailables:', newAvailables);
+      await updateDoc(availablesRef, {
+        disponiveis: newAvailables,
+      });
+      getAvailabes();
+    }
+  };
+
+  useEffect(() => {
+    getAvailabes();
+  }, []);
 
   useEffect(() => {
     if (copyText) {
@@ -21,7 +65,7 @@ export default function ControlPanel() {
     }
   }, [copyText]);
 
-  const RenderButton = ({onClick, label}) => (
+  const RenderButton = ({ onClick, label }) => (
     <Button
       type='primary'
       style={{ height: '48px', marginLeft: '20px' }}
@@ -39,6 +83,7 @@ export default function ControlPanel() {
           theme='dark'
           mode='horizontal'
           style={{ width: '50%' }}
+          onClick={(item) => setMode(buttons[item.key - 1])}
           defaultSelectedKeys={['2']}
           items={buttons.map((button, index) => {
             const key = index + 1;
@@ -49,9 +94,14 @@ export default function ControlPanel() {
           })}
         />
         <div>
-          <RenderButton onClick={() => {}} label='Atualizar' />
+          <RenderButton onClick={resetAvailables} label='Resetar' />
           <RenderButton
-            onClick={() => setCopyText(true)}
+            onClick={() => console.log(availables)}
+            label='Atualizar'
+          />
+          <RenderButton
+            // onClick={() => setCopyText(true)}
+            onClick={() => console.log('teste')}
             label='Gerar Disponíveis'
           />
         </div>
@@ -61,7 +111,7 @@ export default function ControlPanel() {
 
   return (
     <div>
-      <AvailablesList />
+      <ControlPanelTable availables={availables} onClick={decreaseAvailables} />
       <PanelButtons />
     </div>
   );

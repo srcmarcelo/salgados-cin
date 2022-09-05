@@ -1,7 +1,7 @@
 [
   {
     "name": "Tortinha de nata",
-    "available": 35,
+    "available": 25,
     "type": "doce",
     "media": {
       "height": 153,
@@ -11,7 +11,7 @@
   },
   {
     "name": "Pastel de forno de frango",
-    "available": 30,
+    "available": 20,
     "type": "frango",
     "media": {
       "height": 153,
@@ -21,7 +21,7 @@
   },
   {
     "name": "Coxinha",
-    "available": 20,
+    "available": 15,
     "type": "frango",
     "media": {
       "height": 153,
@@ -31,7 +31,7 @@
   },
   {
     "name": "Esfiha de frango",
-    "available": 15,
+    "available": 10,
     "type": "frango",
     "media": {
       "height": 153,
@@ -51,7 +51,7 @@
   },
   {
     "name": "Pastel de forno de queijo",
-    "available": 6,
+    "available": 5,
     "type": "queijo",
     "media": {
       "height": 153,
@@ -61,7 +61,7 @@
   },
   {
     "name": "Esfiha de queijo",
-    "available": 6,
+    "available": 5,
     "type": "queijo",
     "media": {
       "height": 153,
@@ -71,7 +71,7 @@
   },
   {
     "name": "Risole de queijo",
-    "available": 6,
+    "available": 5,
     "type": "queijo",
     "media": {
       "height": 153,
@@ -91,7 +91,7 @@
   },
   {
     "name": "Risole misto",
-    "available": 6,
+    "available": 15,
     "type": "misto",
     "media": {
       "height": 153,
@@ -101,7 +101,7 @@
   },
   {
     "name": "Doguinho",
-    "available": 6,
+    "available": 4,
     "type": "salsicha",
     "media": {
       "height": 153,
@@ -111,7 +111,7 @@
   },
   {
     "name": "Enroladinho",
-    "available": 6,
+    "available": 2,
     "type": "salsicha",
     "media": {
       "height": 153,
@@ -131,7 +131,7 @@
   },
   {
     "name": "Pastel de forno de carne",
-    "available": 6,
+    "available": 2,
     "type": "carne",
     "media": {
       "height": 153,
@@ -141,7 +141,7 @@
   },
   {
     "name": "Esfiha de carne",
-    "available": 6,
+    "available": 2,
     "type": "carne",
     "media": {
       "height": 153,
@@ -151,7 +151,7 @@
   },
   {
     "name": "Risole de carne",
-    "available": 6,
+    "available": 2,
     "type": "carne",
     "media": {
       "height": 153,
