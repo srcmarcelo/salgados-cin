@@ -34,7 +34,7 @@ export default function ControlPanel() {
   const decreaseAvailables = async (index) => {
     const availablesRef = doc(db, 'salgados', 'disponiveis');
     const newAvailables = availables;
-    if (newAvailables[index].available > 0) {
+    if (newAvailables[index].available > 0 || mode === 'Repor') {
       newAvailables[index].available =
         mode === 'Vender'
           ? newAvailables[index].available - 1
@@ -100,8 +100,7 @@ export default function ControlPanel() {
             label='Atualizar'
           />
           <RenderButton
-            // onClick={() => setCopyText(true)}
-            onClick={() => console.log('teste')}
+            onClick={() => setCopyText(true)}
             label='Gerar Disponíveis'
           />
         </div>
