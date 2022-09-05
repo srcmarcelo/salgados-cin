@@ -2,13 +2,12 @@ import React from 'react';
 import { Card } from 'antd';
 import availables from '../../mocks/availables.json';
 import Image from 'next/image';
-import coxinha from '../../assets/images/tortinha.jpeg';
+import styles from '../../styles/Home.module.css';
 
 export default function AvailablesList() {
   const { Meta } = Card;
 
   const RenderList = ({ data }) => {
-    console.log('coxinha:', coxinha);
     const components = data.map((item, index) => (
       <Card
         hoverable
@@ -20,7 +19,11 @@ export default function AvailablesList() {
         cover={<Image alt={item.name} src={item.media} />}
       >
         <Meta
-          title={<h3 style={{margin: '4px'}}>{item.name}</h3>}
+          title={
+            <h3 style={{ margin: '4px', fontSize: '0.9rem', fontWeight: 'bold' }}>
+              {item.name}
+            </h3>
+          }
           description={`Disponiveis: ${item.available} unidades`}
         />
       </Card>
@@ -49,7 +52,7 @@ export default function AvailablesList() {
       }}
     >
       <h2>Disponiveis AGORA</h2>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div className={styles.grid}>
         <RenderGroup types={['doce', 'queijo']} />
         <RenderGroup types={['frango']} />
         <RenderGroup types={['misto', 'salsicha']} />

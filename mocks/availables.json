@@ -4,9 +4,9 @@
     "available": 35,
     "type": "doce",
     "media": {
-      "height": 183,
-      "width": 275,
-      "src": "/_next/static/media/tortinha.4ca36b74.jpeg"
+      "height": 153,
+      "width": 245,
+      "src": "/images/tortinha.jpeg"
     }
   },
   {
@@ -14,9 +14,9 @@
     "available": 30,
     "type": "frango",
     "media": {
-      "height": 183,
-      "width": 275,
-      "src": "/_next/static/media/pastel_frango.94833f44.png"
+      "height": 153,
+      "width": 245,
+      "src": "/images/pastel_frango.png"
     }
   },
   {
@@ -24,9 +24,9 @@
     "available": 20,
     "type": "frango",
     "media": {
-      "height": 183,
-      "width": 275,
-      "src": "/_next/static/media/coxinha.cf2b58ac.jpeg"
+      "height": 153,
+      "width": 245,
+      "src": "/images/coxinha.jpeg"
     }
   },
   {
@@ -34,9 +34,9 @@
     "available": 15,
     "type": "frango",
     "media": {
-      "height": 183,
-      "width": 275,
-      "src": "/_next/static/media/esfiha_frango.277d1ee5.webp"
+      "height": 153,
+      "width": 245,
+      "src": "/images/esfiha_frango.webp"
     }
   },
   {
@@ -44,9 +44,9 @@
     "available": 6,
     "type": "frango",
     "media": {
-      "height": 183,
-      "width": 275,
-      "src": "/_next/static/media/empada.5e9dddb2.jpg"
+      "height": 153,
+      "width": 245,
+      "src": "/images/empada.jpg"
     }
   },
   {
@@ -54,9 +54,9 @@
     "available": 6,
     "type": "queijo",
     "media": {
-      "height": 183,
-      "width": 275,
-      "src": "/_next/static/media/pastel_queijo.1ad3c60f.jpg"
+      "height": 153,
+      "width": 245,
+      "src": "/images/pastel_queijo.jpg"
     }
   },
   {
@@ -64,9 +64,9 @@
     "available": 6,
     "type": "queijo",
     "media": {
-      "height": 183,
-      "width": 275,
-      "src": "/_next/static/media/esfiha_queijo.e7a80d95.jpg"
+      "height": 153,
+      "width": 245,
+      "src": "/images/esfiha_queijo.jpg"
     }
   },
   {
@@ -74,9 +74,9 @@
     "available": 6,
     "type": "queijo",
     "media": {
-      "height": 183,
-      "width": 275,
-      "src": "/_next/static/media/risole_queijo.4f285764.jpg"
+      "height": 153,
+      "width": 245,
+      "src": "/images/risole_queijo.jpg"
     }
   },
   {
@@ -84,9 +84,9 @@
     "available": 6,
     "type": "misto",
     "media": {
-      "height": 183,
-      "width": 275,
-      "src": "/_next/static/media/pao_pizza.88862de1.jpg"
+      "height": 153,
+      "width": 245,
+      "src": "/images/pao_pizza.jpg"
     }
   },
   {
@@ -94,9 +94,9 @@
     "available": 6,
     "type": "misto",
     "media": {
-      "height": 183,
-      "width": 275,
-      "src": "/_next/static/media/risole_misto.c9df946e.jpg"
+      "height": 153,
+      "width": 245,
+      "src": "/images/risole_misto.jpg"
     }
   },
   {
@@ -104,9 +104,9 @@
     "available": 6,
     "type": "salsicha",
     "media": {
-      "height": 183,
-      "width": 275,
-      "src": "/_next/static/media/doguinho.a9e9630e.jpg"
+      "height": 153,
+      "width": 245,
+      "src": "/images/doguinho.jpg"
     }
   },
   {
@@ -114,9 +114,9 @@
     "available": 6,
     "type": "salsicha",
     "media": {
-      "height": 183,
-      "width": 275,
-      "src": "/_next/static/media/enroladinho.567f7cb2.jpg"
+      "height": 153,
+      "width": 245,
+      "src": "/images/enroladinho.jpg"
     }
   },
   {
@@ -124,9 +124,9 @@
     "available": 6,
     "type": "carne",
     "media": {
-      "height": 183,
-      "width": 275,
-      "src": "/_next/static/media/hamburguer.9e81c5a8.jpg"
+      "height": 153,
+      "width": 245,
+      "src": "/images/hamburguer.jpg"
     }
   },
   {
@@ -134,9 +134,9 @@
     "available": 6,
     "type": "carne",
     "media": {
-      "height": 183,
-      "width": 275,
-      "src": "/_next/static/media/pastel_carne.970241a7.jpg"
+      "height": 153,
+      "width": 245,
+      "src": "/images/pastel_carne.jpg"
     }
   },
   {
@@ -144,9 +144,9 @@
     "available": 6,
     "type": "carne",
     "media": {
-      "height": 183,
-      "width": 275,
-      "src": "/_next/static/media/esfiha_carne.ad00988b.jpg"
+      "height": 153,
+      "width": 245,
+      "src": "/images/esfiha_carne.jpg"
     }
   },
   {
@@ -154,9 +154,9 @@
     "available": 6,
     "type": "carne",
     "media": {
-      "height": 183,
-      "width": 275,
-      "src": "/_next/static/media/risole_carne.e06ee04f.jpg"
+      "height": 153,
+      "width": 245,
+      "src": "/images/risole_carne.jpg"
     }
   }
 ]

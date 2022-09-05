@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
 import React, { useState } from 'react';
-import AvailablesList from '../components/availables';
+import AvailablesList from '../components/Availables';
 
 export default function Home() {
   const [showAvailables, setShowAvailables] = useState(false);
@@ -21,14 +21,14 @@ export default function Home() {
 
         <p className={styles.description}>Faça já sua reserva!</p>
 
-        <div className={styles.grid}>
+        {/* <div className={styles.grid}>
           <Link href='/reserva'>
             <div className={styles.card}>
               <h2>Fazer reserva</h2>
               <p>Clique aqui para que Marcelo guarde seu pedido.</p>
             </div>
           </Link>
-        </div>
+        </div> */}
 
         {!showAvailables && (
           <button

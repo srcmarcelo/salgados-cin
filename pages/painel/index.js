@@ -1,24 +1,9 @@
 import Image from 'next/image';
 import styles from '../../styles/Home.module.css';
-import React, { useState, useEffect } from 'react';
-import availables from '../../mocks/availables.json';
+import React from 'react';
+import ControlPanel from '../../components/ControlPanel';
 
 export default function Painel() {
-  const [copyText, setCopyText] = useState(false);
-
-  useEffect(() => {
-    if (copyText) {
-      const nextLine = [1, 5, 8, 10, 12];
-      let textAvailables = '*Disponiveis agora*';
-      availables.forEach((item, index) => {
-        if(nextLine.includes(index)) textAvailables += '\n';
-        textAvailables =
-          textAvailables + '\n' + `${item.available} ${item.name}`;
-      });
-      navigator.clipboard.writeText(textAvailables);
-      setCopyText(false);
-    }
-  }, [copyText]);
 
   return (
     <div className={styles.container}>
@@ -27,9 +12,8 @@ export default function Painel() {
 
         <p className={styles.description}>PAINEL DE CONTROLE DO MARCELINHO</p>
 
-        <div className={styles.grid}>
-          <button onClick={() => setCopyText(true)}>Gerar disponíveis</button>
-        </div>
+        <ControlPanel />
+
       </main>
 
       <footer className={styles.footer}>
