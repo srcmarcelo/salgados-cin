@@ -2,11 +2,11 @@ import Head from 'next/head';
 import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React from 'react';
 import AvailablesList from '../components/Availables';
+import { Button } from 'antd';
 
 export default function Home() {
-  const [showAvailables, setShowAvailables] = useState(false);
 
   return (
     <div className={styles.container}>
@@ -19,7 +19,9 @@ export default function Home() {
       <main className={styles.main}>
         <h1 className={styles.title}>Salgados CIn!</h1>
 
-        <p className={styles.description}>Faça já sua reserva!</p>
+        <p className={styles.description}>Marcelinho dos Salgados</p>
+        
+        <Button>Fazer Reserva (Em breve)</Button>
 
         {/* <div className={styles.grid}>
           <Link href='/reserva'>
@@ -30,24 +32,14 @@ export default function Home() {
           </Link>
         </div> */}
 
-        {!showAvailables && (
-          <button
-            className={styles.card}
-            onClick={() => setShowAvailables(true)}
-          >
-            <h2>Mostrar salgados disponiveis AGORA</h2>
-            <p>Status: Vendas acontecendo!</p>
-          </button>
-        )}
-
-        {showAvailables && <AvailablesList />}
+        <AvailablesList />
       </main>
 
       <footer className={styles.footer}>
         <a href='/painel' target='_blank' rel='noopener noreferrer'>
-          Powered by{' '}
+          Painel de Controle{' '}
           <span className={styles.logo}>
-            <Image src='/vercel.svg' alt='Vercel Logo' width={72} height={16} />
+            <Image src='/icone.jpg' alt='Marcelinho dos Salgados Logo' width={50} height={50} />
           </span>
         </a>
       </footer>
