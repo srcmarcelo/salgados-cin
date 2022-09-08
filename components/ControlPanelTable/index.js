@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
-import { Card } from 'antd';
+import React from 'react';
+import { Card, Spin } from 'antd';
 import Image from 'next/image';
 import styles from '../../styles/Home.module.css';
 
 export default function ControlPanelTable(props) {
   const { Meta } = Card;
-  const {availables} = props;
+  const { availables } = props;
 
   const RenderList = ({ data }) => {
     const components = data.map((item, index) => (
@@ -16,6 +16,8 @@ export default function ControlPanelTable(props) {
         style={{
           width: 240,
           margin: '10px 0px',
+          border: item.available === 0 && '2px solid red',
+          backgroundColor: item.available === 0 && 'red',
         }}
         cover={<Image alt={item.name} src={item.media} />}
         onClick={() => props.onClick(availables.indexOf(item))}
@@ -56,12 +58,16 @@ export default function ControlPanelTable(props) {
       }}
     >
       <h2>Disponiveis AGORA</h2>
-      <div className={styles.grid}>
-        <RenderGroup types={['doce', 'queijo']} />
-        <RenderGroup types={['frango']} />
-        <RenderGroup types={['misto', 'salsicha']} />
-        <RenderGroup types={['carne']} />
-      </div>
+      {availables === [] ? (
+        <Spin />
+      ) : (
+        <div className={styles.grid}>
+          <RenderGroup types={['doce', 'queijo']} />
+          <RenderGroup types={['frango']} />
+          <RenderGroup types={['misto', 'salsicha']} />
+          <RenderGroup types={['carne']} />
+        </div>
+      )}
     </div>
   );
 }

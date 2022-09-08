@@ -18,7 +18,9 @@ import {
 export default function ControlPanel() {
   const [copyText, setCopyText] = useState(false);
   const [mode, setMode] = useState('Vender');
+  const [mobile, setMobile] = useState(false);
   const [availables, setAvailables] = useState([]);
+  const [totalAvailables, setTotalAvailables] = useState(0);
   const db = getFirestore(firebase);
 
   const getAvailabes = async () => {
@@ -29,9 +31,10 @@ export default function ControlPanel() {
 
   const resetAvailables = async () => {
     await setDoc(doc(db, 'salgados', 'disponiveis'), { disponiveis: baseData });
+    getAvailabes();
   };
 
-  const decreaseAvailables = async (index) => {
+  const changeAvailables = async (index) => {
     const availablesRef = doc(db, 'salgados', 'disponiveis');
     const newAvailables = availables;
     if (newAvailables[index].available > 0 || mode === 'Repor') {
@@ -39,7 +42,6 @@ export default function ControlPanel() {
         mode === 'Vender'
           ? newAvailables[index].available - 1
           : newAvailables[index].available + 1;
-      console.log('newAvailables:', newAvailables);
       await updateDoc(availablesRef, {
         disponiveis: newAvailables,
       });
@@ -50,6 +52,16 @@ export default function ControlPanel() {
   useEffect(() => {
     getAvailabes();
   }, []);
+
+  useEffect(() => {
+    setMobile(window.innerWidth < 960);
+  }, []);
+
+  useEffect(() => {
+    let total = 0;
+    availables.forEach((item) => (total += item.available));
+    setTotalAvailables(total);
+  }, [availables]);
 
   useEffect(() => {
     if (copyText) {
@@ -65,10 +77,15 @@ export default function ControlPanel() {
     }
   }, [copyText]);
 
-  const RenderButton = ({ onClick, label }) => (
+  const onHandleChangeMode = (item) => {
+    const buttons = ['Vender', 'Repor'];
+    setMode(buttons[item.key - 1]);
+  };
+
+  const RenderButton = ({ onClick, label, type }) => (
     <Button
-      type='primary'
-      style={{ height: '48px', marginLeft: '20px' }}
+      type={type || 'primary'}
+      style={{ height: '48px' }}
       onClick={onClick}
     >
       {label}
@@ -76,29 +93,41 @@ export default function ControlPanel() {
   );
 
   const PanelButtons = () => {
-    const buttons = ['Repor', 'Vender'];
+    const buttons = ['Vender', 'Repor'];
     return (
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Menu
           theme='dark'
-          mode='horizontal'
-          style={{ width: '50%' }}
-          onClick={(item) => setMode(buttons[item.key - 1])}
-          defaultSelectedKeys={['2']}
+          mode={mobile ? 'vertical' : 'horizontal'}
+          style={{ width: '40%' }}
+          onClick={(item) => onHandleChangeMode(item)}
+          selectedKeys={[`${buttons.indexOf(mode) + 1}`]}
+          defaultSelectedKeys={['1']}
           items={buttons.map((button, index) => {
             const key = index + 1;
             return {
               key,
               label: button,
+              mobile,
             };
           })}
         />
-        <div>
+        <RenderButton
+          onClick={() => {}}
+          label={`${totalAvailables} salgados`}
+          type='default'
+        />
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-around',
+            flexWrap: 'wrap',
+            width: '40%',
+          }}
+        >
           <RenderButton onClick={resetAvailables} label='Resetar' />
-          <RenderButton
-            onClick={() => console.log(availables)}
-            label='Atualizar'
-          />
+          <RenderButton onClick={getAvailabes} label='Atualizar' />
           <RenderButton
             onClick={() => setCopyText(true)}
             label='Gerar Disponíveis'
@@ -110,7 +139,7 @@ export default function ControlPanel() {
 
   return (
     <div>
-      <ControlPanelTable availables={availables} onClick={decreaseAvailables} />
+      <ControlPanelTable availables={availables} onClick={changeAvailables} />
       <PanelButtons />
     </div>
   );

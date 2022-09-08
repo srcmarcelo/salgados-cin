@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Head from 'next/head';
 import styles from '../../styles/Home.module.css';
 import React from 'react';
 import ControlPanel from '../../components/ControlPanel';
@@ -7,6 +8,11 @@ import ControlPanel from '../../components/ControlPanel';
 export default function Painel() {
   return (
     <div className={styles.container}>
+      <Head>
+        <title>Salgados CIn!</title>
+        <meta name='description' content='Marcelinho dos salgados!' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
       <main className={styles.main}>
         <h1 className={styles.title}>Painel de controle</h1>
 

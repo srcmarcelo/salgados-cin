@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { Card } from 'antd';
+import { Card, Spin } from 'antd';
 import Image from 'next/image';
 import styles from '../../styles/Home.module.css';
 import firebase from '../../firebase/clientApp';
@@ -24,6 +24,8 @@ export default function AvailablesList() {
         style={{
           width: 240,
           margin: '10px 0px',
+          border: item.available === 0 && '2px solid red',
+          backgroundColor: item.available === 0 && 'red',
         }}
         cover={<Image alt={item.name} src={item.media} />}
       >
@@ -63,12 +65,16 @@ export default function AvailablesList() {
       }}
     >
       <h2>Disponiveis AGORA</h2>
-      <div className={styles.grid}>
-        <RenderGroup types={['doce', 'queijo']} />
-        <RenderGroup types={['frango']} />
-        <RenderGroup types={['misto', 'salsicha']} />
-        <RenderGroup types={['carne']} />
-      </div>
+      {availables === [] ? (
+        <Spin />
+      ) : (
+        <div className={styles.grid}>
+          <RenderGroup types={['doce', 'queijo']} />
+          <RenderGroup types={['frango']} />
+          <RenderGroup types={['misto', 'salsicha']} />
+          <RenderGroup types={['carne']} />
+        </div>
+      )}
     </div>
   );
 }
