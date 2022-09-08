@@ -18,7 +18,7 @@ export default function AvailablesList() {
     setAvailables(docSnap.data().disponiveis);
   };
 
-  useEffect(() => getAvailabes, []);
+  useEffect(() => getAvailabes(), []);
 
   const RenderList = ({ data }) => {
     const components = data.map((item, index) => (
