@@ -4,7 +4,7 @@ import { Card, Spin } from 'antd';
 import Image from 'next/image';
 import styles from '../../styles/Home.module.css';
 import firebase from '../../firebase/clientApp';
-import { doc, getFirestore, onSnapshot } from 'firebase/firestore';
+import { doc, getFirestore, onSnapshot, getDoc } from 'firebase/firestore';
 
 export default function AvailablesList() {
   const { Meta } = Card;
@@ -15,6 +15,14 @@ export default function AvailablesList() {
   const unsub = onSnapshot(doc(db, 'salgados', 'disponiveis'), (doc) => {
     setAvailables(doc.data().disponiveis);
   });
+
+  const getAvailabes = async () => {
+    const docRef = doc(db, 'salgados', 'disponiveis');
+    const docSnap = await getDoc(docRef);
+    setAvailables(docSnap.data().disponiveis);
+  };
+
+  useEffect(() => getAvailabes, []);
 
   const RenderList = ({ data }) => {
     const components = data.map((item, index) => (

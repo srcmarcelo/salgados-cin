@@ -35,14 +35,14 @@ export default function Home() {
         <AvailablesList />
       </main>
 
-      <footer className={styles.footer}>
+      {/* <footer className={styles.footer}>
         <a href='/painel' target='_blank' rel='noopener noreferrer'>
           Painel de Controle{' '}
           <span className={styles.logo}>
             <Image src='/icone.jpg' alt='Marcelinho dos Salgados Logo' width={50} height={50} />
           </span>
         </a>
-      </footer>
+      </footer> */}
     </div>
   );
 }
