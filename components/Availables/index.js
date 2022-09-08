@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { Card, Spin } from 'antd';
+import { Card, Spin, Button } from 'antd';
 import Image from 'next/image';
 import styles from '../../styles/Home.module.css';
 import firebase from '../../firebase/clientApp';
@@ -11,10 +11,6 @@ export default function AvailablesList() {
   const db = getFirestore(firebase);
 
   const [availables, setAvailables] = useState([]);
-
-  const unsub = onSnapshot(doc(db, 'salgados', 'disponiveis'), (doc) => {
-    setAvailables(doc.data().disponiveis);
-  });
 
   const getAvailabes = async () => {
     const docRef = doc(db, 'salgados', 'disponiveis');
@@ -73,6 +69,7 @@ export default function AvailablesList() {
       }}
     >
       <h2>Disponiveis AGORA</h2>
+      <Button type='primary' onClick={getAvailabes}>Atualizar lista</Button>
       {availables === [] ? (
         <Spin />
       ) : (
