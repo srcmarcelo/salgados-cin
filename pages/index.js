@@ -31,7 +31,7 @@ export default function Home() {
                 marginBottom: '2rem',
               }}
             >
-              Fazer Reserva (esta semana)
+              Fazer Reserva (em breve)
             </Button>
           {/* </Link> */}
         {/* </Affix> */}
