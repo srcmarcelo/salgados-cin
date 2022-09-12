@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { Card, Meta } from 'antd';
+import { Card } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../../styles/Home.module.css';
@@ -17,6 +17,8 @@ import {
 } from 'firebase/firestore';
 
 export default function Reserva() {
+  const { Meta } = Card;
+
   const [bookingMode, setBookingMode] = useState(false);
   const [availables, setAvailables] = useState([]);
   const [booking, setBooking] = useState([])
