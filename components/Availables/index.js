@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { Card, Spin, Button } from 'antd';
+import { Card, Spin, Button, Affix } from 'antd';
 import Image from 'next/image';
 import styles from '../../styles/Home.module.css';
 import firebase from '../../firebase/clientApp';
@@ -11,14 +11,20 @@ export default function AvailablesList() {
   const db = getFirestore(firebase);
 
   const [availables, setAvailables] = useState([]);
+  const [soda, setSoda] = useState([]);
 
   const getAvailabes = async () => {
     const docRef = doc(db, 'salgados', 'disponiveis');
     const docSnap = await getDoc(docRef);
     setAvailables(docSnap.data().disponiveis);
+    const docRef2 = doc(db, 'salgados', 'refrigerantes');
+    const docSnap2 = await getDoc(docRef2);
+    setSoda(docSnap2.data().disponiveis);
   };
 
-  useEffect(() => getAvailabes(), []);
+  useEffect(() => {
+    getAvailabes();
+  }, []);
 
   const RenderList = ({ data }) => {
     const components = data.map((item, index) => (
@@ -59,6 +65,35 @@ export default function AvailablesList() {
     </div>
   );
 
+  const RenderSodaList = ({ data }) => {
+    const components = data.map((item, index) => (
+      <Card
+        hoverable
+        key={`${item.type}_${index}`}
+        style={{
+          width: 225,
+          margin: '10px 20px',
+          border: item.available === 0 && '2px solid red',
+          backgroundColor: item.available === 0 && 'red',
+        }}
+        cover={<Image alt={item.type} src={item.media} />}
+      >
+        <Meta
+          title={
+            <h3
+              style={{ margin: '4px', fontSize: '0.9rem', fontWeight: 'bold' }}
+            >
+              {item.type}
+            </h3>
+          }
+          description={`Disponiveis: ${item.available} unidades`}
+        />
+      </Card>
+    ));
+
+    return components;
+  };
+
   return (
     <div
       style={{
@@ -68,8 +103,12 @@ export default function AvailablesList() {
         justifyContent: 'center',
       }}
     >
-      <h2>Disponiveis AGORA</h2>
-      <Button type='primary' onClick={getAvailabes}>Atualizar lista</Button>
+      <Affix offsetTop={30}>
+        <Button type='primary' onClick={getAvailabes}>
+          Atualizar listas
+        </Button>
+      </Affix>
+      <h2>Salgados Disponíveis</h2>
       {availables === [] ? (
         <Spin />
       ) : (
@@ -78,6 +117,13 @@ export default function AvailablesList() {
           <RenderGroup types={['frango']} />
           <RenderGroup types={['misto', 'salsicha']} />
           <RenderGroup types={['carne']} />
+        </div>
+      )}
+      {soda === [] ? (
+        <Spin />
+      ) : (
+        <div className={styles.grid}>
+          <RenderSodaList data={soda} />
         </div>
       )}
     </div>

@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Menu, Button } from 'antd';
+import { Menu, Button, Dropdown } from 'antd';
 import React, { useState, useEffect } from 'react';
-import baseData from '../../mocks/availables.json';
-import ControlPanelTable from '../ControlPanelTable';
-import AvailablesList from '../Availables';
 import firebase from '../../firebase/clientApp';
+import foodMock from '../../mocks/availables.json';
+import sodaMock from '../../mocks/soda.json';
+import ControlPanelTable from '../ControlPanelTable';
+import OrderModal from '../OrderModal';
 import {
   collection,
   getDoc,
@@ -19,35 +20,11 @@ export default function ControlPanel() {
   const [copyText, setCopyText] = useState(false);
   const [mode, setMode] = useState('Vender');
   const [mobile, setMobile] = useState(false);
+  const [orderModalVisible, setOrderModalVisible] = useState(false);
+  const [soda, setSoda] = useState([]);
   const [availables, setAvailables] = useState([]);
   const [totalAvailables, setTotalAvailables] = useState(0);
   const db = getFirestore(firebase);
-
-  const getAvailabes = async () => {
-    const docRef = doc(db, 'salgados', 'disponiveis');
-    const docSnap = await getDoc(docRef);
-    setAvailables(docSnap.data().disponiveis);
-  };
-
-  const resetAvailables = async () => {
-    await setDoc(doc(db, 'salgados', 'disponiveis'), { disponiveis: baseData });
-    getAvailabes();
-  };
-
-  const changeAvailables = async (index) => {
-    const availablesRef = doc(db, 'salgados', 'disponiveis');
-    const newAvailables = availables;
-    if (newAvailables[index].available > 0 || mode === 'Repor') {
-      newAvailables[index].available =
-        mode === 'Vender'
-          ? newAvailables[index].available - 1
-          : newAvailables[index].available + 1;
-      await updateDoc(availablesRef, {
-        disponiveis: newAvailables,
-      });
-      getAvailabes();
-    }
-  };
 
   useEffect(() => {
     getAvailabes();
@@ -77,10 +54,89 @@ export default function ControlPanel() {
     }
   }, [copyText]);
 
+  const getAvailabes = async () => {
+    const docRef = doc(db, 'salgados', 'disponiveis');
+    const docSnap = await getDoc(docRef);
+    setAvailables(docSnap.data().disponiveis);
+    const docRef2 = doc(db, 'salgados', 'refrigerantes');
+    const docSnap2 = await getDoc(docRef2);
+    setSoda(docSnap2.data().disponiveis);
+  };
+
+  const resetAvailables = async (key) => {
+    const mock = {
+      disponiveis: foodMock,
+      refrigerantes: sodaMock,
+    };
+    await setDoc(doc(db, 'salgados', key), { disponiveis: mock[key] });
+    getAvailabes();
+  };
+
+  const changeAvailables = async (index) => {
+    const availablesRef = doc(db, 'salgados', 'disponiveis');
+    const newAvailables = availables;
+    if (newAvailables[index].available > 0 || mode === 'Repor') {
+      newAvailables[index].available =
+        mode === 'Vender'
+          ? newAvailables[index].available - 1
+          : newAvailables[index].available + 1;
+      await updateDoc(availablesRef, {
+        disponiveis: newAvailables,
+      });
+      getAvailabes();
+    }
+  };
+
+  const changeAvailablesSoda = async (index) => {
+    const availablesRef = doc(db, 'salgados', 'refrigerantes');
+    const newAvailables = soda;
+    if (newAvailables[index].available > 0 || mode === 'Repor') {
+      newAvailables[index].available =
+        mode === 'Vender'
+          ? newAvailables[index].available - 1
+          : newAvailables[index].available + 1;
+      await updateDoc(availablesRef, {
+        disponiveis: newAvailables,
+      });
+      getAvailabes();
+    }
+  };
+
   const onHandleChangeMode = (item) => {
     const buttons = ['Vender', 'Repor'];
     setMode(buttons[item.key - 1]);
   };
+
+  const handleReset = ({ key }) => {
+    if (key === 'tudo') {
+      resetAvailables('disponiveis');
+      resetAvailables('refrigerantes');
+    } else resetAvailables(key);
+  };
+
+  const openOrderModal = () => {
+    setOrderModalVisible(!orderModalVisible);
+  }
+
+  const menuReset = (
+    <Menu
+      onClick={handleReset}
+      items={[
+        {
+          label: 'Resetar tudo',
+          key: 'tudo',
+        },
+        {
+          label: 'Resetar salgados',
+          key: 'disponiveis',
+        },
+        {
+          label: 'Resetar refrigerantes',
+          key: 'refrigerantes',
+        },
+      ]}
+    />
+  );
 
   const RenderButton = ({ onClick, label, type }) => (
     <Button
@@ -90,6 +146,21 @@ export default function ControlPanel() {
     >
       {label}
     </Button>
+  );
+
+  const RenderDropdown = ({ overlay, label }) => (
+    <Dropdown overlay={overlay} placement='top' arrow>
+      <Button
+        type='primary'
+        style={{
+          backgroundColor: '#021D38',
+          borderColor: '#021D38',
+          height: '48px',
+        }}
+      >
+        {label}
+      </Button>
+    </Dropdown>
   );
 
   const PanelButtons = () => {
@@ -126,7 +197,7 @@ export default function ControlPanel() {
             width: '40%',
           }}
         >
-          <RenderButton onClick={resetAvailables} label='Resetar' />
+          <RenderDropdown overlay={menuReset} label='Resetar' />
           <RenderButton onClick={getAvailabes} label='Atualizar' />
           <RenderButton
             onClick={() => setCopyText(true)}
@@ -139,7 +210,14 @@ export default function ControlPanel() {
 
   return (
     <div>
-      <ControlPanelTable availables={availables} onClick={changeAvailables} />
+      <OrderModal isVisible={orderModalVisible} openModal={openOrderModal} />
+      <ControlPanelTable
+        availables={availables}
+        soda={soda}
+        onClick={changeAvailables}
+        onClickSoda={changeAvailablesSoda}
+        openOrderModal={openOrderModal}
+      />
       <PanelButtons />
     </div>
   );

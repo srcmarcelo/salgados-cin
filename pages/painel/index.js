@@ -1,9 +1,8 @@
+import React from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
 import styles from '../../styles/Home.module.css';
-import React from 'react';
 import ControlPanel from '../../components/ControlPanel';
-
 
 export default function Painel() {
   return (
@@ -19,18 +18,23 @@ export default function Painel() {
         <p className={styles.description}>PAINEL DE CONTROLE DO MARCELINHO</p>
 
         <ControlPanel />
-
       </main>
 
       <footer className={styles.footer}>
         <a
-          href='https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app'
+          href='https://www.linkedin.com/in/srcmarcelo/'
           target='_blank'
           rel='noopener noreferrer'
+          className={styles.linkedin}
         >
-          Powered by{' '}
+          srcmarcelo{' '}
           <span className={styles.logo}>
-            <Image src='/vercel.svg' alt='Vercel Logo' width={72} height={16} />
+            <Image
+              src='/icons8-linkedin.svg'
+              alt='LinkedIn'
+              width={30}
+              height={30}
+            />
           </span>
         </a>
       </footer>
