@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Head from 'next/head';
 import styles from '../../styles/Home.module.css';
 import ControlPanel from '../../components/ControlPanel';
+import AdminCommentsCP from '../../components/AdminCommentsCP';
 
 export default function Painel() {
   return (
@@ -18,6 +19,8 @@ export default function Painel() {
         <p className={styles.description}>PAINEL DE CONTROLE DO MARCELINHO</p>
 
         <ControlPanel />
+
+        <AdminCommentsCP />
       </main>
 
       <footer className={styles.footer}>

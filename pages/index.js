@@ -4,7 +4,8 @@ import Link from 'next/link';
 import styles from '../styles/Home.module.css';
 import React from 'react';
 import AvailablesList from '../components/Availables';
-import { Button, Affix } from 'antd';
+import AdminComments from '../components/AdminComments';
+import { Button, Affix, Collapse } from 'antd';
 
 export default function Home() {
   return (
@@ -20,8 +21,8 @@ export default function Home() {
 
         <p className={styles.description}>Marcelinho dos Salgados</p>
 
-        {/* <Affix offsetTop={50}> */}
-          {/* <Link href='/reservar'> */}
+        {/* <Affix offsetTop={30}>
+          <Link href='/reservar'> */}
             <Button
               type='primary'
               disabled={true}
@@ -31,10 +32,22 @@ export default function Home() {
                 marginBottom: '2rem',
               }}
             >
-              Fazer Reserva (em breve)
+              Fazer Reserva (disponível em breve)
             </Button>
-          {/* </Link> */}
-        {/* </Affix> */}
+          {/* </Link>
+        </Affix> */}
+
+        <div className={styles.grid}>
+          <AdminComments />
+          {/* <Collapse style={{margin: '10px'}}>
+            <Collapse.Panel header='Preços e combos' key='1'>
+              <p>Qualquer salgado por apenas R$ 3,00!</p>
+            </Collapse.Panel>
+            <Collapse.Panel header='Entrar no grupo do Whatsapp' key='2'>
+              <p>Entrar no grupo</p>
+            </Collapse.Panel>
+          </Collapse> */}
+        </div>
 
         <AvailablesList />
       </main>
