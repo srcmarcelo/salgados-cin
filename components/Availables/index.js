@@ -103,7 +103,7 @@ export default function AvailablesList() {
         justifyContent: 'center',
       }}
     >
-      <Affix offsetTop={30}>
+      <Affix offsetTop={70}>
         <Button type='primary' onClick={getAvailabes}>
           Atualizar listas
         </Button>
@@ -115,8 +115,8 @@ export default function AvailablesList() {
         <div className={styles.grid}>
           <RenderGroup types={['doce', 'queijo']} />
           <RenderGroup types={['frango']} />
-          <RenderGroup types={['misto', 'salsicha']} />
-          <RenderGroup types={['carne']} />
+          <RenderGroup types={['frango2', 'misto']} />
+          <RenderGroup types={['carne', 'salsicha']} />
         </div>
       )}
       {soda === [] ? (

@@ -21,8 +21,8 @@ export default function Home() {
 
         <p className={styles.description}>Marcelinho dos Salgados</p>
 
-        {/* <Affix offsetTop={30}>
-          <Link href='/reservar'> */}
+        <Affix offsetTop={30}>
+          {/* <Link href='/reservar'> */}
             <Button
               type='primary'
               disabled={true}
@@ -32,10 +32,10 @@ export default function Home() {
                 marginBottom: '2rem',
               }}
             >
-              Fazer Reserva (disponível em breve)
+              Fazer Reserva (disponivel em breve)
             </Button>
-          {/* </Link>
-        </Affix> */}
+          {/* </Link> */}
+        </Affix>
 
         <div className={styles.grid}>
           <AdminComments />

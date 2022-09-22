@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Radio, Space, Input, Button } from 'antd';
+import styles from '../../styles/Home.module.css';
 import firebase from '../../firebase/clientApp';
 import {
   getDoc,
@@ -54,15 +55,15 @@ export default function AdminCommentsCP() {
         <Space direction='vertical'>
           <Radio value={0}>Ativar vendas</Radio>
           <Radio value={1}>Encerrar vendas</Radio>
-          <Radio value={2}>Chegou no CIn</Radio>
+          <Radio value={2}>Sinalizar Vendas</Radio>
         </Space>
       </Radio.Group>
       <TextArea rows={4} onChange={onChangeText} style={{ margin: '1rem 0' }} />
-      <div>
+      <div className={styles.grid}>
         <Button type='primary' onClick={() => postComment()}>
           Enviar Mensagem
         </Button>
-        <Button type='primary' onClick={() => updateStatus()} style={{marginLeft: '10px'}}>
+        <Button type='primary' onClick={() => updateStatus()} style={{margin: '10px'}}>
           Atualizar Status
         </Button>
       </div>

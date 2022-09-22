@@ -8,7 +8,7 @@ export default function AdminComments() {
   const sellings = [
     'VENDAS ACONTECENDO',
     'VENDAS ENCERRADAS POR HOJE',
-    'VENDAS AINDA NÃO COMEÇARAM',
+    'VENDAS COMEÇARÃO EM BREVE',
   ];
   const collors = ['green', 'red', 'orange'];
 

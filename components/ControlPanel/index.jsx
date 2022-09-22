@@ -4,16 +4,15 @@ import React, { useState, useEffect } from 'react';
 import firebase from '../../firebase/clientApp';
 import foodMock from '../../mocks/availables.json';
 import sodaMock from '../../mocks/soda.json';
+import noFoodMock from '../../mocks/notAvailables.json';
 import ControlPanelTable from '../ControlPanelTable';
 import OrderModal from '../OrderModal';
 import {
-  collection,
   getDoc,
   updateDoc,
   doc,
   setDoc,
   getFirestore,
-  onSnapshot,
 } from 'firebase/firestore';
 
 export default function ControlPanel() {
@@ -42,7 +41,7 @@ export default function ControlPanel() {
 
   useEffect(() => {
     if (copyText) {
-      const nextLine = [1, 5, 8, 10, 12];
+      const nextLine = [1, 4, 7, 10, 12];
       let textAvailables = '*Disponiveis agora*';
       availables.forEach((item, index) => {
         if (nextLine.includes(index)) textAvailables += '\n';
@@ -64,11 +63,13 @@ export default function ControlPanel() {
   };
 
   const resetAvailables = async (key) => {
+    const newKey = key === 'refrigerantes' ? key : 'disponiveis';
     const mock = {
       disponiveis: foodMock,
       refrigerantes: sodaMock,
+      zerar: noFoodMock,
     };
-    await setDoc(doc(db, 'salgados', key), { disponiveis: mock[key] });
+    await setDoc(doc(db, 'salgados', newKey), { disponiveis: mock[key] });
     getAvailabes();
   };
 
@@ -116,7 +117,7 @@ export default function ControlPanel() {
 
   const openOrderModal = () => {
     setOrderModalVisible(!orderModalVisible);
-  }
+  };
 
   const menuReset = (
     <Menu
@@ -133,6 +134,10 @@ export default function ControlPanel() {
         {
           label: 'Resetar refrigerantes',
           key: 'refrigerantes',
+        },
+        {
+          label: 'Zerar Salgados',
+          key: 'zerar',
         },
       ]}
     />
@@ -170,7 +175,7 @@ export default function ControlPanel() {
         <Menu
           theme='dark'
           mode={mobile ? 'vertical' : 'horizontal'}
-          style={{ width: '40%' }}
+          style={{ width: '40%', textAlign: 'center' }}
           onClick={(item) => onHandleChangeMode(item)}
           selectedKeys={[`${buttons.indexOf(mode) + 1}`]}
           defaultSelectedKeys={['1']}

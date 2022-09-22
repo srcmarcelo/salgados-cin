@@ -94,8 +94,8 @@ export default function ControlPanelTable(props) {
         <div className={styles.grid}>
           <RenderGroup types={['doce', 'queijo']} />
           <RenderGroup types={['frango']} />
-          <RenderGroup types={['misto', 'salsicha']} />
-          <RenderGroup types={['carne']} />
+          <RenderGroup types={['frango2', 'misto']} />
+          <RenderGroup types={['carne', 'salsicha']} />
         </div>
       )}
       {soda === [] ? (

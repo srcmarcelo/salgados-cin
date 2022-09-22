@@ -22,7 +22,7 @@ export default function OrderModal(props) {
 
   useEffect(() => {
     if (copyText) {
-      const nextLine = [1, 5, 8, 10, 12];
+      const nextLine = [1, 4, 7, 10, 12];
       let textAvailables = `Pedido da *${mode}*\n`;
       orderList.forEach((item, index) => {
         if (nextLine.includes(index)) textAvailables += '\n';
@@ -46,15 +46,15 @@ export default function OrderModal(props) {
 
   const FormList = ({ data }) => {
     const elements = data.map((item, index) => (
-      <div key={`order_${item.type}_${index}`}>
+      <div key={`order_${index}`}>
         <h4>{foodMock[index].name}</h4>
         <div style={{ display: 'flex' }}>
           <Slider
             defaultValue={item}
-            onChange={(value) => onChangeValue(value, index)}
+            onAfterChange={(value) => onChangeValue(value, index)}
             style={{ flex: 1 }}
             min={0}
-            max={index > 9 ? 10 : index < 2 ? 40 : 20}
+            max={index === 0 || index === 5 ? 30 : 20}
           />
           <InputNumber
             defaultValue={item}

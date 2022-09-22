@@ -4,17 +4,23 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../../styles/Home.module.css';
 import BookingForm from '../../components/BookingForm';
-import { BookingButton, ButtonsContainer, FormContainer } from '../../components/BookingForm/styles';
+import { BookingButton, ButtonsContainer } from '../../components/BookingForm/styles';
+import Head from 'next/head';
 
 export default function Reserva() {
   const [bookingMode, setBookingMode] = useState(false);
 
   return (
     <div className={styles.container}>
+       <Head>
+        <title>Faça já sua reserva!</title>
+        <meta name='description' content='Marcelinho dos salgados!' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
       <main className={styles.main}>
         <h1 className={styles.title}>
           {bookingMode
-            ? 'Clique no salgado para adicionar à sacola. Adicione quantos quiser!'
+            ? 'Fazer Reserva'
             : 'Faça aqui sua reserva ou acompanhe o que reservou!'}
         </h1>
         {bookingMode ? (
@@ -29,7 +35,7 @@ export default function Reserva() {
               </p>
             </div>
             <ButtonsContainer>
-              <BookingButton type='primary' color='orange'>
+              <BookingButton type='primary' color='orange' onClick={() => setBookingMode(true)}>
                 Reservar Salgados
               </BookingButton>
               <BookingButton type='primary'>Acompanhar Reserva</BookingButton>

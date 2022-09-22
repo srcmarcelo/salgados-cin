@@ -1,0 +1,82 @@
+[
+  {
+    "name": "Tortinha de nata",
+    "value": 0,
+    "available": 0
+  },
+  {
+    "name": "Pastel de forno de frango",
+    "value": 0,
+    "available": 0
+  },
+  {
+    "name": "Coxinha",
+    "value": 0,
+    "available": 0
+  },
+  {
+    "name": "Esfiha de frango",
+    "value": 0,
+    "available": 0
+  },
+  {
+    "name": "Empada",
+    "value": 0,
+    "available": 0
+  },
+  {
+    "name": "Pastel de forno de queijo",
+    "value": 0,
+    "available": 0
+  },
+  {
+    "name": "Esfiha de queijo",
+    "value": 0,
+    "available": 0
+  },
+  {
+    "name": "Risole de queijo",
+    "value": 0,
+    "available": 0
+  },
+  {
+    "name": "Pão pizza",
+    "value": 0,
+    "available": 0
+  },
+  {
+    "name": "Risole misto",
+    "value": 0,
+    "available": 0
+  },
+  {
+    "name": "Doguinho",
+    "value": 0,
+    "available": 0
+  },
+  {
+    "name": "Enroladinho",
+    "value": 0,
+    "available": 0
+  },
+  {
+    "name": "Hamburguer",
+    "value": 0,
+    "available": 0
+  },
+  {
+    "name": "Pastel de forno de carne",
+    "value": 0,
+    "available": 0
+  },
+  {
+    "name": "Esfiha de carne",
+    "value": 0,
+    "available": 0
+  },
+  {
+    "name": "Risole de carne",
+    "value": 0,
+    "available": 0
+  }
+]

@@ -9,7 +9,7 @@ export default function Painel() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Salgados CIn!</title>
+        <title>Painel de Controle</title>
         <meta name='description' content='Marcelinho dos salgados!' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
