@@ -30,7 +30,8 @@ export default function BookingList({ control }) {
 
   const updateStatus = async (item, cancel) => {
     const bookingRef = doc(db, 'salgados', 'reservas');
-    const newOrders = orders;
+    const docSnap = await getDoc(bookingRef);
+    const newOrders = docSnap.data().booking;
     if (item.status < 4)
       newOrders[item.id].status = cancel ? 4 : item.status + 1;
     else newOrders[item.id].status = 0;

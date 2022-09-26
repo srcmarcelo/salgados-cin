@@ -326,15 +326,6 @@ export default function BookingForm() {
         onCancel={handleOpenUserModal}
       >
         <div>
-          {/* <div>
-            Horário:
-            <Radio.Group onChange={onChangeUserData} value={time}>
-              <Space direction='vertical'>
-                <Radio value={1}>Manhã (entre 10:00 e 12:00)</Radio>
-                <Radio value={2}>Tarde (entre 14:00 e 17:30)</Radio>
-              </Space>
-            </Radio.Group>
-          </div> */}
           <div style={{ display: 'flex', alignItems: 'center' }}>
             Digite aqui seu nome:
             <Input
