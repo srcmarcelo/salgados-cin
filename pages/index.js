@@ -22,19 +22,18 @@ export default function Home() {
         <p className={styles.description}>Marcelinho dos Salgados</p>
 
         <Affix offsetTop={30}>
-          {/* <Link href='/reservar'> */}
+          <Link href='/reservar'>
             <Button
               type='primary'
-              disabled={true}
               style={{
                 backgroundColor: 'orange',
                 borderColor: 'orange',
                 marginBottom: '2rem',
               }}
             >
-              Fazer Reserva (disponivel em breve)
+              Fazer Reserva
             </Button>
-          {/* </Link> */}
+          </Link>
         </Affix>
 
         <div className={styles.grid}>
@@ -62,7 +61,7 @@ export default function Home() {
           srcmarcelo{' '}
           <span className={styles.logo}>
             <Image
-              src='/icons8-linkedin.svg'
+              src='/linkedin.png'
               alt='LinkedIn'
               width={30}
               height={30}

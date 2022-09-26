@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Menu, Button, Dropdown } from 'antd';
+import { Menu, Button, Dropdown, Modal } from 'antd';
 import React, { useState, useEffect } from 'react';
 import firebase from '../../firebase/clientApp';
 import foodMock from '../../mocks/availables.json';
@@ -7,6 +7,7 @@ import sodaMock from '../../mocks/soda.json';
 import noFoodMock from '../../mocks/notAvailables.json';
 import ControlPanelTable from '../ControlPanelTable';
 import OrderModal from '../OrderModal';
+import BookingList from '../BookingList';
 import {
   getDoc,
   updateDoc,
@@ -49,6 +50,7 @@ export default function ControlPanel() {
           textAvailables + '\n' + `${item.available} ${item.name}`;
       });
       navigator.clipboard.writeText(textAvailables);
+      Modal.success({ content: 'Texto copiado com sucesso.' });
       setCopyText(false);
     }
   }, [copyText]);
@@ -64,8 +66,14 @@ export default function ControlPanel() {
 
   const resetAvailables = async (key) => {
     const newKey = key === 'refrigerantes' ? key : 'disponiveis';
+    let backup = [];
+    if (key === 'disponiveis') {
+      const docRef = doc(db, 'salgados', 'backup');
+      const docSnap = await getDoc(docRef);
+      backup = docSnap.data().disponiveis;
+    }
     const mock = {
-      disponiveis: foodMock,
+      disponiveis: backup,
       refrigerantes: sodaMock,
       zerar: noFoodMock,
     };
@@ -224,6 +232,9 @@ export default function ControlPanel() {
         openOrderModal={openOrderModal}
       />
       <PanelButtons />
+      <div style={{marginTop: 20}}>
+        <BookingList control={true} />
+      </div>
     </div>
   );
 }

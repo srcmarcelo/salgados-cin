@@ -12,14 +12,17 @@ export default function AvailablesList() {
 
   const [availables, setAvailables] = useState([]);
   const [soda, setSoda] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getAvailabes = async () => {
+    setLoading(true);
     const docRef = doc(db, 'salgados', 'disponiveis');
     const docSnap = await getDoc(docRef);
     setAvailables(docSnap.data().disponiveis);
     const docRef2 = doc(db, 'salgados', 'refrigerantes');
     const docSnap2 = await getDoc(docRef2);
     setSoda(docSnap2.data().disponiveis);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -104,27 +107,25 @@ export default function AvailablesList() {
       }}
     >
       <Affix offsetTop={70}>
-        <Button type='primary' onClick={getAvailabes}>
+        <Button type='primary' onClick={getAvailabes} style={{marginBottom: 10}}>
           Atualizar listas
         </Button>
       </Affix>
       <h2>Salgados Disponíveis</h2>
-      {availables === [] ? (
+      {loading ? (
         <Spin />
       ) : (
-        <div className={styles.grid}>
-          <RenderGroup types={['doce', 'queijo']} />
-          <RenderGroup types={['frango']} />
-          <RenderGroup types={['frango2', 'misto']} />
-          <RenderGroup types={['carne', 'salsicha']} />
-        </div>
-      )}
-      {soda === [] ? (
-        <Spin />
-      ) : (
-        <div className={styles.grid}>
-          <RenderSodaList data={soda} />
-        </div>
+        <>
+          <div className={styles.grid}>
+            <RenderGroup types={['doce', 'queijo']} />
+            <RenderGroup types={['frango']} />
+            <RenderGroup types={['frango2', 'misto']} />
+            <RenderGroup types={['carne', 'salsicha']} />
+          </div>
+          <div className={styles.grid}>
+            <RenderSodaList data={soda} />
+          </div>
+        </>
       )}
     </div>
   );

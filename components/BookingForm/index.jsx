@@ -1,7 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-import { Button, InputNumber, Modal, Statistic, Table } from 'antd';
+import { CheckCircleOutlined } from '@ant-design/icons';
+import { useRouter } from 'next/router';
+import {
+  Button,
+  Card,
+  Input,
+  Modal,
+  Radio,
+  Space,
+  Statistic,
+  Table,
+} from 'antd';
 import styles from '../../styles/Home.module.css';
 import userOrder from '../../mocks/userOrder.json';
 import firebase from '../../firebase/clientApp';
@@ -15,19 +25,28 @@ import {
   onSnapshot,
 } from 'firebase/firestore';
 import { BookingButton, ButtonsContainer, FormContainer } from './styles';
+import Link from 'next/link';
 
 export default function BookingForm() {
+  const db = getFirestore(firebase);
+  const router = useRouter();
+
   const [didRetry, setDidRetry] = useState(false);
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
+  const [userModalVisible, setUserModalVisible] = useState(false);
   const [order, setOrder] = useState([]);
   const [totalOrder, setTotalOrder] = useState(0);
-  const db = getFirestore(firebase);
+  const [userData, setUserData] = useState({});
+  const [mode, setMode] = useState(0);
+
+  const modes = ['Manhã (entre 10:00 e 12:00)', 'Tarde (entre 14:00 e 17:30)'];
+  const docs = ['disponiveis', 'backup'];
 
   const { Column } = Table;
 
   useEffect(() => {
     getAvailabes();
-  }, []);
+  }, [mode]);
 
   useEffect(() => {
     let total = 0;
@@ -36,10 +55,20 @@ export default function BookingForm() {
   }, [order, didRetry]);
 
   const getAvailabes = async () => {
-    const docRef = doc(db, 'salgados', 'disponiveis');
+    const docRef = doc(db, 'salgados', docs[mode]);
     const docSnap = await getDoc(docRef);
     const availables = docSnap.data().disponiveis;
     availables.forEach((item, index) => (availables[index].value = 0));
+    setOrder(availables);
+  };
+
+  const updateAvailabes = async () => {
+    const docRef = doc(db, 'salgados', docs[mode]);
+    const docSnap = await getDoc(docRef);
+    const availables = docSnap.data().disponiveis;
+    order.forEach(
+      (item, index) => (availables[index].value = order[index].value)
+    );
     setOrder(availables);
   };
 
@@ -58,6 +87,86 @@ export default function BookingForm() {
 
   const handleOpenModal = () => setConfirmModalVisible(!confirmModalVisible);
 
+  const handleOpenUserModal = () => {
+    setConfirmModalVisible(false), setUserModalVisible(!userModalVisible);
+  };
+
+  const onChangeUserData = (e) => {
+    const newUserData = userData;
+    newUserData.name = e.target.value;
+    setUserData(newUserData);
+  };
+
+  const handleSubmitOrder = async (sendOrder) => {
+    const docRef = doc(db, 'salgados', 'reservas');
+    const docSnap = await getDoc(docRef);
+    const orders = docSnap.data().booking;
+
+    const newOrder = {
+      id: orders.length,
+      name: userData.name,
+      order: sendOrder,
+      price: `R$ ${totalOrder * 3},00`,
+      status: 0,
+      time: mode,
+    };
+    orders.push(newOrder);
+
+    try {
+      await updateDoc(docRef, {
+        booking: orders,
+      });
+
+      Modal.confirm({
+        content: 'Pedido enviado com sucesso!',
+        icon: <CheckCircleOutlined style={{color: 'green'}}/>,
+        onCancel: () => router.push('/reservar/status'),
+        onOk: getAvailabes,
+        okText: 'Fazer outra reserva',
+        cancelText: 'Acompanhar status',
+      });
+      handleOpenUserModal();
+    } catch (error) {
+      Modal.success({
+        content:
+          'Algo deu errado ao fazer a reserva. Por favor, tente novamente. Caso o erro persista, fale com Marcelinho no pelo Whatsapp (87) 98817-5129.',
+      });
+    }
+  };
+
+  const Controls = () => (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        margin: 20,
+      }}
+    >
+      <Card
+        size='small'
+        title='Defina o horário de retirada'
+        style={{
+          width: 250,
+        }}
+      >
+        <Radio.Group
+          onChange={(e) => setMode(e.target.value)}
+          value={mode}
+          style={{ display: 'flex', justifyContent: 'center' }}
+        >
+          <Space direction='vertical'>
+            <Radio value={0}>{modes[0]}</Radio>
+            <Radio value={1}>{modes[1]}</Radio>
+          </Space>
+        </Radio.Group>
+      </Card>
+      <Button type='primary' onClick={updateAvailabes}>
+        Atualizar Disponíveis
+      </Button>
+    </div>
+  );
+
   const Form = () => (
     <div style={{ display: 'flex' }}>
       <Table dataSource={order} pagination={false}>
@@ -70,7 +179,7 @@ export default function BookingForm() {
           render={(item) => (
             <div
               style={{
-                fontSize: '1.3rem',
+                fontSize: '1.2rem',
               }}
             >
               {item}
@@ -82,11 +191,11 @@ export default function BookingForm() {
           dataIndex='value'
           key='value'
           align='center'
-          render={(item) => (
+          render={(item, obj) => (
             <div
               style={{
                 backgroundColor: item > 0 && 'orange',
-                fontSize: '1.3rem',
+                fontSize: '1.2rem',
               }}
             >
               {item}
@@ -117,7 +226,11 @@ export default function BookingForm() {
           align='center'
           render={(value, item) => {
             return (
-              <Button type='primary' onClick={() => handleChangeItem(item)}>
+              <Button
+                type='primary'
+                disabled={value === item.available}
+                onClick={() => handleChangeItem(item)}
+              >
                 +
               </Button>
             );
@@ -138,23 +251,60 @@ export default function BookingForm() {
       }}
     >
       <Statistic
-        title='Pedido'
+        title='Quantidade'
         value={totalOrder}
         suffix='salgados'
         valueStyle={{ fontSize: '1.2rem' }}
       />
       <Statistic
-        title='Preço'
+        title='Valor'
         value={totalOrder * 3}
         prefix='R$'
         precision={2}
         valueStyle={{ fontSize: '1.2rem' }}
       />
-      <Button type='primary' onClick={handleOpenModal}>
+      <Button
+        type='primary'
+        onClick={handleOpenUserModal}
+        disabled={totalOrder < 1}
+      >
         Confirmar
       </Button>
     </div>
   );
+
+  const UserModal = () => {
+    return (
+      <Modal
+        visible={userModalVisible}
+        title='Escreva aqui como te identificar!'
+        okText='Continuar'
+        cancelText='Cancelar'
+        onOk={handleOpenModal}
+        onCancel={handleOpenUserModal}
+      >
+        <div>
+          {/* <div>
+            Horário:
+            <Radio.Group onChange={onChangeUserData} value={time}>
+              <Space direction='vertical'>
+                <Radio value={1}>Manhã (entre 10:00 e 12:00)</Radio>
+                <Radio value={2}>Tarde (entre 14:00 e 17:30)</Radio>
+              </Space>
+            </Radio.Group>
+          </div> */}
+          <div style={{display: 'flex', alignItems: 'center'}}>
+            Digite aqui seu nome:
+            <Input
+              style={{ flex: 1, margin: 10 }}
+              onChange={onChangeUserData}
+              onPressEnter={handleOpenModal}
+            />
+          </div>
+        </div>
+      </Modal>
+    );
+  };
 
   const ModalConfirm = () => {
     let sendOrder = [];
@@ -164,30 +314,36 @@ export default function BookingForm() {
         title='Revise os itens do seu pedido'
         okText='Confirmar'
         cancelText='Cancelar'
-        onCancel={handleOpenModal}
+        onOk={() => handleSubmitOrder(sendOrder)}
+        onCancel={handleOpenUserModal}
       >
+        <div style={{ fontSize: '1.2rem' }}>
+          Pedido de <strong>{userData.name}</strong>
+        </div>
+        <div style={{ fontSize: '1rem' }}>{modes[mode]}</div>
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            margin: 20,
           }}
         >
           {order.map((item, index) => {
-            sendOrder.push({item: item.name, value: item.value})
-            if (item.value > 0)
+            if (item.value > 0) {
+              sendOrder.push({ item: item.name, value: item.value });
               return (
                 <div
-                  key={item.name + index}
-                  style={{ fontSize: '1.3rem' }}
+                  key={`${item.name}_${index}`}
+                  style={{ fontSize: '1.2rem' }}
                 >{`${item.value} ${item.name}`}</div>
               );
+            }
           })}
         </div>
         <div
           style={{
             display: 'flex',
-            marginTop: '20px',
             width: '100%',
             justifyContent: 'space-between',
           }}
@@ -212,13 +368,15 @@ export default function BookingForm() {
 
   return (
     <FormContainer>
+      <UserModal />
       <ModalConfirm />
       <div style={{ maxWidth: '800px' }}>
-        <p className={styles.description}>
+        <p className={styles.description} style={{ marginBottom: 0 }}>
           Selecione a quantidade de cada salgado que quer e clique em confirmar
           para concluir o pedido!
         </p>
       </div>
+      <Controls />
       <Form didRetry={didRetry} />
       <Footer />
     </FormContainer>

@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { Radio, Space, Input, Button } from 'antd';
+import { Radio, Space, Input, Button, Modal } from 'antd';
 import styles from '../../styles/Home.module.css';
 import firebase from '../../firebase/clientApp';
 import {
@@ -33,6 +34,8 @@ export default function AdminCommentsCP() {
     await updateDoc(commentsRef, {
       comment: comment,
     });
+
+    Modal.success({content: 'Comentário enviado.'})
   };
 
   const updateStatus = async () => {
@@ -41,6 +44,8 @@ export default function AdminCommentsCP() {
     await updateDoc(commentsRef, {
       status: option,
     });
+
+    Modal.success({content: 'Status atualizado.'})
   };
 
   const changeOption = (e) => setOption(e.target.value);

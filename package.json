@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "antd": "^4.22.8",
     "firebase": "^9.9.4",
     "lodash": "^4.17.21",
