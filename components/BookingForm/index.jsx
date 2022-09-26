@@ -178,7 +178,7 @@ export default function BookingForm() {
         <Column
           title='Disponiveis'
           ellipsis={true}
-          width={80}
+          width={100}
           dataIndex='available'
           key='available'
           align='center'
@@ -399,7 +399,7 @@ export default function BookingForm() {
       <UserModal />
       <ModalConfirm />
       <div style={{ maxWidth: '800px' }}>
-        <p className={styles.description} style={{ marginBottom: 0 }}>
+        <p className={styles.description} style={{ marginBottom: 0, fontSize: '1.3rem' }}>
           Selecione a quantidade de cada salgado que quer e clique em confirmar
           para concluir o pedido!
         </p>

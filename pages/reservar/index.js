@@ -47,7 +47,7 @@ export default function Reserva() {
         ) : (
           <>
             <div style={{ maxWidth: '800px' }}>
-              <p className={styles.description}>
+              <p className={styles.description} style={{fontSize: '1.3rem'}}>
                 Escolha se quer que Marcelinho separe seus salgados para não
                 ficar sem ou acompanhe uma reserva já feita anteriormente
                 clicando em um dos botões abaixo.
