@@ -37,7 +37,7 @@ export default function Reserva() {
       </Head>
       <RenderBreadcrumb />
       <main className={styles.main}>
-        <h1 className={styles.title}>
+        <h1 className={styles.title} style={{fontSize: '3rem'}}>
           {bookingMode
             ? 'Fazer Reserva'
             : 'Faça aqui sua reserva ou acompanhe o que reservou!'}

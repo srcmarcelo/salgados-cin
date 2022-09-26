@@ -1,6 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { CheckCircleOutlined } from '@ant-design/icons';
+import {
+  CheckCircleOutlined,
+  MinusCircleOutlined,
+  PlusCircleOutlined,
+} from '@ant-design/icons';
 import { useRouter } from 'next/router';
 import {
   Button,
@@ -119,7 +123,7 @@ export default function BookingForm() {
 
       Modal.confirm({
         content: 'Pedido enviado com sucesso!',
-        icon: <CheckCircleOutlined style={{color: 'green'}}/>,
+        icon: <CheckCircleOutlined style={{ color: 'green' }} />,
         onCancel: () => router.push('/reservar/status'),
         onOk: getAvailabes,
         okText: 'Fazer outra reserva',
@@ -170,9 +174,11 @@ export default function BookingForm() {
   const Form = () => (
     <div style={{ display: 'flex' }}>
       <Table dataSource={order} pagination={false}>
-        <Column title='Salgados' dataIndex='name' key='name' />
+        <Column title='Salgados' width={110} dataIndex='name' key='name' />
         <Column
           title='Disponiveis'
+          ellipsis={true}
+          width={80}
           dataIndex='available'
           key='available'
           align='center'
@@ -190,6 +196,7 @@ export default function BookingForm() {
           title='Seu pedido'
           dataIndex='value'
           key='value'
+          width={75}
           align='center'
           render={(item, obj) => (
             <div
@@ -203,36 +210,57 @@ export default function BookingForm() {
           )}
         />
         <Column
-          title='Remover'
           dataIndex='value'
           key='inputIncButton'
+          title={
+            <div
+              style={{
+                fontSize: 12,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              Remover / Adicionar
+            </div>
+          }
+          width={70}
           align='center'
           render={(value, item) => {
             return (
-              <Button
-                type='primary'
-                style={{ backgroundColor: '#7E92B5', borderColor: '#65789B' }}
-                onClick={() => handleChangeItem(item, 'dec')}
-              >
-                -
-              </Button>
-            );
-          }}
-        />
-        <Column
-          title='Adicionar'
-          dataIndex='value'
-          key='inputDecButton'
-          align='center'
-          render={(value, item) => {
-            return (
-              <Button
-                type='primary'
-                disabled={value === item.available}
-                onClick={() => handleChangeItem(item)}
-              >
-                +
-              </Button>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Button
+                  type='primary'
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#7E92B5',
+                    borderColor: '#65789B',
+                    width: '12px',
+                    height: '30px',
+                  }}
+                  onClick={() => handleChangeItem(item, 'dec')}
+                >
+                  <MinusCircleOutlined />
+                </Button>
+                <Button
+                  type='primary'
+                  disabled={value === item.available}
+                  onClick={() => handleChangeItem(item)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center',
+                    width: '12px',
+                    height: '30px',
+                    marginLeft: 5,
+                  }}
+                >
+                  <PlusCircleOutlined />
+                </Button>
+              </div>
             );
           }}
         />
@@ -293,7 +321,7 @@ export default function BookingForm() {
               </Space>
             </Radio.Group>
           </div> */}
-          <div style={{display: 'flex', alignItems: 'center'}}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             Digite aqui seu nome:
             <Input
               style={{ flex: 1, margin: 10 }}
