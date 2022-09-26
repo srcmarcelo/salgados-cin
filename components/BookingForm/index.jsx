@@ -41,6 +41,7 @@ export default function BookingForm() {
   const [order, setOrder] = useState([]);
   const [totalOrder, setTotalOrder] = useState(0);
   const [userData, setUserData] = useState({});
+  const [afternoon, setAfternoon] = useState(false);
   const [mode, setMode] = useState(0);
 
   const modes = ['Manhã (entre 10:00 e 12:00)', 'Tarde (entre 14:00 e 17:30)'];
@@ -53,13 +54,24 @@ export default function BookingForm() {
   }, [mode]);
 
   useEffect(() => {
+    getAfternoon();
+  }, []);
+
+  useEffect(() => {
     let total = 0;
     order.forEach((item) => (total += parseInt(item.value)));
     setTotalOrder(total);
   }, [order, didRetry]);
 
+  const getAfternoon = async () => {
+    const docRef = doc(db, 'salgados', 'reservas');
+    const docSnap = await getDoc(docRef);
+    if (docSnap.data().afternoon) setMode(1);
+    setAfternoon(docSnap.data().afternoon);
+  };
+
   const getAvailabes = async () => {
-    const docRef = doc(db, 'salgados', docs[mode]);
+    const docRef = doc(db, 'salgados', afternoon ? docs[0] : docs[mode]);
     const docSnap = await getDoc(docRef);
     const availables = docSnap.data().disponiveis;
     availables.forEach((item, index) => (availables[index].value = 0));
@@ -67,7 +79,7 @@ export default function BookingForm() {
   };
 
   const updateAvailabes = async () => {
-    const docRef = doc(db, 'salgados', docs[mode]);
+    const docRef = doc(db, 'salgados', afternoon ? docs[0] : docs[mode]);
     const docSnap = await getDoc(docRef);
     const availables = docSnap.data().disponiveis;
     order.forEach(
@@ -160,7 +172,9 @@ export default function BookingForm() {
           style={{ display: 'flex', justifyContent: 'center' }}
         >
           <Space direction='vertical'>
-            <Radio value={0}>{modes[0]}</Radio>
+            <Radio value={0} disabled={afternoon}>
+              {modes[0]}
+            </Radio>
             <Radio value={1}>{modes[1]}</Radio>
           </Space>
         </Radio.Group>
@@ -399,7 +413,10 @@ export default function BookingForm() {
       <UserModal />
       <ModalConfirm />
       <div style={{ maxWidth: '800px' }}>
-        <p className={styles.description} style={{ marginBottom: 0, fontSize: '1.3rem' }}>
+        <p
+          className={styles.description}
+          style={{ marginBottom: 0, fontSize: '1.3rem' }}
+        >
           Selecione a quantidade de cada salgado que quer e clique em confirmar
           para concluir o pedido!
         </p>
