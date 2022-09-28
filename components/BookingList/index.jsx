@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, List, Modal } from 'antd';
 import firebase from '../../firebase/clientApp';
 import { doc, getFirestore, getDoc, updateDoc } from 'firebase/firestore';
+import _ from 'lodash';
 
 export default function BookingList({ control }) {
   const db = getFirestore(firebase);
@@ -12,19 +13,21 @@ export default function BookingList({ control }) {
 
   const statuses = [
     'Pendente',
-    'Preparando',
+    'Visto',
     'Reservado',
     'Finalizado',
     'Cancelado',
   ];
 
-  const statusColor = ['orange', 'blue', 'green', 'darkgreen', 'red'];
+  const statusColor = ['orange', 'blue', 'green', '#092b00', 'red'];
 
   const getList = async () => {
     setLoading(true);
     const docRef = doc(db, 'salgados', 'reservas');
     const docSnap = await getDoc(docRef);
-    setOrders(docSnap.data().booking);
+    const reverseOrders = docSnap.data().booking;
+    _.reverse(reverseOrders)
+    setOrders(reverseOrders);
     setLoading(false);
   };
 

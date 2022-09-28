@@ -1,7 +1,7 @@
 [
   {
     "type": "Guaraná Antarctica",
-    "available": 7,
+    "available": 12,
     "media": {
       "width": 225,
       "src": "/images/guarana.webp",
@@ -15,10 +15,10 @@
       "height": 183,
       "src": "/images/pepsi.jpeg"
     },
-    "available": 7
+    "available": 12
   },
   {
-    "available": 5,
+    "available": 12,
     "media": {
       "width": 225,
       "height": 183,
