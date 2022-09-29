@@ -13,6 +13,7 @@ import {
   Modal,
   Radio,
   Space,
+  Spin,
   Statistic,
   Table,
 } from 'antd';
@@ -42,7 +43,9 @@ export default function BookingForm() {
   const [totalOrder, setTotalOrder] = useState(0);
   const [userData, setUserData] = useState({});
   const [afternoon, setAfternoon] = useState(false);
+  const [special, setSpecial] = useState({});
   const [mode, setMode] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const modes = ['Manhã (entre 10:00 e 12:00)', 'Tarde (entre 14:00 e 17:30)'];
   const docs = ['disponiveis', 'backup'];
@@ -68,6 +71,8 @@ export default function BookingForm() {
     const docSnap = await getDoc(docRef);
     if (docSnap.data().afternoon) setMode(1);
     setAfternoon(docSnap.data().afternoon);
+    setSpecial(docSnap.data().special);
+    setLoading(false);
   };
 
   const getAvailabes = async () => {
@@ -159,29 +164,43 @@ export default function BookingForm() {
         margin: 20,
       }}
     >
-      <Card
-        size='small'
-        title='Defina o horário de retirada'
-        style={{
-          width: 250,
-        }}
-      >
-        <Radio.Group
-          onChange={(e) => setMode(e.target.value)}
-          value={mode}
-          style={{ display: 'flex', justifyContent: 'center' }}
-        >
-          <Space direction='vertical'>
-            <Radio value={0} disabled={afternoon}>
-              {modes[0]}
-            </Radio>
-            <Radio value={1}>{modes[1]}</Radio>
-          </Space>
-        </Radio.Group>
-      </Card>
-      <Button type='primary' onClick={updateAvailabes}>
-        Atualizar Disponíveis
-      </Button>
+      {loading ? (
+        <Spin />
+      ) : (
+        <>
+          <Card
+            size='small'
+            title={
+              special.enabled
+                ? 'Hoje as reservas funcionarão em horário especial'
+                : 'Defina o horário de retirada'
+            }
+            style={{
+              width: special.enabled ? 350 : 250,
+            }}
+          >
+            <Radio.Group
+              onChange={(e) => setMode(e.target.value)}
+              value={mode}
+              style={{ display: 'flex', justifyContent: 'center' }}
+            >
+              {special.enabled ? (
+                <Radio value={0}>{special.label}</Radio>
+              ) : (
+                <Space direction='vertical'>
+                  <Radio value={0} disabled={afternoon}>
+                    {modes[0]}
+                  </Radio>
+                  <Radio value={1}>{modes[1]}</Radio>
+                </Space>
+              )}
+            </Radio.Group>
+          </Card>
+          <Button type='primary' onClick={updateAvailabes}>
+            Atualizar Disponíveis
+          </Button>
+        </>
+      )}
     </div>
   );
 
@@ -353,7 +372,9 @@ export default function BookingForm() {
         <div style={{ fontSize: '1.2rem' }}>
           Pedido de <strong>{userData.name}</strong>
         </div>
-        <div style={{ fontSize: '1rem' }}>{modes[mode]}</div>
+        <div style={{ fontSize: '1rem' }}>
+          {special.enabled ? special.label : modes[mode]}
+        </div>
         <div
           style={{
             display: 'flex',
