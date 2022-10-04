@@ -33,7 +33,7 @@ export default function Painel() {
           srcmarcelo{' '}
           <span className={styles.logo}>
             <Image
-              src='/icons8-linkedin.svg'
+              src='/linkedin.png'
               alt='LinkedIn'
               width={30}
               height={30}

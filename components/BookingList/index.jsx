@@ -10,6 +10,7 @@ export default function BookingList({ control }) {
 
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [afternoon, setAfternoon] = useState(false);
   const [special, setSpecial] = useState({});
 
   const statuses = [
@@ -27,6 +28,7 @@ export default function BookingList({ control }) {
     const docRef = doc(db, 'salgados', 'reservas');
     const docSnap = await getDoc(docRef);
     const reverseOrders = docSnap.data().booking;
+    setAfternoon(docSnap.data().afternoon);
     setSpecial(docSnap.data().special);
     _.reverse(reverseOrders);
     setOrders(reverseOrders);
@@ -157,7 +159,7 @@ export default function BookingList({ control }) {
         >
           <div style={{ fontSize: '0.8rem' }}>
             Caso precise cancelar sua reserva, clique no botão abaixo que
-            redireciona para o grupo do Whatsapp. Lá, voce pode falar com o
+            redireciona para o grupo do Whatsapp. Lá, você pode falar com o
             administrador Marcelinho.
           </div>
           <Button
@@ -192,6 +194,19 @@ export default function BookingList({ control }) {
       )}
       {special.enabled ? (
         <RenderList title={special.label} data={orders} key={3} />
+      ) : afternoon ? (
+        <>
+          <RenderList
+            title='Reservas da tarde (entre 14:30 e 17:30)'
+            data={orders.filter((order) => order.time === 1)}
+            key={1}
+          />
+          <RenderList
+            title='Reservas da manhã (entre 10:00 e 12:00)'
+            data={orders.filter((order) => order.time === 0)}
+            key={0}
+          />
+        </>
       ) : (
         <>
           <RenderList
@@ -200,7 +215,7 @@ export default function BookingList({ control }) {
             key={0}
           />
           <RenderList
-            title='Reservas da tarde (entre 14:00 e 17:30)'
+            title='Reservas da tarde (entre 14:30 e 17:30)'
             data={orders.filter((order) => order.time === 1)}
             key={1}
           />

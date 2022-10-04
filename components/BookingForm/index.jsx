@@ -46,6 +46,7 @@ export default function BookingForm() {
   const [special, setSpecial] = useState({});
   const [mode, setMode] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [sending, setSending] = useState(false);
 
   const modes = ['Manhã (entre 10:00 e 12:00)', 'Tarde (entre 14:00 e 17:30)'];
   const docs = ['disponiveis', 'backup'];
@@ -148,11 +149,12 @@ export default function BookingForm() {
       });
       handleOpenUserModal();
     } catch (error) {
-      Modal.success({
+      Modal.error({
         content:
           'Algo deu errado ao fazer a reserva. Por favor, tente novamente. Caso o erro persista, fale com Marcelinho no pelo Whatsapp (87) 98817-5129.',
       });
     }
+    setSending(false);
   };
 
   const Controls = () => (
@@ -365,8 +367,11 @@ export default function BookingForm() {
         visible={confirmModalVisible}
         title='Revise os itens do seu pedido'
         okText='Confirmar'
+        confirmLoading={sending}
         cancelText='Cancelar'
-        onOk={() => handleSubmitOrder(sendOrder)}
+        onOk={() => {
+          setSending(true), handleSubmitOrder(sendOrder);
+        }}
         onCancel={handleOpenUserModal}
       >
         <div style={{ fontSize: '1.2rem' }}>
