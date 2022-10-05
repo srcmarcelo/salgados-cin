@@ -100,7 +100,8 @@ export default function AdminComments() {
                       </p>
                       <p style={{marginBottom: 3}}>Refrigerantes individuais: </p>
                       <p style={{margin: 0}}>Guaraná Antarctica/Pepsi -- R$2,50</p>
-                      <p style={{margin: 0}}>Coca-Cola -- R$3,00</p>
+                      <p style={{margin: 0}}>Coca-Cola -- R$3,50</p>
+                      <p>Aceitamos PIX, dinheiro ou cartão!</p>
                     </div>
                   ),
                 })
