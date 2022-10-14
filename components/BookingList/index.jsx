@@ -5,7 +5,7 @@ import firebase from '../../firebase/clientApp';
 import { doc, getFirestore, getDoc, updateDoc } from 'firebase/firestore';
 import _ from 'lodash';
 
-export default function BookingList({ control }) {
+export default function BookingList({ control, onConfirm }) {
   const db = getFirestore(firebase);
 
   const [orders, setOrders] = useState([]);
@@ -42,6 +42,12 @@ export default function BookingList({ control }) {
     if (item.status < 4)
       newOrders[item.id].status = cancel ? 4 : item.status + 1;
     else newOrders[item.id].status = 0;
+
+    if (newOrders[item.id].status === 2) {
+      item.order.forEach((product) => {
+        onConfirm(product.index, product.value);
+      });
+    }
 
     await updateDoc(bookingRef, {
       booking: newOrders,

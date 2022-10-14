@@ -2,7 +2,6 @@
 import { Menu, Button, Dropdown, Modal } from 'antd';
 import React, { useState, useEffect } from 'react';
 import firebase from '../../firebase/clientApp';
-import foodMock from '../../mocks/availables.json';
 import sodaMock from '../../mocks/soda.json';
 import noFoodMock from '../../mocks/notAvailables.json';
 import ControlPanelTable from '../ControlPanelTable';
@@ -15,6 +14,7 @@ import {
   setDoc,
   getFirestore,
 } from 'firebase/firestore';
+import BookingNumberButton from '../BookingNumberButton';
 
 export default function ControlPanel() {
   const [copyText, setCopyText] = useState(false);
@@ -24,10 +24,12 @@ export default function ControlPanel() {
   const [soda, setSoda] = useState([]);
   const [availables, setAvailables] = useState([]);
   const [totalAvailables, setTotalAvailables] = useState(0);
+  const [bookingNumber, setBookingNumber] = useState(false);
   const db = getFirestore(firebase);
 
   useEffect(() => {
     getAvailabes();
+    getBooking();
   }, []);
 
   useEffect(() => {
@@ -81,14 +83,15 @@ export default function ControlPanel() {
     getAvailabes();
   };
 
-  const changeAvailables = async (index) => {
+  const changeAvailables = async (index, value) => {
     const availablesRef = doc(db, 'salgados', 'disponiveis');
     const newAvailables = availables;
+    const changingNumber = value || 1;
     if (newAvailables[index].available > 0 || mode === 'Repor') {
       newAvailables[index].available =
         mode === 'Vender'
-          ? newAvailables[index].available - 1
-          : newAvailables[index].available + 1;
+          ? newAvailables[index].available - changingNumber
+          : newAvailables[index].available + changingNumber;
       await updateDoc(availablesRef, {
         disponiveis: newAvailables,
       });
@@ -109,6 +112,12 @@ export default function ControlPanel() {
       });
       getAvailabes();
     }
+  };
+
+  const getBooking = async () => {
+    const docRef = doc(db, 'salgados', 'reservas');
+    const docSnap = await getDoc(docRef);
+    setBookingNumber(docSnap.data().booking.length);
   };
 
   const onHandleChangeMode = (item) => {
@@ -183,7 +192,7 @@ export default function ControlPanel() {
         <Menu
           theme='dark'
           mode={mobile ? 'vertical' : 'horizontal'}
-          style={{ width: '40%', textAlign: 'center' }}
+          style={{ width: '35%', textAlign: 'center' }}
           onClick={(item) => onHandleChangeMode(item)}
           selectedKeys={[`${buttons.indexOf(mode) + 1}`]}
           defaultSelectedKeys={['1']}
@@ -200,6 +209,10 @@ export default function ControlPanel() {
           onClick={() => {}}
           label={`${totalAvailables} salgados`}
           type='default'
+        />
+        <BookingNumberButton
+          bookingNumber={bookingNumber}
+          setBookingNumber={(value) => setBookingNumber(value)}
         />
         <div
           style={{
@@ -232,8 +245,8 @@ export default function ControlPanel() {
         openOrderModal={openOrderModal}
       />
       <PanelButtons />
-      <div style={{marginTop: 20}}>
-        <BookingList control={true} />
+      <div style={{ marginTop: 20 }}>
+        <BookingList control={true} onConfirm={changeAvailables} />
       </div>
     </div>
   );

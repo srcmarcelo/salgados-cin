@@ -53,7 +53,6 @@ export default function OrderModal(props) {
   };
 
   const getBackup = async () => {
-    console.log('abriu');
     const docRef = doc(db, 'salgados', 'backup');
     const docSnap = await getDoc(docRef);
     setBackup(docSnap.data().disponiveis);

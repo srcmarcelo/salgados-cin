@@ -390,7 +390,11 @@ export default function BookingForm() {
         >
           {order.map((item, index) => {
             if (item.value > 0) {
-              sendOrder.push({ item: item.name, value: item.value });
+              sendOrder.push({
+                item: item.name,
+                value: item.value,
+                index: index,
+              });
               return (
                 <div
                   key={`${item.name}_${index}`}
