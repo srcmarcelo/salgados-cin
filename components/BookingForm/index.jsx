@@ -48,7 +48,7 @@ export default function BookingForm() {
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
 
-  const modes = ['Manhã (entre 10:00 e 12:00)', 'Tarde (entre 14:00 e 17:30)'];
+  const modes = ['Manhã (entre 10:00 e 12:00)', 'Tarde (entre 14:30 e 17:30)'];
   const docs = ['disponiveis', 'backup'];
 
   const { Column } = Table;
@@ -107,7 +107,9 @@ export default function BookingForm() {
     setDidRetry(!didRetry);
   };
 
-  const handleOpenModal = () => setConfirmModalVisible(!confirmModalVisible);
+  const handleOpenModal = () => {
+    if (Boolean(userData.name)) setConfirmModalVisible(!confirmModalVisible);
+  };
 
   const handleOpenUserModal = () => {
     setConfirmModalVisible(false), setUserModalVisible(!userModalVisible);
@@ -137,10 +139,33 @@ export default function BookingForm() {
     try {
       await updateDoc(docRef, {
         booking: orders,
+        lastUpdated: 'number',
       });
 
       Modal.confirm({
-        content: 'Pedido enviado com sucesso!',
+        content: (
+          <div>
+            <h3>Pedido enviado com sucesso!</h3>
+            <div style={{ fontSize: '0.8rem' }}>
+              Favor comparecer dentro do prazo. Caso precise atrasar um pouco ou
+              queira cancelar o pedido, clique no botão abaixo para entrar no
+              grupo do whatsapp e entrar em contato com Marcelinho(administrador
+              do grupo).
+            </div>
+            <Button
+              type='primary'
+              style={{
+                backgroundColor: '#34af23',
+                borderColor: '#34af23',
+                fontSize: '0.8rem',
+                margin: '8px 0px',
+              }}
+              href='https://chat.whatsapp.com/IBnR0TXPM0e8zO59dcHsHI'
+            >
+              Grupo do WhatSapp
+            </Button>
+          </div>
+        ),
         icon: <CheckCircleOutlined style={{ color: 'green' }} />,
         onCancel: () => router.push('/reservar/status'),
         onOk: getAvailabes,

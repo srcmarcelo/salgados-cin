@@ -59,7 +59,10 @@ export default function AdminCommentsCP() {
 
     await updateDoc(bookingRef, {
       afternoon: time === 1,
-      special: time === 2,
+      special: {
+        enabled: time === 2,
+        label: 'Sexta-feira (entre 10:00 e 15:30)'
+      },
     });
 
     Modal.success({ content: 'Período atualizado.' });

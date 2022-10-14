@@ -51,6 +51,7 @@ export default function BookingList({ control, onConfirm }) {
 
     await updateDoc(bookingRef, {
       booking: newOrders,
+      lastUpdated: 'status',
     });
     getList();
   };

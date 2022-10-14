@@ -20,7 +20,7 @@ export default function BookingNumberButton({
         const data = change.doc.data();
         if (data.booking) {
           setBookingNumber(data.booking.length);
-          if (data.booking.length > 0) play();
+          if (data.booking.length > 0 && data.lastUpdated === 'number') play();
         }
       }
     });
