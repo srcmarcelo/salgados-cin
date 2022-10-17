@@ -18,19 +18,15 @@ import {
   Table,
 } from 'antd';
 import styles from '../../styles/Home.module.css';
-import userOrder from '../../mocks/userOrder.json';
 import firebase from '../../firebase/clientApp';
+import { getDoc, updateDoc, doc, getFirestore } from 'firebase/firestore';
 import {
-  collection,
-  getDoc,
-  updateDoc,
-  doc,
-  setDoc,
-  getFirestore,
-  onSnapshot,
-} from 'firebase/firestore';
-import { BookingButton, ButtonsContainer, FormContainer } from './styles';
-import Link from 'next/link';
+  ActionButton,
+  FooterContainer,
+  FormContainer,
+  ModalConfirmContent,
+  ModalConfirmStatisticContainer,
+} from './styles';
 
 export default function BookingForm() {
   const db = getFirestore(firebase);
@@ -45,6 +41,7 @@ export default function BookingForm() {
   const [afternoon, setAfternoon] = useState(false);
   const [special, setSpecial] = useState({});
   const [mode, setMode] = useState(0);
+  const [enabled, setEnabled] = useState(true);
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
 
@@ -71,6 +68,7 @@ export default function BookingForm() {
     const docRef = doc(db, 'salgados', 'reservas');
     const docSnap = await getDoc(docRef);
     if (docSnap.data().afternoon) setMode(1);
+    setEnabled(docSnap.data().enabled);
     setAfternoon(docSnap.data().afternoon);
     setSpecial(docSnap.data().special);
     setLoading(false);
@@ -112,7 +110,18 @@ export default function BookingForm() {
   };
 
   const handleOpenUserModal = () => {
-    setConfirmModalVisible(false), setUserModalVisible(!userModalVisible);
+    setConfirmModalVisible(false);
+    enabled
+      ? setUserModalVisible(!userModalVisible)
+      : Modal.error({
+          title: (
+            <p style={{ fontWeight: 'bold', margin: 0 }}>
+              Reservas momentaneamente desativadas
+            </p>
+          ),
+          content:
+            'O fluxo de pessoas presencialmente neste momento está muito alto! Isso ocorre geralmente entre 09:30 e 10:30. Venha você também comprar presencialmente ou espere o fluxo abaixar um pouco para fazer sua reserva!',
+        });
   };
 
   const onChangeUserData = (e) => {
@@ -182,6 +191,55 @@ export default function BookingForm() {
     setSending(false);
   };
 
+  const BookingTimeCard = () => (
+    <Card
+      size='small'
+      title={
+        special.enabled
+          ? 'Hoje as reservas funcionarão em horário especial'
+          : 'Defina o horário de retirada'
+      }
+      style={{
+        width: special.enabled ? 350 : 250,
+      }}
+    >
+      <Radio.Group
+        onChange={(e) => setMode(e.target.value)}
+        value={mode}
+        style={{ display: 'flex', justifyContent: 'center' }}
+      >
+        {special.enabled ? (
+          <Radio value={0}>{special.label}</Radio>
+        ) : (
+          <Space direction='vertical'>
+            <Radio value={0} disabled={afternoon}>
+              {modes[0]}
+            </Radio>
+            <Radio value={1}>{modes[1]}</Radio>
+          </Space>
+        )}
+      </Radio.Group>
+    </Card>
+  );
+
+  const DisabledBookingCard = () => (
+    <Card
+      size='small'
+      title={
+        <p style={{ color: 'red', fontWeight: 'bold', margin: 0 }}>
+          Reservas momentaneamente desativadas
+        </p>
+      }
+      style={{ width: 350 }}
+    >
+      <div>
+        O fluxo de pessoas presencialmente neste momento está muito alto! Venha
+        você também comprar presencialmente ou espere o fluxo abaixar um pouco
+        para fazer sua reserva!
+      </div>
+    </Card>
+  );
+
   const Controls = () => (
     <div
       style={{
@@ -195,34 +253,7 @@ export default function BookingForm() {
         <Spin />
       ) : (
         <>
-          <Card
-            size='small'
-            title={
-              special.enabled
-                ? 'Hoje as reservas funcionarão em horário especial'
-                : 'Defina o horário de retirada'
-            }
-            style={{
-              width: special.enabled ? 350 : 250,
-            }}
-          >
-            <Radio.Group
-              onChange={(e) => setMode(e.target.value)}
-              value={mode}
-              style={{ display: 'flex', justifyContent: 'center' }}
-            >
-              {special.enabled ? (
-                <Radio value={0}>{special.label}</Radio>
-              ) : (
-                <Space direction='vertical'>
-                  <Radio value={0} disabled={afternoon}>
-                    {modes[0]}
-                  </Radio>
-                  <Radio value={1}>{modes[1]}</Radio>
-                </Space>
-              )}
-            </Radio.Group>
-          </Card>
+          {enabled ? <BookingTimeCard /> : <DisabledBookingCard />}
           <Button type='primary' onClick={updateAvailabes}>
             Atualizar Disponíveis
           </Button>
@@ -289,37 +320,20 @@ export default function BookingForm() {
           render={(value, item) => {
             return (
               <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button
+                <ActionButton
                   type='primary'
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    backgroundColor: '#7E92B5',
-                    borderColor: '#65789B',
-                    width: '12px',
-                    height: '30px',
-                  }}
                   onClick={() => handleChangeItem(item, 'dec')}
                 >
                   <MinusCircleOutlined />
-                </Button>
-                <Button
+                </ActionButton>
+                <ActionButton
                   type='primary'
                   disabled={value === item.available}
                   onClick={() => handleChangeItem(item)}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    textAlign: 'center',
-                    width: '12px',
-                    height: '30px',
-                    marginLeft: 5,
-                  }}
+                  plus={true}
                 >
                   <PlusCircleOutlined />
-                </Button>
+                </ActionButton>
               </div>
             );
           }}
@@ -328,16 +342,8 @@ export default function BookingForm() {
     </div>
   );
 
-  const Footer = () => (
-    <div
-      style={{
-        display: 'flex',
-        margin: '20px',
-        width: '100%',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-      }}
-    >
+  const StatisticSection = () => (
+    <>
       <Statistic
         title='Quantidade'
         value={totalOrder}
@@ -351,6 +357,12 @@ export default function BookingForm() {
         precision={2}
         valueStyle={{ fontSize: '1.2rem' }}
       />
+    </>
+  );
+
+  const Footer = () => (
+    <FooterContainer>
+      <StatisticSection />
       <Button
         type='primary'
         onClick={handleOpenUserModal}
@@ -358,7 +370,7 @@ export default function BookingForm() {
       >
         Confirmar
       </Button>
-    </div>
+    </FooterContainer>
   );
 
   const UserModal = () => {
@@ -405,14 +417,7 @@ export default function BookingForm() {
         <div style={{ fontSize: '1rem' }}>
           {special.enabled ? special.label : modes[mode]}
         </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            margin: 20,
-          }}
-        >
+        <ModalConfirmContent>
           {order.map((item, index) => {
             if (item.value > 0) {
               sendOrder.push({
@@ -428,28 +433,10 @@ export default function BookingForm() {
               );
             }
           })}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            width: '100%',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Statistic
-            title='Quantidade'
-            value={totalOrder}
-            suffix='salgados'
-            valueStyle={{ fontSize: '1.2rem' }}
-          />
-          <Statistic
-            title='Valor'
-            value={totalOrder * 3}
-            prefix='R$'
-            precision={2}
-            valueStyle={{ fontSize: '1.2rem' }}
-          />
-        </div>
+        </ModalConfirmContent>
+        <ModalConfirmStatisticContainer>
+          <StatisticSection />
+        </ModalConfirmStatisticContainer>
       </Modal>
     );
   };

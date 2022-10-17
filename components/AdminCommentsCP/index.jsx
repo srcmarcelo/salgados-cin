@@ -61,17 +61,42 @@ export default function AdminCommentsCP() {
       afternoon: time === 1,
       special: {
         enabled: time === 2,
-        label: 'Sexta-feira (entre 10:00 e 15:30)'
+        label: 'Sexta-feira (entre 10:00 e 15:30)',
       },
     });
 
     Modal.success({ content: 'Período atualizado.' });
   };
 
+  const updateBooking = async (value) => {
+    const bookingRef = doc(db, 'salgados', 'reservas');
+
+    await updateDoc(bookingRef, {
+      enabled: value,
+    });
+
+    Modal.success({
+      content: `Reservas ${value ? 'liberadas' : 'bloqueadas'}.`,
+    });
+  };
+
   const changeOption = (e) => setOption(e.target.value);
   const onChangeTime = (e) => setTime(e.target.value);
-
   const onChangeText = (e) => setComment(e.target.value);
+
+  const RenderControlButton = ({ onClick, color, label }) => (
+    <Button
+      type='primary'
+      onClick={onClick}
+      style={{
+        margin: '10px',
+        backgroundColor: color || null,
+        borderColor: color || null,
+      }}
+    >
+      {label}
+    </Button>
+  );
 
   return (
     <div
@@ -96,39 +121,36 @@ export default function AdminCommentsCP() {
       <TextArea rows={4} onChange={onChangeText} style={{ margin: '1rem 0' }} />
       <div className={styles.grid}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <Button
-            type='primary'
-            onClick={() => postComment()}
-            style={{ margin: '10px' }}
-          >
-            Enviar Mensagem
-          </Button>
-          <Button
-            type='primary'
-            onClick={() => updateStatus()}
-            style={{ margin: '10px' }}
-          >
-            Atualizar Status
-          </Button>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <Button
-            type='primary'
+          <RenderControlButton onClick={postComment} label='Enviar Mensagem' />
+          <RenderControlButton
+            onClick={updateStatus}
+            label='Atualizar Status'
+          />
+          <RenderControlButton
             onClick={() => {
               postComment();
               updateStatus();
             }}
-            style={{ margin: '10px' }}
-          >
-            Atualizar Ambos
-          </Button>
-          <Button
-            type='primary'
-            onClick={() => updateTime()}
-            style={{ margin: '10px' }}
-          >
-            Atualizar Período
-          </Button>
+            label='Atualizar Ambos'
+            color='darkblue'
+          />
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <RenderControlButton
+            onClick={() => updateBooking(false)}
+            label='Bloquear Reservas'
+            color='darkred'
+          />
+          <RenderControlButton
+            onClick={() => updateBooking(true)}
+            label='Liberar Reservas'
+            color='darkgreen'
+          />
+          <RenderControlButton
+            onClick={updateTime}
+            label='Atualizar Período'
+            color='purple'
+          />
         </div>
       </div>
     </div>
