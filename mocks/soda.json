@@ -25,5 +25,14 @@
       "src": "/images/coca.jpg"
     },
     "type": "Coca-Cola"
+  },
+  {
+    "available": 36,
+    "media": {
+      "width": 225,
+      "height": 183,
+      "src": "/images/cafe.jpg"
+    },
+    "type": "Café"
   }
 ]

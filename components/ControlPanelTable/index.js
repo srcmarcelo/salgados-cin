@@ -87,15 +87,17 @@ export default function ControlPanelTable(props) {
         justifyContent: 'center',
       }}
     >
-      <Button type='primary' onClick={openOrderModal}>Fazer Encomenda</Button>
+      <Button type='primary' onClick={openOrderModal}>
+        Fazer Encomenda
+      </Button>
       {availables === [] ? (
         <Spin />
       ) : (
         <div className={styles.grid}>
-          <RenderGroup types={['doce', 'queijo']} />
+          <RenderGroup types={['doce', 'misto']} />
           <RenderGroup types={['frango']} />
-          <RenderGroup types={['frango2', 'misto']} />
-          <RenderGroup types={['carne', 'salsicha']} />
+          <RenderGroup types={['frango2', 'salsicha']} />
+          <RenderGroup types={['queijo', 'carne']} />
         </div>
       )}
       {soda === [] ? (

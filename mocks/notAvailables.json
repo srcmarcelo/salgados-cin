@@ -10,6 +10,16 @@
     "available": 0
   },
   {
+    "name": "Tortinha de limão",
+    "media": {
+      "width": 245,
+      "src": "/images/tortinha_limao.webp",
+      "height": 153
+    },
+    "type": "doce",
+    "available": 0
+  },
+  {
     "available": 0,
     "type": "frango",
     "media": {
@@ -126,16 +136,6 @@
       "height": 153
     },
     "name": "Hamburguer",
-    "type": "carne",
-    "available": 0
-  },
-  {
-    "name": "Risole de carne",
-    "media": {
-      "height": 153,
-      "width": 245,
-      "src": "/images/risole_carne.jpg"
-    },
     "type": "carne",
     "available": 0
   },

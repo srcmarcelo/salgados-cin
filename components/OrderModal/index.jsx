@@ -31,7 +31,7 @@ export default function OrderModal(props) {
 
   useEffect(() => {
     if (copyText) {
-      const nextLine = [1, 4, 7, 10, 12];
+      const nextLine = [2, 3, 5, 8, 11, 13, 14];
       let textAvailables = `Pedido da *${mode}*\n`;
       orderList.forEach((item, index) => {
         if (nextLine.includes(index)) textAvailables += '\n';
@@ -82,7 +82,7 @@ export default function OrderModal(props) {
             onAfterChange={(value) => onChangeValue(value, index)}
             style={{ flex: 1 }}
             min={0}
-            max={index === 0 || index === 5 ? 30 : 20}
+            max={index === 5 ? 30 : 20}
           />
           <InputNumber
             defaultValue={item}

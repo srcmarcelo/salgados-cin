@@ -5,6 +5,11 @@
     "available": 0
   },
   {
+    "name": "Tortinha de limão",
+    "value": 0,
+    "available": 0
+  },
+  {
     "name": "Pastel de forno de frango",
     "value": 0,
     "available": 0
@@ -66,16 +71,6 @@
   },
   {
     "name": "Pastel de forno de carne",
-    "value": 0,
-    "available": 0
-  },
-  {
-    "name": "Esfiha de carne",
-    "value": 0,
-    "available": 0
-  },
-  {
-    "name": "Risole de carne",
     "value": 0,
     "available": 0
   }

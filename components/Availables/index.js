@@ -117,10 +117,10 @@ export default function AvailablesList() {
       ) : (
         <>
           <div className={styles.grid}>
-            <RenderGroup types={['doce', 'queijo']} />
+            <RenderGroup types={['doce', 'misto']} />
             <RenderGroup types={['frango']} />
-            <RenderGroup types={['frango2', 'misto']} />
-            <RenderGroup types={['carne', 'salsicha']} />
+            <RenderGroup types={['frango2', 'salsicha']} />
+            <RenderGroup types={['queijo', 'carne']} />
           </div>
           <div className={styles.grid}>
             <RenderSodaList data={soda} />

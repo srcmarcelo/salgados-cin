@@ -7,7 +7,17 @@
       "height": 153
     },
     "type": "doce",
-    "available": 20
+    "available": 10
+  },
+  {
+    "name": "Tortinha de limão",
+    "media": {
+      "width": 245,
+      "src": "/images/tortinha_limao.webp",
+      "height": 153
+    },
+    "type": "doce",
+    "available": 15
   },
   {
     "available": 10,
@@ -18,16 +28,6 @@
       "src": "/images/coxinha.jpeg"
     },
     "name": "Coxinha de frango"
-  },
-  {
-    "media": {
-      "src": "/images/coxinha_catupiry.webp",
-      "height": 153,
-      "width": 245
-    },
-    "type": "frango",
-    "name": "Coxinha frango e catupiry",
-    "available": 5
   },
   {
     "type": "frango",
@@ -68,6 +68,16 @@
     },
     "available": 3,
     "type": "frango2"
+  },
+  {
+    "media": {
+      "src": "/images/coxinha_catupiry.webp",
+      "height": 153,
+      "width": 245
+    },
+    "type": "frango",
+    "name": "Coxinha frango e catupiry",
+    "available": 5
   },
   {
     "type": "queijo",
@@ -127,17 +137,7 @@
     },
     "name": "Hamburguer",
     "type": "carne",
-    "available": 5
-  },
-  {
-    "name": "Risole de carne",
-    "media": {
-      "height": 153,
-      "width": 245,
-      "src": "/images/risole_carne.jpg"
-    },
-    "type": "carne",
-    "available": 2
+    "available": 10
   },
   {
     "type": "salsicha",
