@@ -13,6 +13,7 @@ export default function AvailablesList() {
   const [availables, setAvailables] = useState([]);
   const [soda, setSoda] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState(0);
 
   const getAvailabes = async () => {
     setLoading(true);
@@ -22,6 +23,9 @@ export default function AvailablesList() {
     const docRef2 = doc(db, 'salgados', 'refrigerantes');
     const docSnap2 = await getDoc(docRef2);
     setSoda(docSnap2.data().disponiveis);
+    const docRef3 = doc(db, 'salgados', 'comentarios');
+    const docSnap3 = await getDoc(docRef3);
+    setStatus(docSnap3.data().status);
     setLoading(false);
   };
 
@@ -111,7 +115,7 @@ export default function AvailablesList() {
           Atualizar listas
         </Button>
       </Affix>
-      <h2>Salgados Disponíveis</h2>
+      <h2>Salgados Disponíveis {status === 2 && '(apenas para reservas)'}</h2>
       {loading ? (
         <Spin />
       ) : (

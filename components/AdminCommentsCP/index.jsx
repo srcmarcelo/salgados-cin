@@ -32,6 +32,8 @@ export default function AdminCommentsCP() {
     setTime(
       docSnap2.data().afternoon ? 1 : docSnap2.data().special.enabled ? 2 : 0
     );
+    console.log(docSnap.data().comment);
+    setComment(docSnap.data().comment);
   };
 
   const postComment = async () => {
@@ -118,7 +120,12 @@ export default function AdminCommentsCP() {
           </Space>
         </Radio.Group>
       </div>
-      <TextArea rows={4} onChange={onChangeText} style={{ margin: '1rem 0' }} />
+      <TextArea
+        rows={4}
+        onChange={onChangeText}
+        value={comment}
+        style={{ margin: '1rem 0' }}
+      />
       <div className={styles.grid}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <RenderControlButton onClick={postComment} label='Enviar Mensagem' />
