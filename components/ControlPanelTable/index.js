@@ -30,7 +30,7 @@ export default function ControlPanelTable(props) {
               {item.name}
             </h3>
           }
-          description={`Disponiveis: ${item.available} unidades`}
+          description={`${item.available} unidades - ${props.booking[item.name] || 0} dentro`}
         />
       </Card>
     ));
@@ -96,8 +96,8 @@ export default function ControlPanelTable(props) {
         <div className={styles.grid}>
           <RenderGroup types={['doce', 'misto']} />
           <RenderGroup types={['frango']} />
-          <RenderGroup types={['frango2', 'salsicha']} />
-          <RenderGroup types={['queijo', 'carne']} />
+          <RenderGroup types={['frango2', 'carne', 'salsicha']} />
+          <RenderGroup types={['queijo']} />
         </div>
       )}
       {soda === [] ? (

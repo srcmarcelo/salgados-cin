@@ -18,6 +18,7 @@ export default function OrderModal(props) {
   const [didRetry, setDidRetry] = useState(false);
   const [copyText, setCopyText] = useState(false);
   const [mode, setMode] = useState('manhã');
+  const [coffeLiters, setCoffeLiters] = useState(1);
 
   useEffect(() => {
     getBackup();
@@ -40,7 +41,12 @@ export default function OrderModal(props) {
       });
       textAvailables += '\n\n';
       textAvailables += `${totalAvailables} salgados.\n`;
-      textAvailables += `Valor: *R$${parseInt(totalAvailables * 2.2)},00*.`;
+      textAvailables += `\n${coffeLiters} litro${
+        coffeLiters > 1 ? 's' : ''
+      } de café.\n\n`;
+      textAvailables += `Valor: *R$${parseFloat(
+        totalAvailables * 2.2 + coffeLiters * 8
+      ).toFixed(2)}*.`;
       navigator.clipboard.writeText(textAvailables);
       updateBackup();
       setCopyText(false);
@@ -94,6 +100,28 @@ export default function OrderModal(props) {
         </div>
       </div>
     ));
+
+    elements.push(
+      <div key='coffe_item'>
+        <h4>Litros de café</h4>
+        <div style={{ display: 'flex' }}>
+          <Slider
+            defaultValue={coffeLiters}
+            onAfterChange={(value) => setCoffeLiters(value)}
+            style={{ flex: 1 }}
+            min={0}
+            max={5}
+          />
+          <InputNumber
+            defaultValue={coffeLiters}
+            style={{
+              margin: '0 0px 0px 16px',
+            }}
+            onChange={(value) => setCoffeLiters(value)}
+          />
+        </div>
+      </div>
+    );
 
     return elements;
   };

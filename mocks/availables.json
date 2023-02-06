@@ -148,15 +148,5 @@
     },
     "available": 3,
     "name": "Doguinho"
-  },
-  {
-    "available": 2,
-    "name": "Enroladinho",
-    "type": "salsicha",
-    "media": {
-      "width": 245,
-      "height": 153,
-      "src": "/images/enroladinho.jpg"
-    }
   }
 ]

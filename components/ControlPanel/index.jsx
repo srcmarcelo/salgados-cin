@@ -24,7 +24,8 @@ export default function ControlPanel() {
   const [soda, setSoda] = useState([]);
   const [availables, setAvailables] = useState([]);
   const [totalAvailables, setTotalAvailables] = useState(0);
-  const [bookingNumber, setBookingNumber] = useState(false);
+  const [bookingNumber, setBookingNumber] = useState(0);
+  const [booking, setBooking] = useState({});
   const db = getFirestore(firebase);
 
   useEffect(() => {
@@ -114,9 +115,22 @@ export default function ControlPanel() {
     }
   };
 
+  const setBookingObject = (bookingData) => {
+    const newBooking = {};
+    bookingData.forEach((item) =>
+      item.order.forEach((orderItem) =>
+        Object.keys(newBooking).includes(orderItem.item)
+          ? (newBooking[orderItem.item] += orderItem.value)
+          : (newBooking[orderItem.item] = orderItem.value)
+      )
+    );
+    setBooking(newBooking);
+  }
+
   const getBooking = async () => {
     const docRef = doc(db, 'salgados', 'reservas');
     const docSnap = await getDoc(docRef);
+    setBookingObject(docSnap.data().booking)
     setBookingNumber(docSnap.data().booking.length);
   };
 
@@ -213,6 +227,7 @@ export default function ControlPanel() {
         <BookingNumberButton
           bookingNumber={bookingNumber}
           setBookingNumber={(value) => setBookingNumber(value)}
+          setBookingObject={(value) => setBookingObject(value)}
         />
         <div
           style={{
@@ -243,6 +258,7 @@ export default function ControlPanel() {
         onClick={changeAvailables}
         onClickSoda={changeAvailablesSoda}
         openOrderModal={openOrderModal}
+        booking={booking}
       />
       <PanelButtons />
       <div style={{ marginTop: 20 }}>

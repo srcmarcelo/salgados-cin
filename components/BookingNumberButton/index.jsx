@@ -9,6 +9,7 @@ import useSound from 'use-sound';
 export default function BookingNumberButton({
   bookingNumber,
   setBookingNumber,
+  setBookingObject,
 }) {
   const db = getFirestore(firebase);
 
@@ -20,6 +21,7 @@ export default function BookingNumberButton({
         const data = change.doc.data();
         if (data.booking) {
           setBookingNumber(data.booking.length);
+          setBookingObject(data.booking);
           if (data.booking.length > 0 && data.lastUpdated === 'number') play();
         }
       }

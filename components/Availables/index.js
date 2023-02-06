@@ -93,7 +93,13 @@ export default function AvailablesList() {
               {item.type}
             </h3>
           }
-          description={`Disponiveis: ${item.available} unidades`}
+          description={
+            item.type === 'Café'
+              ? item.available > 0
+                ? 'Disponível'
+                : 'Não disponível'
+              : `Disponiveis: ${item.available} unidades`
+          }
         />
       </Card>
     ));
@@ -111,7 +117,11 @@ export default function AvailablesList() {
       }}
     >
       <Affix offsetTop={70}>
-        <Button type='primary' onClick={getAvailabes} style={{marginBottom: 10}}>
+        <Button
+          type='primary'
+          onClick={getAvailabes}
+          style={{ marginBottom: 10 }}
+        >
           Atualizar listas
         </Button>
       </Affix>
@@ -123,8 +133,8 @@ export default function AvailablesList() {
           <div className={styles.grid}>
             <RenderGroup types={['doce', 'misto']} />
             <RenderGroup types={['frango']} />
-            <RenderGroup types={['frango2', 'salsicha']} />
-            <RenderGroup types={['queijo', 'carne']} />
+            <RenderGroup types={['frango2', 'carne', 'salsicha']} />
+            <RenderGroup types={['queijo']} />
           </div>
           <div className={styles.grid}>
             <RenderSodaList data={soda} />

@@ -95,16 +95,13 @@ export default function AdminComments() {
                         <strong>COMBO</strong> Guaraná Antarctica/Pepsi +
                         salgado por R$ 5,00!
                       </p>
-                      <p>
-                        <strong>COMBO</strong> Coca-Cola + salgado por R$ 6,00!
-                      </p>
                       <p style={{ marginBottom: 3 }}>
                         <strong>REFRIGERANTES INDIVIDUAIS: </strong>
                       </p>
                       <p style={{ margin: 0 }}>
                         Guaraná Antarctica/Pepsi -- R$2,50
                       </p>
-                      <p style={{ marginBottom: 15 }}>Coca-Cola -- R$3,50</p>
+                      <p style={{ marginBottom: 15 }}>Coca-Cola -- R$3,00</p>
                       <p style={{ marginBottom: 3 }}>
                         <strong>CAFÉ:</strong>
                       </p>

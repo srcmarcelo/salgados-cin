@@ -32,7 +32,6 @@ export default function AdminCommentsCP() {
     setTime(
       docSnap2.data().afternoon ? 1 : docSnap2.data().special.enabled ? 2 : 0
     );
-    console.log(docSnap.data().comment);
     setComment(docSnap.data().comment);
   };
 
