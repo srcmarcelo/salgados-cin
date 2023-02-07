@@ -117,20 +117,21 @@ export default function ControlPanel() {
 
   const setBookingObject = (bookingData) => {
     const newBooking = {};
-    bookingData.forEach((item) =>
-      item.order.forEach((orderItem) =>
-        Object.keys(newBooking).includes(orderItem.item)
-          ? (newBooking[orderItem.item] += orderItem.value)
-          : (newBooking[orderItem.item] = orderItem.value)
-      )
-    );
+    bookingData.forEach((item) => {
+      if (item.status === 2)
+        item.order.forEach((orderItem) =>
+          Object.keys(newBooking).includes(orderItem.item)
+            ? (newBooking[orderItem.item] += orderItem.value)
+            : (newBooking[orderItem.item] = orderItem.value)
+        );
+    });
     setBooking(newBooking);
-  }
+  };
 
   const getBooking = async () => {
     const docRef = doc(db, 'salgados', 'reservas');
     const docSnap = await getDoc(docRef);
-    setBookingObject(docSnap.data().booking)
+    setBookingObject(docSnap.data().booking);
     setBookingNumber(docSnap.data().booking.length);
   };
 
