@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Head from 'next/head';
 import styles from '../../styles/Home.module.css';
 import ControlPanel from '../../components/ControlPanel';
 import AdminCommentsCP from '../../components/AdminCommentsCP';
+import AdminPageModal from '../../components/AdminPageModal';
 
 export default function Painel() {
+  const [admin, setAdmin] = useState(true);
+
+  useEffect(() => {
+    setAdmin(false);
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -21,6 +28,8 @@ export default function Painel() {
         <ControlPanel />
 
         <AdminCommentsCP />
+
+        <AdminPageModal visible={!admin} success={() => setAdmin(true)} />
       </main>
 
       <footer className={styles.footer}>
@@ -32,12 +41,7 @@ export default function Painel() {
         >
           srcmarcelo{' '}
           <span className={styles.logo}>
-            <Image
-              src='/linkedin.png'
-              alt='LinkedIn'
-              width={30}
-              height={30}
-            />
+            <Image src='/linkedin.png' alt='LinkedIn' width={30} height={30} />
           </span>
         </a>
       </footer>

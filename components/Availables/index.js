@@ -125,7 +125,8 @@ export default function AvailablesList() {
           Atualizar listas
         </Button>
       </Affix>
-      <h2>Salgados Disponíveis {status === 2 && '(apenas para reservas)'}</h2>
+      <h2 style={{margin: '0px'}}>Salgados Disponíveis</h2>
+      {status === 2 && <h2>(apenas para reservas)</h2>}
       {loading ? (
         <Spin />
       ) : (
