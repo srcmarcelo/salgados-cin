@@ -19,6 +19,13 @@ export default function AdminCommentsCP() {
   const [comment, setComment] = useState('');
   const [time, setTime] = useState(0);
 
+  const modes = [
+    'Entre 09:45 e 10:15',
+    'Entre 11:45 e 12:30',
+    'Entre 14:30 e 17:30',
+    'Entre 16:45 e 17:15',
+  ];
+
   useEffect(() => {
     getComments();
   }, []);
@@ -29,9 +36,7 @@ export default function AdminCommentsCP() {
     const docRef2 = doc(db, 'salgados', 'reservas');
     const docSnap2 = await getDoc(docRef2);
     setOption(docSnap.data().status);
-    setTime(
-      docSnap2.data().afternoon ? 1 : docSnap2.data().special.enabled ? 2 : 0
-    );
+    setTime(docSnap2.data().time);
     setComment(docSnap.data().comment);
   };
 
@@ -59,11 +64,7 @@ export default function AdminCommentsCP() {
     const bookingRef = doc(db, 'salgados', 'reservas');
 
     await updateDoc(bookingRef, {
-      afternoon: time === 1,
-      special: {
-        enabled: time === 2,
-        label: 'Sexta-feira (entre 10:00 e 15:30)',
-      },
+      time: time,
     });
 
     Modal.success({ content: 'Período atualizado.' });
@@ -113,9 +114,11 @@ export default function AdminCommentsCP() {
         </Radio.Group>
         <Radio.Group onChange={onChangeTime} value={time}>
           <Space direction='vertical'>
-            <Radio value={0}>Manhã</Radio>
-            <Radio value={1}>Tarde</Radio>
-            <Radio value={2}>Especial</Radio>
+            {modes.map((mode, index) => (
+              <Radio key={`modes_${index}`} value={index}>
+                {mode}
+              </Radio>
+            ))}
           </Space>
         </Radio.Group>
       </div>

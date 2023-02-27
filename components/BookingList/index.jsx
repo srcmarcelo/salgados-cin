@@ -10,8 +10,6 @@ export default function BookingList({ control, onConfirm }) {
 
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [afternoon, setAfternoon] = useState(false);
-  const [special, setSpecial] = useState({});
 
   const statuses = [
     'Pendente',
@@ -21,6 +19,13 @@ export default function BookingList({ control, onConfirm }) {
     'Cancelado',
   ];
 
+  const times = [
+    'Reservas da manhã (entre 09:45 e 10:15)',
+    'Reservas do meio dia (entre 11:45 e 12:30)',
+    'Reservas da tarde (entre 14:30 e 17:30)',
+    'Reservas da noite (entre 16:45 e 17:15)',
+  ];
+
   const statusColor = ['orange', 'blue', 'green', '#092b00', 'red'];
 
   const getList = async () => {
@@ -28,8 +33,6 @@ export default function BookingList({ control, onConfirm }) {
     const docRef = doc(db, 'salgados', 'reservas');
     const docSnap = await getDoc(docRef);
     const reverseOrders = docSnap.data().booking;
-    setAfternoon(docSnap.data().afternoon);
-    setSpecial(docSnap.data().special);
     _.reverse(reverseOrders);
     setOrders(reverseOrders);
     setLoading(false);
@@ -84,7 +87,7 @@ export default function BookingList({ control, onConfirm }) {
     </div>
   );
 
-  const RenderList = ({ title, data, key }) => (
+  const ListItem = ({ title, data, key }) => (
     <div
       key={key}
       style={{
@@ -144,6 +147,8 @@ export default function BookingList({ control, onConfirm }) {
     </div>
   );
 
+  const RenderList = (props) => <ListItem {...props} />;
+
   return (
     <div
       style={{
@@ -199,35 +204,13 @@ export default function BookingList({ control, onConfirm }) {
           Zerar
         </Button>
       )}
-      {special.enabled ? (
-        <RenderList title={special.label} data={orders} key={3} />
-      ) : afternoon ? (
-        <>
-          <RenderList
-            title='Reservas da tarde (entre 14:30 e 17:30)'
-            data={orders.filter((order) => order.time === 1)}
-            key={1}
-          />
-          <RenderList
-            title='Reservas da manhã (entre 10:00 e 12:00)'
-            data={orders.filter((order) => order.time === 0)}
-            key={0}
-          />
-        </>
-      ) : (
-        <>
-          <RenderList
-            title='Reservas da manhã (entre 10:00 e 12:00)'
-            data={orders.filter((order) => order.time === 0)}
-            key={0}
-          />
-          <RenderList
-            title='Reservas da tarde (entre 14:30 e 17:30)'
-            data={orders.filter((order) => order.time === 1)}
-            key={1}
-          />
-        </>
-      )}
+      {times.map((time, index) => (
+        <RenderList
+          title={time}
+          data={orders.filter((order) => order.time === index)}
+          key={index}
+        />
+      ))}
     </div>
   );
 }

@@ -38,14 +38,18 @@ export default function BookingForm() {
   const [order, setOrder] = useState([]);
   const [totalOrder, setTotalOrder] = useState(0);
   const [userData, setUserData] = useState({});
-  const [afternoon, setAfternoon] = useState(false);
-  const [special, setSpecial] = useState({});
   const [mode, setMode] = useState(0);
+  const [time, setTime] = useState(0);
   const [enabled, setEnabled] = useState(true);
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
 
-  const modes = ['Manhã (entre 10:00 e 12:00)', 'Tarde (entre 14:30 e 17:30)'];
+  const modes = [
+    'Entre 09:45 e 10:15',
+    'Entre 11:45 e 12:30',
+    'Entre 14:30 e 17:30',
+    'Entre 16:45 e 17:15',
+  ];
   const docs = ['disponiveis', 'backup'];
 
   const { Column } = Table;
@@ -55,7 +59,7 @@ export default function BookingForm() {
   }, [mode]);
 
   useEffect(() => {
-    getAfternoon();
+    getTime();
   }, []);
 
   useEffect(() => {
@@ -64,18 +68,17 @@ export default function BookingForm() {
     setTotalOrder(total);
   }, [order, didRetry]);
 
-  const getAfternoon = async () => {
+  const getTime = async () => {
     const docRef = doc(db, 'salgados', 'reservas');
     const docSnap = await getDoc(docRef);
-    if (docSnap.data().afternoon) setMode(1);
     setEnabled(docSnap.data().enabled);
-    setAfternoon(docSnap.data().afternoon);
-    setSpecial(docSnap.data().special);
+    setMode(docSnap.data().time);
+    setTime(docSnap.data().time);
     setLoading(false);
   };
 
   const getAvailabes = async () => {
-    const docRef = doc(db, 'salgados', afternoon ? docs[0] : docs[mode]);
+    const docRef = doc(db, 'salgados', time > 1 ? docs[0] : docs[mode > 1 ? 1 : 0]);
     const docSnap = await getDoc(docRef);
     const availables = docSnap.data().disponiveis;
     availables.forEach((item, index) => (availables[index].value = 0));
@@ -83,7 +86,7 @@ export default function BookingForm() {
   };
 
   const updateAvailabes = async () => {
-    const docRef = doc(db, 'salgados', afternoon ? docs[0] : docs[mode]);
+    const docRef = doc(db, 'salgados', time > 1 ? docs[0] : docs[mode > 1 ? 1 : 0]);
     const docSnap = await getDoc(docRef);
     const availables = docSnap.data().disponiveis;
     order.forEach(
@@ -194,13 +197,9 @@ export default function BookingForm() {
   const BookingTimeCard = () => (
     <Card
       size='small'
-      title={
-        special.enabled
-          ? 'Hoje as reservas funcionarão em horário especial'
-          : 'Defina o horário de retirada'
-      }
+      title={'Defina o horário de retirada'}
       style={{
-        width: special.enabled ? 350 : 250,
+        width: 250,
       }}
     >
       <Radio.Group
@@ -208,16 +207,13 @@ export default function BookingForm() {
         value={mode}
         style={{ display: 'flex', justifyContent: 'center' }}
       >
-        {special.enabled ? (
-          <Radio value={0}>{special.label}</Radio>
-        ) : (
-          <Space direction='vertical'>
-            <Radio value={0} disabled={afternoon}>
-              {modes[0]}
+        <Space direction='vertical'>
+          {modes.map((item, index) => (
+            <Radio key={`radio_${index}`} value={index} disabled={index < time}>
+              {item}
             </Radio>
-            <Radio value={1}>{modes[1]}</Radio>
-          </Space>
-        )}
+          ))}
+        </Space>
       </Radio.Group>
     </Card>
   );
@@ -414,9 +410,7 @@ export default function BookingForm() {
         <div style={{ fontSize: '1.2rem' }}>
           Pedido de <strong>{userData.name}</strong>
         </div>
-        <div style={{ fontSize: '1rem' }}>
-          {special.enabled ? special.label : modes[mode]}
-        </div>
+        <div style={{ fontSize: '1rem' }}>{modes[mode]}</div>
         <ModalConfirmContent>
           {order.map((item, index) => {
             if (item.value > 0) {

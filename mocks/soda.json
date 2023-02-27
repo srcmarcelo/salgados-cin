@@ -1,33 +1,6 @@
 [
   {
-    "type": "Guaraná Antarctica",
-    "available": 12,
-    "media": {
-      "width": 225,
-      "src": "/images/guarana.webp",
-      "height": 183
-    }
-  },
-  {
-    "type": "Pepsi",
-    "media": {
-      "width": 225,
-      "height": 183,
-      "src": "/images/pepsi.jpeg"
-    },
-    "available": 12
-  },
-  {
-    "available": 12,
-    "media": {
-      "width": 225,
-      "height": 183,
-      "src": "/images/coca.jpg"
-    },
-    "type": "Coca-Cola"
-  },
-  {
-    "available": 2,
+    "available": 1,
     "media": {
       "width": 225,
       "height": 183,

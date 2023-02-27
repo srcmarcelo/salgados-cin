@@ -45,7 +45,7 @@ export default function AdminPageModal({ visible, success }) {
       <div style={{ textAlign: 'center', marginBottom: '20px' }}>
         Digite a senha para ter acesso aos controles do painel de controle:
       </div>
-      <Input onChange={(e) => setPassword(e.target.value)} />
+      <Input onChange={(e) => setPassword(e.target.value)} onPressEnter={VerifyPassword} />
     </Modal>
   );
 }
