@@ -10,6 +10,7 @@ export default function BookingList({ control, onConfirm }) {
 
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [times, setTimes] = useState([]);
 
   const statuses = [
     'Pendente',
@@ -19,13 +20,6 @@ export default function BookingList({ control, onConfirm }) {
     'Cancelado',
   ];
 
-  const times = [
-    'Reservas da manhã (entre 09:45 e 10:15)',
-    'Reservas do meio dia (entre 11:45 e 12:30)',
-    'Reservas da tarde (entre 14:30 e 15:30)',
-    'Reservas da noite (entre 16:45 e 17:15)',
-  ];
-
   const statusColor = ['orange', 'blue', 'green', '#092b00', 'red'];
 
   const getList = async () => {
@@ -33,6 +27,11 @@ export default function BookingList({ control, onConfirm }) {
     const docRef = doc(db, 'salgados', 'reservas');
     const docSnap = await getDoc(docRef);
     const reverseOrders = docSnap.data().booking;
+    setTimes(
+      docSnap.data().time > 1
+        ? docSnap.data().reversedTimes
+        : docSnap.data().times
+    );
     _.reverse(reverseOrders);
     setOrders(reverseOrders);
     setLoading(false);

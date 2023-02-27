@@ -22,8 +22,7 @@ export default function AdminCommentsCP() {
   const modes = [
     'Entre 09:45 e 10:15',
     'Entre 11:45 e 12:30',
-    'Entre 14:30 e 15:30',
-    'Entre 16:45 e 17:15',
+    'Entre 14:30 e 17:30',
   ];
 
   useEffect(() => {
