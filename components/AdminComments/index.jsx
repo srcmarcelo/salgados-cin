@@ -91,17 +91,6 @@ export default function AdminComments() {
                   content: (
                     <div>
                       <h2>Qualquer salgado por R$ 3,00!</h2>
-                      <p>
-                        <strong>COMBO</strong> Guaraná Antarctica/Pepsi +
-                        salgado por R$ 5,00!
-                      </p>
-                      <p style={{ marginBottom: 3 }}>
-                        <strong>REFRIGERANTES INDIVIDUAIS: </strong>
-                      </p>
-                      <p style={{ margin: 0 }}>
-                        Guaraná Antarctica/Pepsi -- R$2,50
-                      </p>
-                      <p style={{ marginBottom: 15 }}>Coca-Cola -- R$3,00</p>
                       <p style={{ marginBottom: 3 }}>
                         <strong>CAFÉ:</strong>
                       </p>
