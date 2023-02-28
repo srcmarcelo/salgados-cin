@@ -203,11 +203,11 @@ export default function BookingList({ control, onConfirm }) {
           Zerar
         </Button>
       )}
-      {times.map((time, index) => (
+      {times.map(({label, key}) => (
         <RenderList
-          title={time}
-          data={orders.filter((order) => order.time === index)}
-          key={index}
+          title={label}
+          data={orders.filter((order) => order.time === key)}
+          key={key}
         />
       ))}
     </div>
