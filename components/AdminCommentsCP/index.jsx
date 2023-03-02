@@ -18,12 +18,7 @@ export default function AdminCommentsCP() {
   const [option, setOption] = useState(0);
   const [comment, setComment] = useState('');
   const [time, setTime] = useState(0);
-
-  const modes = [
-    'Entre 09:45 e 10:15',
-    'Entre 11:45 e 12:30',
-    'Entre 14:30 e 17:30',
-  ];
+  const [modes, setModes] = useState([]);
 
   useEffect(() => {
     getComments();
@@ -35,6 +30,7 @@ export default function AdminCommentsCP() {
     const docRef2 = doc(db, 'salgados', 'reservas');
     const docSnap2 = await getDoc(docRef2);
     setOption(docSnap.data().status);
+    setModes(docSnap2.data().times);
     setTime(docSnap2.data().time);
     setComment(docSnap.data().comment);
   };
@@ -113,9 +109,9 @@ export default function AdminCommentsCP() {
         </Radio.Group>
         <Radio.Group onChange={onChangeTime} value={time}>
           <Space direction='vertical'>
-            {modes.map((mode, index) => (
+            {modes.map(({label}, index) => (
               <Radio key={`modes_${index}`} value={index}>
-                {mode}
+                {label}
               </Radio>
             ))}
           </Space>

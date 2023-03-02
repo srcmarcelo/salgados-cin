@@ -36,6 +36,7 @@ export default function BookingForm() {
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [userModalVisible, setUserModalVisible] = useState(false);
   const [order, setOrder] = useState([]);
+  const [modes, setModes] = useState([]);
   const [totalOrder, setTotalOrder] = useState(0);
   const [userData, setUserData] = useState({});
   const [mode, setMode] = useState(0);
@@ -44,11 +45,6 @@ export default function BookingForm() {
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
 
-  const modes = [
-    'Entre 09:45 e 10:15',
-    'Entre 11:45 e 12:30',
-    'Entre 14:30 e 17:30',
-  ];
   const docs = ['disponiveis', 'backup'];
 
   const { Column } = Table;
@@ -71,6 +67,7 @@ export default function BookingForm() {
     const docRef = doc(db, 'salgados', 'reservas');
     const docSnap = await getDoc(docRef);
     setEnabled(docSnap.data().enabled);
+    setModes(docSnap.data().times);
     setMode(docSnap.data().time);
     setTime(docSnap.data().time);
     setLoading(false);
@@ -207,9 +204,9 @@ export default function BookingForm() {
         style={{ display: 'flex', justifyContent: 'center' }}
       >
         <Space direction='vertical'>
-          {modes.map((item, index) => (
+          {modes.map(({label}, index) => (
             <Radio key={`radio_${index}`} value={index} disabled={index < time}>
-              {item}
+              {label}
             </Radio>
           ))}
         </Space>
