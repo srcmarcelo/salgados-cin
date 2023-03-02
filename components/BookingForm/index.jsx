@@ -406,7 +406,7 @@ export default function BookingForm() {
         <div style={{ fontSize: '1.2rem' }}>
           Pedido de <strong>{userData.name}</strong>
         </div>
-        <div style={{ fontSize: '1rem' }}>{modes[mode]}</div>
+        <div style={{ fontSize: '1rem' }}>{modes[mode]?.label}</div>
         <ModalConfirmContent>
           {order.map((item, index) => {
             if (item.value > 0) {
