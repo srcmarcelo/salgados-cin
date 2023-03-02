@@ -74,7 +74,7 @@ export default function BookingForm() {
   };
 
   const getAvailabes = async () => {
-    const docRef = doc(db, 'salgados', time > 1 ? docs[0] : docs[mode > 1 ? 1 : 0]);
+    const docRef = doc(db, 'salgados', time > 0 ? docs[0] : docs[mode > 0 ? 1 : 0]);
     const docSnap = await getDoc(docRef);
     const availables = docSnap.data().disponiveis;
     availables.forEach((item, index) => (availables[index].value = 0));
@@ -82,7 +82,7 @@ export default function BookingForm() {
   };
 
   const updateAvailabes = async () => {
-    const docRef = doc(db, 'salgados', time > 1 ? docs[0] : docs[mode > 1 ? 1 : 0]);
+    const docRef = doc(db, 'salgados', time > 0 ? docs[0] : docs[mode > 0 ? 1 : 0]);
     const docSnap = await getDoc(docRef);
     const availables = docSnap.data().disponiveis;
     order.forEach(

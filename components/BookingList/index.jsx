@@ -28,7 +28,7 @@ export default function BookingList({ control, onConfirm }) {
     const docSnap = await getDoc(docRef);
     const reverseOrders = docSnap.data().booking;
     setTimes(
-      docSnap.data().time > 1
+      docSnap.data().time > 0
         ? docSnap.data().reversedTimes
         : docSnap.data().times
     );
