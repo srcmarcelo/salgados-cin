@@ -27,6 +27,7 @@ import {
   ModalConfirmContent,
   ModalConfirmStatisticContainer,
 } from './styles';
+import ExtraAlert from '../ExtraAlert';
 
 export default function BookingForm() {
   const db = getFirestore(firebase);
@@ -74,7 +75,11 @@ export default function BookingForm() {
   };
 
   const getAvailabes = async () => {
-    const docRef = doc(db, 'salgados', time > 0 ? docs[0] : docs[mode > 0 ? 1 : 0]);
+    const docRef = doc(
+      db,
+      'salgados',
+      time > 0 ? docs[0] : docs[mode > 0 ? 1 : 0]
+    );
     const docSnap = await getDoc(docRef);
     const availables = docSnap.data().disponiveis;
     availables.forEach((item, index) => (availables[index].value = 0));
@@ -82,7 +87,11 @@ export default function BookingForm() {
   };
 
   const updateAvailabes = async () => {
-    const docRef = doc(db, 'salgados', time > 0 ? docs[0] : docs[mode > 0 ? 1 : 0]);
+    const docRef = doc(
+      db,
+      'salgados',
+      time > 0 ? docs[0] : docs[mode > 0 ? 1 : 0]
+    );
     const docSnap = await getDoc(docRef);
     const availables = docSnap.data().disponiveis;
     order.forEach(
@@ -204,7 +213,7 @@ export default function BookingForm() {
         style={{ display: 'flex', justifyContent: 'center' }}
       >
         <Space direction='vertical'>
-          {modes.map(({label}, index) => (
+          {modes.map(({ label }, index) => (
             <Radio key={`radio_${index}`} value={index} disabled={index < time}>
               {label}
             </Radio>
@@ -445,6 +454,21 @@ export default function BookingForm() {
         </p>
       </div>
       <Controls />
+      <ExtraAlert
+        title={
+          <p style={{ color: 'blue', margin: 0 }}>EM BREVE RESERVAS DE PIZZA</p>
+        }
+        content={
+          <div
+            style={{
+              textAlign: 'center',
+            }}
+          >
+            No momento, apenas reserva de salgados disponíveis. Compras de
+            pizzas devem ser feitas presencialmente.
+          </div>
+        }
+      />
       <Form didRetry={didRetry} />
       <Footer />
     </FormContainer>

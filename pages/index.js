@@ -6,6 +6,7 @@ import React from 'react';
 import AvailablesList from '../components/Availables';
 import AdminComments from '../components/AdminComments';
 import { Button, Affix, Collapse } from 'antd';
+import ExtraAlert from '../components/ExtraAlert';
 
 export default function Home() {
   return (
@@ -48,6 +49,22 @@ export default function Home() {
           </Collapse> */}
         </div>
 
+        <ExtraAlert
+            title={
+              <p style={{ color: 'blue', margin: 0 }}>HOJE TEMOS NOVIDADE</p>
+            }
+            content={
+              <div
+                style={{
+                  textAlign: 'center',
+                }}
+              >
+                PIZZAS POR R$ 4,00! No momento, apenas presencialmente.
+                Verifique a disponibilidade no final da lista de disponíveis.
+              </div>
+            }
+          />
+
         <AvailablesList />
       </main>
 
@@ -60,12 +77,7 @@ export default function Home() {
         >
           srcmarcelo{' '}
           <span className={styles.logo}>
-            <Image
-              src='/linkedin.png'
-              alt='LinkedIn'
-              width={30}
-              height={30}
-            />
+            <Image src='/linkedin.png' alt='LinkedIn' width={30} height={30} />
           </span>
         </a>
       </footer>
