@@ -13,8 +13,26 @@
     "media": {
       "width": 225,
       "height": 183,
-      "src": "/images/pizzas.jpg"
+      "src": "/images/pizza_calabresa.png"
     },
-    "type": "Pizzas"
+    "type": "Pizza de calabresa"
+  },
+  {
+    "available": 15,
+    "media": {
+      "width": 225,
+      "height": 183,
+      "src": "/images/pizza_frango.webp"
+    },
+    "type": "Pizza de frango"
+  },
+  {
+    "available": 5,
+    "media": {
+      "width": 225,
+      "height": 183,
+      "src": "/images/pizza_queijo.jpg"
+    },
+    "type": "Pizza de queijo"
   }
 ]
