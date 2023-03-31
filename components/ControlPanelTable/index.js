@@ -3,10 +3,13 @@ import React from 'react';
 import { Button, Card, Spin } from 'antd';
 import Image from 'next/image';
 import styles from '../../styles/Home.module.css';
+import { useState } from 'react';
+import { CloseCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 
 export default function ControlPanelTable(props) {
   const { Meta } = Card;
-  const { availables, soda, openOrderModal } = props;
+  const { availables, soda, openOrderModal, mode } = props;
+  const [isShown, setIsShown] = useState('');
 
   const RenderList = ({ data }) => {
     const components = data.map((item, index) => (
@@ -19,9 +22,28 @@ export default function ControlPanelTable(props) {
           border: item.available === 0 && '2px solid red',
           backgroundColor: item.available === 0 && 'red',
         }}
+        onMouseEnter={() => setIsShown(item.name)}
+        onMouseLeave={() => setIsShown('')}
         cover={<Image alt={item.name} src={item.media} />}
         onClick={() => props.onClick(availables.indexOf(item))}
       >
+        {isShown && item.name === isShown && (
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            {
+              mode === 'Vender' ? <CloseCircleOutlined style={{fontSize: '100px', color: 'rgb(221, 29, 29)'}} /> : <PlusCircleOutlined  style={{fontSize: '100px', color: 'rgb(51, 141, 37)'}}/>
+            }
+          </div>
+        )}
         <Meta
           title={
             <h3
@@ -59,9 +81,28 @@ export default function ControlPanelTable(props) {
           border: item.available === 0 && '2px solid red',
           backgroundColor: item.available === 0 && 'red',
         }}
+        onMouseEnter={() => setIsShown(item.type)}
+        onMouseLeave={() => setIsShown('')}
         onClick={() => props.onClickSoda(soda.indexOf(item))}
         cover={<Image alt={item.type} src={item.media} />}
       >
+        {isShown && item.type === isShown && (
+          <div style={{
+            position: 'absolute',
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            {
+              mode === 'Vender' ? <CloseCircleOutlined style={{fontSize: '100px', color: 'rgb(221, 29, 29)'}} /> : <PlusCircleOutlined  style={{fontSize: '100px', color: 'rgb(51, 141, 37)'}}/>
+            }
+          </div>
+        )}
         <Meta
           title={
             <h3

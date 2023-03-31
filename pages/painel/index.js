@@ -8,6 +8,8 @@ import AdminPageModal from '../../components/AdminPageModal';
 
 export default function Painel() {
   const [admin, setAdmin] = useState(true);
+  
+  
 
   useEffect(() => {
     setAdmin(false);

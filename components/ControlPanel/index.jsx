@@ -260,6 +260,7 @@ export default function ControlPanel() {
         onClickSoda={changeAvailablesSoda}
         openOrderModal={openOrderModal}
         booking={booking}
+        mode={mode}
       />
       <PanelButtons />
       <div style={{ marginTop: 20 }}>

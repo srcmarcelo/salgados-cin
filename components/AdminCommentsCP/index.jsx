@@ -149,6 +149,8 @@ export default function AdminCommentsCP() {
             onClick={() => updateBooking(true)}
             label='Liberar Reservas'
             color='darkgreen'
+            border='solid'
+            border-width='3px'
           />
           <RenderControlButton
             onClick={updateTime}
