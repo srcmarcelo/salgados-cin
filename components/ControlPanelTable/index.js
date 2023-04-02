@@ -4,7 +4,7 @@ import { Button, Card, Spin } from 'antd';
 import Image from 'next/image';
 import styles from '../../styles/Home.module.css';
 import { useState } from 'react';
-import { CloseCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { MinusCircleOutlined, PlusCircleOutlined } from '@ant-design/icons';
 
 export default function ControlPanelTable(props) {
   const { Meta } = Card;
@@ -40,7 +40,7 @@ export default function ControlPanelTable(props) {
             alignItems: 'center'
           }}>
             {
-              mode === 'Vender' ? <CloseCircleOutlined style={{fontSize: '100px', color: 'rgb(221, 29, 29)'}} /> : <PlusCircleOutlined  style={{fontSize: '100px', color: 'rgb(51, 141, 37)'}}/>
+              mode === 'Vender' ? <MinusCircleOutlined  style={{fontSize: '100px', color: ' rgb(184, 184, 27)'}} /> : <PlusCircleOutlined  style={{fontSize: '100px', color: 'rgb(51, 141, 37)'}}/>
             }
           </div>
         )}
@@ -99,7 +99,7 @@ export default function ControlPanelTable(props) {
             alignItems: 'center'
           }}>
             {
-              mode === 'Vender' ? <CloseCircleOutlined style={{fontSize: '100px', color: 'rgb(221, 29, 29)'}} /> : <PlusCircleOutlined  style={{fontSize: '100px', color: 'rgb(51, 141, 37)'}}/>
+              mode === 'Vender' ? <MinusCircleOutlined  style={{fontSize: '100px', color: 'rgb(184, 184, 27)'}} /> : <PlusCircleOutlined  style={{fontSize: '100px', color: 'rgb(51, 141, 37)'}}/>
             }
           </div>
         )}
