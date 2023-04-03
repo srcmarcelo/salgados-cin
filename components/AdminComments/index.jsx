@@ -80,7 +80,7 @@ export default function AdminComments() {
         content={
           <>
             <p style={{ fontSize: '0.9rem', marginBottom: 8 }}>
-              Veja os preços, combos e promoções
+              Veja nossos preços!
             </p>
             <Button
               type='primary'
@@ -91,7 +91,7 @@ export default function AdminComments() {
                   content: (
                     <div>
                       <h2>Qualquer salgado por R$ 3,00!</h2>
-                      <h2>Pizza brotinho R$ 4,00!</h2>
+                      <h2>Pizza R$ 5,00!</h2>
                       <p style={{ marginBottom: 3 }}>
                         <strong>CAFÉ:</strong>
                       </p>
@@ -100,6 +100,8 @@ export default function AdminComments() {
                         Copo grande (150ml) -- R$2,00
                       </p>
                       <p>Aceitamos PIX, dinheiro ou cartão!</p>
+                      <p><strong>Chave PIX:</strong></p>
+                      <p>marcelo.cristian.969@gmail.com</p>
                     </div>
                   ),
                 })
