@@ -435,7 +435,7 @@ export default function BookingForm() {
       <Button
         type='primary'
         onClick={handleOpenUserModal}
-        disabled={totalOrder < 1}
+        disabled={totalOrder + totalPizzaOrder < 1}
       >
         Confirmar
       </Button>
