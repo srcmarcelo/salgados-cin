@@ -39,6 +39,7 @@ export default function BookingForm() {
   const [order, setOrder] = useState([]);
   const [modes, setModes] = useState([]);
   const [totalOrder, setTotalOrder] = useState(0);
+  const [totalPizzaOrder, setTotalPizzaOrder] = useState(0);
   const [userData, setUserData] = useState({});
   const [mode, setMode] = useState(0);
   const [time, setTime] = useState(0);
@@ -60,8 +61,13 @@ export default function BookingForm() {
 
   useEffect(() => {
     let total = 0;
-    order.forEach((item) => (total += parseInt(item.value)));
+    let pizzas = 0;
+    order.forEach((item) => {
+      if (item.type === 'pizza') pizzas += parseInt(item.value);
+      else total += parseInt(item.value);
+    });
     setTotalOrder(total);
+    setTotalPizzaOrder(pizzas);
   }, [order, didRetry]);
 
   const getTime = async () => {
@@ -80,8 +86,13 @@ export default function BookingForm() {
       'salgados',
       time > 0 ? docs[0] : docs[mode > 0 ? 1 : 0]
     );
+    const docRef2 = doc(db, 'salgados', 'refrigerantes');
     const docSnap = await getDoc(docRef);
-    const availables = docSnap.data().disponiveis;
+    const docSnap2 = await getDoc(docRef2);
+    const pizzas = docSnap2
+      .data()
+      .disponiveis.filter((item) => item.type === 'pizza');
+    const availables = [...pizzas, ...docSnap.data().disponiveis];
     availables.forEach((item, index) => (availables[index].value = 0));
     setOrder(availables);
   };
@@ -92,8 +103,13 @@ export default function BookingForm() {
       'salgados',
       time > 0 ? docs[0] : docs[mode > 0 ? 1 : 0]
     );
+    const docRef2 = doc(db, 'salgados', 'refrigerantes');
     const docSnap = await getDoc(docRef);
-    const availables = docSnap.data().disponiveis;
+    const docSnap2 = await getDoc(docRef2);
+    const pizzas = docSnap2
+      .data()
+      .disponiveis.filter((item) => item.type === 'pizza');
+    const availables = [...pizzas, ...docSnap.data().disponiveis];
     order.forEach(
       (item, index) => (availables[index].value = order[index].value)
     );
@@ -147,7 +163,7 @@ export default function BookingForm() {
       id: orders.length,
       name: userData.name,
       order: sendOrder,
-      price: `R$ ${totalOrder * 3},00`,
+      price: `R$ ${totalOrder * 3 + totalPizzaOrder * 5},00`,
       status: 0,
       time: mode,
     };
@@ -344,21 +360,73 @@ export default function BookingForm() {
   );
 
   const StatisticSection = () => (
-    <>
-      <Statistic
-        title='Quantidade'
-        value={totalOrder}
-        suffix='salgados'
-        valueStyle={{ fontSize: '1.2rem' }}
-      />
-      <Statistic
-        title='Valor'
-        value={totalOrder * 3}
-        prefix='R$'
-        precision={2}
-        valueStyle={{ fontSize: '1.2rem' }}
-      />
-    </>
+    <div style={{ width: '50%' }}>
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'space-between',
+          margin: '10px 0px 5px 0px',
+        }}
+      >
+        <Statistic
+          title='Quantidade'
+          value={totalOrder}
+          suffix='salgados'
+          valueStyle={{ fontSize: '1.2rem' }}
+        />
+        <Statistic
+          title='Valor'
+          value={totalOrder * 3}
+          prefix='R$'
+          precision={2}
+          valueStyle={{ fontSize: '1.2rem' }}
+        />
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'space-between',
+          marginBottom: '15px',
+        }}
+      >
+        <Statistic
+          title='Quantidade'
+          value={totalPizzaOrder}
+          suffix='pizzas'
+          valueStyle={{ fontSize: '1.2rem' }}
+        />
+        <Statistic
+          title='Valor'
+          value={totalPizzaOrder * 5}
+          prefix='R$'
+          precision={2}
+          valueStyle={{ fontSize: '1.2rem' }}
+        />
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Statistic
+          title='Quantidade'
+          value={totalOrder + totalPizzaOrder}
+          suffix='items'
+          valueStyle={{ fontSize: '1.2rem' }}
+        />
+        <Statistic
+          title='Valor total'
+          value={totalOrder * 3 + totalPizzaOrder * 5}
+          prefix='R$'
+          precision={2}
+          valueStyle={{ fontSize: '1.5rem' }}
+        />
+      </div>
+    </div>
   );
 
   const Footer = () => (
@@ -418,15 +486,16 @@ export default function BookingForm() {
         <div style={{ fontSize: '1rem' }}>{modes[mode]?.label}</div>
         <ModalConfirmContent>
           {order.map((item, index) => {
+            const rightIndex = item.name.includes('Pizza') ? index + 1 : index - 3;
             if (item.value > 0) {
               sendOrder.push({
                 item: item.name,
                 value: item.value,
-                index: index,
+                index: rightIndex,
               });
               return (
                 <div
-                  key={`${item.name}_${index}`}
+                  key={`${item.name}_${rightIndex}`}
                   style={{ fontSize: '1.2rem' }}
                 >{`${item.value} ${item.name}`}</div>
               );
@@ -456,7 +525,9 @@ export default function BookingForm() {
       <Controls />
       <ExtraAlert
         title={
-          <p style={{ color: 'blue', margin: 0 }}>EM BREVE RESERVAS DE PIZZA</p>
+          <p style={{ color: 'green', margin: 0 }}>
+            RESERVAS DE PIZZAS LIBERADAS!
+          </p>
         }
         content={
           <div
@@ -464,8 +535,7 @@ export default function BookingForm() {
               textAlign: 'center',
             }}
           >
-            No momento, apenas reserva de salgados disponíveis. Compras de
-            pizzas devem ser feitas presencialmente.
+            Agora você pode reservar também pizzas dos seus sabores favoritos!
           </div>
         }
       />

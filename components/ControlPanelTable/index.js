@@ -15,7 +15,7 @@ export default function ControlPanelTable(props) {
     const components = data.map((item, index) => (
       <Card
         hoverable
-        key={`${item.type}_${index}`}
+        key={`${item.name}_${index}`}
         style={{
           width: 240,
           margin: '10px 0px',
@@ -25,23 +25,34 @@ export default function ControlPanelTable(props) {
         onMouseEnter={() => setIsShown(item.name)}
         onMouseLeave={() => setIsShown('')}
         cover={<Image alt={item.name} src={item.media} />}
-        onClick={() => props.onClick(availables.indexOf(item))}
+        onClick={() => {
+          props.onClick(availables.indexOf(item));
+          setIsShown('');
+        }}
       >
         {isShown && item.name === isShown && (
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.4)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
-            {
-              mode === 'Vender' ? <MinusCircleOutlined  style={{fontSize: '100px', color: ' rgb(184, 184, 27)'}} /> : <PlusCircleOutlined  style={{fontSize: '100px', color: 'rgb(51, 141, 37)'}}/>
-            }
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.4)',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            {mode === 'Vender' ? (
+              <MinusCircleOutlined
+                style={{ fontSize: '100px', color: ' rgb(184, 184, 27)' }}
+              />
+            ) : (
+              <PlusCircleOutlined
+                style={{ fontSize: '100px', color: 'rgb(51, 141, 37)' }}
+              />
+            )}
           </div>
         )}
         <Meta
@@ -52,7 +63,9 @@ export default function ControlPanelTable(props) {
               {item.name}
             </h3>
           }
-          description={`${item.available} unidades - ${props.booking[item.name] || 0} dentro`}
+          description={`${item.available} unidades - ${
+            props.booking[item.name] || 0
+          } dentro`}
         />
       </Card>
     ));
@@ -74,33 +87,44 @@ export default function ControlPanelTable(props) {
     const components = data.map((item, index) => (
       <Card
         hoverable
-        key={`${item.type}_${index}`}
+        key={`${item.name}_${index}`}
         style={{
           width: 225,
           margin: '10px 20px',
           border: item.available === 0 && '2px solid red',
           backgroundColor: item.available === 0 && 'red',
         }}
-        onMouseEnter={() => setIsShown(item.type)}
+        onMouseEnter={() => setIsShown(item.name)}
         onMouseLeave={() => setIsShown('')}
-        onClick={() => props.onClickSoda(soda.indexOf(item))}
-        cover={<Image alt={item.type} src={item.media} />}
+        onClick={() => {
+          props.onClickSoda(soda.indexOf(item));
+          setIsShown('');
+        }}
+        cover={<Image alt={item.name} src={item.media} />}
       >
-        {isShown && item.type === isShown && (
-          <div style={{
-            position: 'absolute',
-            top: 0,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            backgroundColor: 'rgba(0, 0, 0, 0.4)',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-          }}>
-            {
-              mode === 'Vender' ? <MinusCircleOutlined  style={{fontSize: '100px', color: 'rgb(184, 184, 27)'}} /> : <PlusCircleOutlined  style={{fontSize: '100px', color: 'rgb(51, 141, 37)'}}/>
-            }
+        {isShown && item.name === isShown && (
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              bottom: 0,
+              left: 0,
+              right: 0,
+              backgroundColor: 'rgba(0, 0, 0, 0.4)',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            {mode === 'Vender' ? (
+              <MinusCircleOutlined
+                style={{ fontSize: '100px', color: 'rgb(184, 184, 27)' }}
+              />
+            ) : (
+              <PlusCircleOutlined
+                style={{ fontSize: '100px', color: 'rgb(51, 141, 37)' }}
+              />
+            )}
           </div>
         )}
         <Meta
@@ -108,7 +132,7 @@ export default function ControlPanelTable(props) {
             <h3
               style={{ margin: '4px', fontSize: '0.9rem', fontWeight: 'bold' }}
             >
-              {item.type}
+              {item.name}
             </h3>
           }
           description={`Disponiveis: ${item.available} unidades`}

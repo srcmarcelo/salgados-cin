@@ -84,13 +84,13 @@ export default function ControlPanel() {
     getAvailabes();
   };
 
-  const changeAvailables = async (index, value) => {
+  const changeAvailables = async (index, value, confirm) => {
     const availablesRef = doc(db, 'salgados', 'disponiveis');
     const newAvailables = availables;
     const changingNumber = value || 1;
     if (newAvailables[index].available > 0 || mode === 'Repor') {
       newAvailables[index].available =
-        mode === 'Vender'
+        mode === 'Vender' || confirm
           ? newAvailables[index].available - changingNumber
           : newAvailables[index].available + changingNumber;
       await updateDoc(availablesRef, {
@@ -100,14 +100,15 @@ export default function ControlPanel() {
     }
   };
 
-  const changeAvailablesSoda = async (index) => {
+  const changeAvailablesSoda = async (index, value, confirm) => {
     const availablesRef = doc(db, 'salgados', 'refrigerantes');
     const newAvailables = soda;
+    const changingNumber = value || 1;
     if (newAvailables[index].available > 0 || mode === 'Repor') {
       newAvailables[index].available =
-        mode === 'Vender'
-          ? newAvailables[index].available - 1
-          : newAvailables[index].available + 1;
+        mode === 'Vender' || confirm
+          ? newAvailables[index].available - changingNumber
+          : newAvailables[index].available + changingNumber;
       await updateDoc(availablesRef, {
         disponiveis: newAvailables,
       });
@@ -264,7 +265,11 @@ export default function ControlPanel() {
       />
       <PanelButtons />
       <div style={{ marginTop: 20 }}>
-        <BookingList control={true} onConfirm={changeAvailables} />
+        <BookingList
+          control={true}
+          onConfirm={changeAvailables}
+          onConfirmPizza={changeAvailablesSoda}
+        />
       </div>
     </div>
   );

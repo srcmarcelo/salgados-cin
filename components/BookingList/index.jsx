@@ -5,7 +5,7 @@ import firebase from '../../firebase/clientApp';
 import { doc, getFirestore, getDoc, updateDoc } from 'firebase/firestore';
 import _ from 'lodash';
 
-export default function BookingList({ control, onConfirm }) {
+export default function BookingList({ control, onConfirm, onConfirmPizza }) {
   const db = getFirestore(firebase);
 
   const [orders, setOrders] = useState([]);
@@ -47,7 +47,10 @@ export default function BookingList({ control, onConfirm }) {
 
     if (newOrders[item.id].status === 2) {
       item.order.forEach((product) => {
-        onConfirm(product.index, product.value);
+        console.log('product:', product)
+        if (product.item.includes('Pizza'))
+          onConfirmPizza(product.index, product.value, true);
+        else onConfirm(product.index, product.value, true);
       });
     }
 
@@ -203,7 +206,7 @@ export default function BookingList({ control, onConfirm }) {
           Zerar
         </Button>
       )}
-      {times.map(({label, key}) => (
+      {times.map(({ label, key }) => (
         <RenderList
           title={label}
           data={orders.filter((order) => order.time === key)}

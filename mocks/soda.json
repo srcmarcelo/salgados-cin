@@ -6,7 +6,8 @@
       "height": 183,
       "src": "/images/cafe.jpg"
     },
-    "type": "Café"
+    "type": "café",
+    "name": "Café"
   },
   {
     "available": 20,
@@ -15,7 +16,8 @@
       "height": 183,
       "src": "/images/pizza_calabresa.png"
     },
-    "type": "Pizza de calabresa"
+    "type": "pizza",
+    "name": "Pizza de calabresa"
   },
   {
     "available": 15,
@@ -24,7 +26,8 @@
       "height": 183,
       "src": "/images/pizza_frango.webp"
     },
-    "type": "Pizza de frango"
+    "type": "pizza",
+    "name": "Pizza de frango"
   },
   {
     "available": 5,
@@ -33,6 +36,7 @@
       "height": 183,
       "src": "/images/pizza_queijo.jpg"
     },
-    "type": "Pizza de queijo"
+    "type": "pizza",
+    "name": "Pizza de queijo"
   }
 ]

@@ -37,7 +37,7 @@ export default function AvailablesList() {
     const components = data.map((item, index) => (
       <Card
         hoverable
-        key={`${item.type}_${index}`}
+        key={`${item.name}_${index}`}
         style={{
           width: 240,
           margin: '10px 0px',
@@ -76,25 +76,25 @@ export default function AvailablesList() {
     const components = data.map((item, index) => (
       <Card
         hoverable
-        key={`${item.type}_${index}`}
+        key={`${item.name}_${index}`}
         style={{
           width: 225,
           margin: '10px 20px',
           border: item.available === 0 && '2px solid red',
           backgroundColor: item.available === 0 && 'red',
         }}
-        cover={<Image alt={item.type} src={item.media} />}
+        cover={<Image alt={item.name} src={item.media} />}
       >
         <Meta
           title={
             <h3
               style={{ margin: '4px', fontSize: '0.9rem', fontWeight: 'bold' }}
             >
-              {item.type}
+              {item.name}
             </h3>
           }
           description={
-            item.type === 'Café'
+            item.name === 'Café'
               ? item.available > 0
                 ? 'Disponível'
                 : 'Não disponível'
@@ -125,20 +125,20 @@ export default function AvailablesList() {
           Atualizar listas
         </Button>
       </Affix>
-      <h2 style={{margin: '0px'}}>Salgados Disponíveis</h2>
+      <h2 style={{ margin: '0px' }}>Salgados Disponíveis</h2>
       {status === 2 && <h2>(apenas para reservas)</h2>}
       {loading ? (
         <Spin />
       ) : (
         <>
           <div className={styles.grid}>
+            <RenderSodaList data={soda} />
+          </div>
+          <div className={styles.grid}>
             <RenderGroup types={['doce', 'misto']} />
             <RenderGroup types={['frango']} />
             <RenderGroup types={['frango2', 'carne', 'salsicha']} />
             <RenderGroup types={['queijo']} />
-          </div>
-          <div className={styles.grid}>
-            <RenderSodaList data={soda} />
           </div>
         </>
       )}
