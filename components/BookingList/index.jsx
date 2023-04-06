@@ -5,7 +5,7 @@ import firebase from '../../firebase/clientApp';
 import { doc, getFirestore, getDoc, updateDoc } from 'firebase/firestore';
 import _ from 'lodash';
 
-export default function BookingList({ control, onConfirm, onConfirmPizza }) {
+export default function BookingList({ control, onConfirm, onConfirmPizza, onUndo }) {
   const db = getFirestore(firebase);
 
   const [orders, setOrders] = useState([]);
@@ -41,13 +41,19 @@ export default function BookingList({ control, onConfirm, onConfirmPizza }) {
     const bookingRef = doc(db, 'salgados', 'reservas');
     const docSnap = await getDoc(bookingRef);
     const newOrders = docSnap.data().booking;
+    
+    if(newOrders[item.id].status > 1 && newOrders[item.id].status < 4 && cancel){
+      onUndo(item.order);
+    } 
+
     if (item.status < 4)
       newOrders[item.id].status = cancel ? 4 : item.status + 1;
-    else newOrders[item.id].status = 0;
+    else{ 
+      newOrders[item.id].status = 0;
+    }
 
     if (newOrders[item.id].status === 2) {
       item.order.forEach((product) => {
-        console.log('product:', product)
         if (product.item.includes('Pizza'))
           onConfirmPizza(product.index, product.value, true);
         else onConfirm(product.index, product.value, true);

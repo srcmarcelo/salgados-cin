@@ -87,6 +87,7 @@ export default function ControlPanel() {
   const changeAvailables = async (index, value, confirm) => {
     const availablesRef = doc(db, 'salgados', 'disponiveis');
     const newAvailables = availables;
+    console.log('newAvailables: ', newAvailables);
     const changingNumber = value || 1;
     if (newAvailables[index].available > 0 || mode === 'Repor') {
       newAvailables[index].available =
@@ -100,6 +101,24 @@ export default function ControlPanel() {
     }
   };
 
+  const restoreCancelOrder = async(orders) => {
+    const availablesRef =  doc(db, 'salgados', 'disponiveis');
+    const newAvailables = availables;
+    orders.forEach((order) =>{
+        const index = order.index;
+        const value = order.value;
+        newAvailables[index].available += value;
+    });
+    
+
+    await updateDoc(availablesRef, {
+      disponiveis: newAvailables,
+    });
+
+    
+
+  }
+
   const changeAvailablesSoda = async (index, value, confirm) => {
     const availablesRef = doc(db, 'salgados', 'refrigerantes');
     const newAvailables = soda;
@@ -112,6 +131,8 @@ export default function ControlPanel() {
       await updateDoc(availablesRef, {
         disponiveis: newAvailables,
       });
+      console.log(availablesRef);
+      con
       getAvailabes();
     }
   };
@@ -268,6 +289,7 @@ export default function ControlPanel() {
         <BookingList
           control={true}
           onConfirm={changeAvailables}
+          onUndo={restoreCancelOrder}
           onConfirmPizza={changeAvailablesSoda}
         />
       </div>
