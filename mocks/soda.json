@@ -10,7 +10,7 @@
     "name": "Café"
   },
   {
-    "available": 20,
+    "available": 15,
     "media": {
       "width": 225,
       "height": 183,
@@ -20,7 +20,7 @@
     "name": "Pizza de calabresa"
   },
   {
-    "available": 15,
+    "available": 10,
     "media": {
       "width": 225,
       "height": 183,
