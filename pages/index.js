@@ -12,6 +12,10 @@ export default function Home() {
     <div className={styles.container}>
       <Head>
         <title>Salgados CIn!</title>
+        <meta
+          name='google-site-verification'
+          content='fsWu403nKM_dN5xMNZ61YSDli-w5kUUAwTXJZzy9MvQ'
+        />
         <meta name='description' content='Marcelinho dos salgados!' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
