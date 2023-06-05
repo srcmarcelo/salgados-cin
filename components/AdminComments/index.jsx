@@ -90,7 +90,7 @@ export default function AdminComments() {
                   title: 'Tabela de preços',
                   content: (
                     <div>
-                      <h2>Qualquer salgado por R$ 3,00!</h2>
+                      <h2>Qualquer salgado por R$ 3,50!</h2>
                       <h2>Pizza R$ 5,00!</h2>
                       <p style={{ marginBottom: 3 }}>
                         <strong>CAFÉ:</strong>
