@@ -45,7 +45,7 @@ export default function OrderModal(props) {
         coffeLiters > 1 ? 's' : ''
       } de café.\n\n`;
       textAvailables += `Valor: *R$${parseFloat(
-        totalAvailables * 2.2 + coffeLiters * 8
+        totalAvailables * 2.5 + coffeLiters * 8
       ).toFixed(2)}*.`;
       navigator.clipboard.writeText(textAvailables);
       updateBackup();
