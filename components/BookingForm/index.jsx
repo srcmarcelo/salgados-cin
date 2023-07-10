@@ -193,7 +193,7 @@ export default function BookingForm() {
                 fontSize: '0.8rem',
                 margin: '8px 0px',
               }}
-              href='https://chat.whatsapp.com/IBnR0TXPM0e8zO59dcHsHI'
+              href='https://chat.whatsapp.com/ECEkeOOe0dVEDKvTGF2hCM'
             >
               Grupo do WhatSapp
             </Button>
