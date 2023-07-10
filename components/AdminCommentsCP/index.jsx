@@ -3,13 +3,25 @@ import React, { useState, useEffect } from 'react';
 import { Radio, Space, Input, Button, Modal } from 'antd';
 import styles from '../../styles/Home.module.css';
 import firebase from '../../firebase/clientApp';
-import {
-  getDoc,
-  updateDoc,
-  doc,
-  setDoc,
-  getFirestore,
-} from 'firebase/firestore';
+import { getDoc, updateDoc, doc, getFirestore } from 'firebase/firestore';
+
+const DefaultMessages = {
+  0: [
+    'Salgados acabaram de chegar! Estamos nas mesas da área externa do bloco E (prédio branco).',
+    'Amanhã tem mais, pessoal!',
+    'Salgados previstos para chegar às 09:30!',
+  ],
+  1: [
+    'Salgados da tarde acabaram de chegar! Estamos nas mesas da área externa do bloco E (prédio branco).',
+    'Amanhã tem mais, pessoal!',
+    'Salgados previstos para chegar às 14:30!',
+  ],
+};
+
+const DefaultWhatsappMessages = [
+  '*Salgados acabaram de chegar!* Estamos nas mesas da *área externa do bloco* E (prédio branco).',
+  '*Salgados da tarde acabaram de chegar!* Estamos nas mesas da *área externa do bloco* E (prédio branco).',
+];
 
 export default function AdminCommentsCP() {
   const { TextArea } = Input;
@@ -77,7 +89,10 @@ export default function AdminCommentsCP() {
     });
   };
 
-  const changeOption = (e) => setOption(e.target.value);
+  const changeOption = (e) => {
+    setOption(e.target.value);
+    setComment(DefaultMessages[time][e.target.value]);
+  };
   const onChangeTime = (e) => setTime(e.target.value);
   const onChangeText = (e) => setComment(e.target.value);
 
@@ -97,7 +112,14 @@ export default function AdminCommentsCP() {
 
   return (
     <div
-      style={{ backgroundColor: '#ececec', padding: '2rem', margin: '2rem' }}
+      style={{
+        backgroundColor: '#ececec',
+        padding: '2rem',
+        margin: '2rem',
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+      }}
     >
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Radio.Group onChange={changeOption} value={option}>
@@ -109,7 +131,7 @@ export default function AdminCommentsCP() {
         </Radio.Group>
         <Radio.Group onChange={onChangeTime} value={time}>
           <Space direction='vertical'>
-            {modes.map(({label}, index) => (
+            {modes.map(({ label }, index) => (
               <Radio key={`modes_${index}`} value={index}>
                 {label}
               </Radio>
@@ -123,7 +145,7 @@ export default function AdminCommentsCP() {
         value={comment}
         style={{ margin: '1rem 0' }}
       />
-      <div className={styles.grid}>
+      <div className={styles.grid} style={{ justifyContent: 'center' }}>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <RenderControlButton onClick={postComment} label='Enviar Mensagem' />
           <RenderControlButton
@@ -158,6 +180,21 @@ export default function AdminCommentsCP() {
             color='purple'
           />
         </div>
+      </div>
+      <div style={{ padding: 10 }}>
+        <Button
+          type='primary'
+          onClick={() =>
+            navigator.clipboard.writeText(DefaultWhatsappMessages[time])
+          }
+          style={{
+            backgroundColor: '#33A884',
+            borderColor: '#33A884',
+            width: '100%',
+          }}
+        >
+          Gerar Mensagem Whatsapp
+        </Button>
       </div>
     </div>
   );

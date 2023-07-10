@@ -135,7 +135,9 @@ export default function ControlPanelTable(props) {
               {item.name}
             </h3>
           }
-          description={`Disponiveis: ${item.available} unidades`}
+          description={`${item.available} unidades - ${
+            props.booking[item.name] || 0
+          } dentro`}
         />
       </Card>
     ));

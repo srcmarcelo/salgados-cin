@@ -102,15 +102,25 @@ export default function ControlPanel() {
 
   const restoreCancelOrder = async (orders) => {
     const availablesRef = doc(db, 'salgados', 'disponiveis');
+    const sodaRef = doc(db, 'salgados', 'refrigerantes');
     const newAvailables = availables;
+    const newAvailablesSoda = soda;
     orders.forEach((order) => {
       const index = order.index;
       const value = order.value;
-      newAvailables[index].available += value;
+
+      if (order.item.includes('Pizza')) {
+        newAvailablesSoda[index].available += value;
+      } else {
+        newAvailables[index].available += value;
+      }
     });
 
     await updateDoc(availablesRef, {
       disponiveis: newAvailables,
+    });
+    await updateDoc(sodaRef, {
+      disponiveis: newAvailablesSoda,
     });
     getAvailabes();
   };
