@@ -146,7 +146,7 @@ export default function AdminComments() {
                 borderColor: '#34af23',
                 fontSize: '0.8rem',
               }}
-              href='https://chat.whatsapp.com/IBnR0TXPM0e8zO59dcHsHI'
+              href='https://chat.whatsapp.com/FzsL5qWXz6R6b2UznbtVNc'
               target='_blank'
               rel='noopener noreferrer'
             >
