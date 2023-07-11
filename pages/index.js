@@ -17,6 +17,11 @@ export default function Home() {
           content='fsWu403nKM_dN5xMNZ61YSDli-w5kUUAwTXJZzy9MvQ'
         />
         <meta name='description' content='Marcelinho dos salgados!' />
+        <script
+          async
+          src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3814344175379935'
+          crossOrigin='anonymous'
+        ></script>
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
