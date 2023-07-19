@@ -32,12 +32,14 @@ export default function OrderModal(props) {
 
   useEffect(() => {
     if (copyText) {
-      const nextLine = [2, 3, 5, 8, 11, 13, 14];
+      const nextLine = [2, 3, 5, 8, 11, 13, 14, 15];
       let textAvailables = `Pedido da *${mode}*\n`;
       orderList.forEach((item, index) => {
         if (nextLine.includes(index)) textAvailables += '\n';
         textAvailables =
-          textAvailables + '\n' + `${item} ${foodMock[index].name}`;
+          index === 15
+            ? textAvailables + '\n' + `${item} ${backup[index].name} (especial)`
+            : textAvailables + '\n' + `${item} ${backup[index].name}`;
       });
       textAvailables += '\n\n';
       textAvailables += `${totalAvailables} salgados.\n`;
@@ -81,7 +83,7 @@ export default function OrderModal(props) {
   const FormList = ({ data }) => {
     const elements = data.map((item, index) => (
       <div key={`order_${index}`}>
-        <h4>{foodMock[index].name}</h4>
+        <h4>{backup[index].name}</h4>
         <div style={{ display: 'flex' }}>
           <Slider
             defaultValue={item}
