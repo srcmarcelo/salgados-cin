@@ -148,5 +148,15 @@
     },
     "available": 3,
     "name": "Doguinho"
+  },
+  {
+    "media": {
+      "src": "/images/hamburguer_cheddar.jpg",
+      "width": 245,
+      "height": 153
+    },
+    "available": 5,
+    "name": "Hamburguer c/ Cheddar",
+    "type": "especial"
   }
 ]

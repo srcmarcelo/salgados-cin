@@ -164,7 +164,7 @@ export default function ControlPanelTable(props) {
           <RenderGroup types={['doce', 'misto']} />
           <RenderGroup types={['frango']} />
           <RenderGroup types={['frango2', 'carne', 'salsicha']} />
-          <RenderGroup types={['queijo']} />
+          <RenderGroup types={['queijo', 'especial']} />
         </div>
       )}
       {soda === [] ? (

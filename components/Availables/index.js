@@ -42,7 +42,12 @@ export default function AvailablesList() {
           width: 240,
           margin: '10px 0px',
           border: item.available === 0 && '2px solid red',
-          backgroundColor: item.available === 0 && 'red',
+          backgroundColor:
+            item.available > 0
+              ? item.type === 'especial'
+                ? 'orange'
+                : 'white'
+              : 'red',
         }}
         cover={<Image alt={item.name} src={item.media} />}
       >
@@ -81,7 +86,12 @@ export default function AvailablesList() {
           width: 225,
           margin: '10px 20px',
           border: item.available === 0 && '2px solid red',
-          backgroundColor: item.available === 0 && 'red',
+          backgroundColor:
+            item.available > 0
+              ? item.type === 'especial'
+                ? 'orange'
+                : 'white'
+              : 'red',
         }}
         cover={<Image alt={item.name} src={item.media} />}
       >
@@ -138,7 +148,7 @@ export default function AvailablesList() {
             <RenderGroup types={['doce', 'misto']} />
             <RenderGroup types={['frango']} />
             <RenderGroup types={['frango2', 'carne', 'salsicha']} />
-            <RenderGroup types={['queijo']} />
+            <RenderGroup types={['queijo', 'especial']} />
           </div>
         </>
       )}
