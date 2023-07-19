@@ -151,11 +151,11 @@
   },
   {
     "media": {
-      "src": "/images/hamburguer_cheddar.jpg",
+      "src": "/images/hamburguer_cheddar.webp",
       "width": 245,
       "height": 153
     },
-    "available": 5,
+    "available": 10,
     "name": "Hamburguer c/ Cheddar",
     "type": "especial"
   }
