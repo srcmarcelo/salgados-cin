@@ -13,10 +13,12 @@ import {
   doc,
   setDoc,
   getFirestore,
+  increment,
 } from 'firebase/firestore';
 import BookingNumberButton from '../BookingNumberButton';
+import { toUpper } from 'lodash';
 
-export default function ControlPanel() {
+export default function ControlPanel({ person }) {
   const [copyText, setCopyText] = useState(false);
   const [mode, setMode] = useState('Vender');
   const [mobile, setMobile] = useState(false);
@@ -67,6 +69,14 @@ export default function ControlPanel() {
     setSoda(docSnap2.data().disponiveis);
   };
 
+  const increaseCounter = async () => {
+    const counterRef = doc(db, 'salgados', 'contador');
+
+    await updateDoc(counterRef, {
+      [person]: increment(1),
+    });
+  };
+
   const resetAvailables = async (key) => {
     const newKey = key === 'refrigerantes' ? key : 'disponiveis';
     let backup = [];
@@ -97,6 +107,7 @@ export default function ControlPanel() {
       await updateDoc(availablesRef, {
         disponiveis: newAvailables,
       });
+      mode === 'Vender' && increaseCounter();
       getAvailabes();
     }
   };
@@ -141,6 +152,7 @@ export default function ControlPanel() {
       await updateDoc(availablesRef, {
         disponiveis: newAvailables,
       });
+      index !== 0 && mode === 'Vender' && increaseCounter();
       getAvailabes();
     }
   };
@@ -271,10 +283,10 @@ export default function ControlPanel() {
         >
           <RenderDropdown overlay={menuReset} label='Resetar' />
           <RenderButton onClick={getAvailabes} label='Atualizar' />
-          <RenderButton
+          {/* <RenderButton
             onClick={() => setCopyText(true)}
             label='Gerar Disponíveis'
-          />
+          /> */}
         </div>
       </div>
     );
@@ -282,6 +294,17 @@ export default function ControlPanel() {
 
   return (
     <div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column',
+          fontSize: '2rem',
+        }}
+      >
+        <h2 style={{ color: 'white' }}>{toUpper(person)}</h2>
+      </div>
       <OrderModal isVisible={orderModalVisible} openModal={openOrderModal} />
       <ControlPanelTable
         availables={availables}

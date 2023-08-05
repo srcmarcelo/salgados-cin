@@ -126,7 +126,7 @@ export default function AvailablesList() {
         </Button>
       </Affix>
       <h2 style={{ margin: '0px', color: 'white' }}>Salgados Disponíveis</h2>
-      {status === 2 && <h2 style={{color: 'white'}}>(apenas para reservas)</h2>}
+      {/* {status === 2 && <h2 style={{color: 'white'}}>(apenas para reservas)</h2>} */}
       {loading ? (
         <Spin />
       ) : (
