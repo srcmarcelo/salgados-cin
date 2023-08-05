@@ -86,7 +86,8 @@ export default function ControlPanel() {
 
   const changeAvailables = async (index, value, confirm) => {
     const availablesRef = doc(db, 'salgados', 'disponiveis');
-    const newAvailables = availables;
+    const docSnap2 = await getDoc(availablesRef);
+    const newAvailables = docSnap2.data().disponiveis;
     const changingNumber = value || 1;
     if (newAvailables[index].available > 0 || mode === 'Repor') {
       newAvailables[index].available =
@@ -103,8 +104,10 @@ export default function ControlPanel() {
   const restoreCancelOrder = async (orders) => {
     const availablesRef = doc(db, 'salgados', 'disponiveis');
     const sodaRef = doc(db, 'salgados', 'refrigerantes');
-    const newAvailables = availables;
-    const newAvailablesSoda = soda;
+    const docSnap1 = await getDoc(availablesRef);
+    const newAvailables = docSnap1.data().disponiveis;
+    const docSnap2 = await getDoc(sodaRef);
+    const newAvailablesSoda = docSnap2.data().disponiveis;
     orders.forEach((order) => {
       const index = order.index;
       const value = order.value;
@@ -127,7 +130,8 @@ export default function ControlPanel() {
 
   const changeAvailablesSoda = async (index, value, confirm) => {
     const availablesRef = doc(db, 'salgados', 'refrigerantes');
-    const newAvailables = soda;
+    const docSnap1 = await getDoc(availablesRef);
+    const newAvailables = docSnap1.data().disponiveis;
     const changingNumber = value || 1;
     if (newAvailables[index].available > 0 || mode === 'Repor') {
       newAvailables[index].available =
@@ -290,12 +294,12 @@ export default function ControlPanel() {
       />
       <PanelButtons />
       <div style={{ marginTop: 20 }}>
-        <BookingList
+        {/* <BookingList
           control={true}
           onConfirm={changeAvailables}
           onUndo={restoreCancelOrder}
           onConfirmPizza={changeAvailablesSoda}
-        />
+        /> */}
       </div>
     </div>
   );
