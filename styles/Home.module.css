@@ -1,5 +1,6 @@
 .container {
   padding: 0 2rem;
+  background: linear-gradient(90deg, black, #05528d);
 }
 
 .main {
@@ -43,7 +44,9 @@
   margin: 0;
   line-height: 1.15;
   font-size: 4rem;
-}
+  color: #e48aed;
+  text-shadow: 0 0 10px #e48aed, 0 0 20px #e48aed, 0 0 30px #e48aed, 0 0 40px #ff80e5, 0 0 70px #fff, 0 0 80px #fff;
+  animation: flicker 1.5s infinite;}
 
 .title,
 .description {
@@ -54,6 +57,9 @@
   margin: 2rem 0;
   line-height: 1.5;
   font-size: 1.5rem;
+  color: #91e2de;
+  text-shadow: 0 0 10px #91e2de, 0 0 20px #91e2de, 0 0 30px #91e2de, 0 0 40px #91e2de, 0 0 70px #91e2de, 0 0 80px #91e2de;
+  animation: flicker 1.5s infinite;
 }
 
 .code {

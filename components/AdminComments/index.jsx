@@ -28,7 +28,8 @@ export default function AdminComments() {
     <div
       style={{
         padding: 10,
-        background: '#ececec',
+        background: '#91e2de',
+        borderRadius: 5,
         margin: 10,
       }}
     >

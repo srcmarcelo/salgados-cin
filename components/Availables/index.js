@@ -41,13 +41,8 @@ export default function AvailablesList() {
         style={{
           width: 240,
           margin: '10px 0px',
-          border: item.available === 0 && '2px solid red',
-          backgroundColor:
-            item.available > 0
-              ? item.type === 'especial'
-                ? 'orange'
-                : 'white'
-              : 'red',
+          border: item.available === 0 ? '2px solid red' : '1px solid #e48aed',
+          backgroundColor: item.available > 0 ? '#e48aed' : 'red',
         }}
         cover={<Image alt={item.name} src={item.media} />}
       >
@@ -85,13 +80,8 @@ export default function AvailablesList() {
         style={{
           width: 225,
           margin: '10px 20px',
-          border: item.available === 0 && '2px solid red',
-          backgroundColor:
-            item.available > 0
-              ? item.type === 'especial'
-                ? 'orange'
-                : 'white'
-              : 'red',
+          border: item.available === 0 ? '2px solid red' : '1px solid #e48aed',
+          backgroundColor: item.available > 0 ? '#e48aed' : 'red',
         }}
         cover={<Image alt={item.name} src={item.media} />}
       >
@@ -135,8 +125,8 @@ export default function AvailablesList() {
           Atualizar listas
         </Button>
       </Affix>
-      <h2 style={{ margin: '0px' }}>Salgados Disponíveis</h2>
-      {status === 2 && <h2>(apenas para reservas)</h2>}
+      <h2 style={{ margin: '0px', color: 'white' }}>Salgados Disponíveis</h2>
+      {status === 2 && <h2 style={{color: 'white'}}>(apenas para reservas)</h2>}
       {loading ? (
         <Spin />
       ) : (

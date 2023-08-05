@@ -30,7 +30,7 @@ export default function Home() {
 
         <p className={styles.description}>Marcelinho dos Salgados</p>
 
-        <Affix offsetTop={30}>
+        {/* <Affix offsetTop={30}>
           <Link href='/reservar'>
             <Button
               type='primary'
@@ -43,7 +43,7 @@ export default function Home() {
               Fazer Reserva
             </Button>
           </Link>
-        </Affix>
+        </Affix> */}
 
         <div className={styles.grid}>
           <AdminComments />

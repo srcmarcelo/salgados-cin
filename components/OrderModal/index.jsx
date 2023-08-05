@@ -90,7 +90,8 @@ export default function OrderModal(props) {
             onAfterChange={(value) => onChangeValue(value, index)}
             style={{ flex: 1 }}
             min={0}
-            max={index === 5 || index === 1 ? 30 : 20}
+            // max={(index === 5 || index === 1) ? 30 : 20}
+            max={(index === 5 || index === 1) ? 80 : 40}
           />
           <InputNumber
             defaultValue={item}
