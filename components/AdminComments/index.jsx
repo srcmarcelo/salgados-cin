@@ -79,7 +79,7 @@ export default function AdminComments() {
           </p>
         }
         content={
-          <>
+          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
             <p style={{ fontSize: '0.9rem', marginBottom: 8 }}>
               Veja nossos preços!
             </p>
@@ -115,7 +115,7 @@ export default function AdminComments() {
             >
               Ver Preços
             </Button>
-          </>
+          </div>
         }
       />
       <RenderComments
@@ -141,7 +141,7 @@ export default function AdminComments() {
           </p>
         }
         content={
-          <>
+          <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column'}}>
             <p style={{ fontSize: '0.9rem', marginBottom: 8 }}>
               Fale com o Marcelinho e veja os avisos!
             </p>
@@ -158,7 +158,7 @@ export default function AdminComments() {
             >
               Entrar no Grupo
             </Button>
-          </>
+          </div>
         }
       />
     </div>
