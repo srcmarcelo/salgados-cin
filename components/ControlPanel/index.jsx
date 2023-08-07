@@ -317,12 +317,12 @@ export default function ControlPanel({ person }) {
       />
       <PanelButtons />
       <div style={{ marginTop: 20 }}>
-        {/* <BookingList
+        <BookingList
           control={true}
           onConfirm={changeAvailables}
           onUndo={restoreCancelOrder}
           onConfirmPizza={changeAvailablesSoda}
-        /> */}
+        />
       </div>
     </div>
   );
