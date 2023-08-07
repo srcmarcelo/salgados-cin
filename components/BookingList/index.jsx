@@ -114,6 +114,7 @@ export default function BookingList({
         border: '1px solid rgba(140, 140, 140, 0.35)',
         margin: '30px 0px',
         width: '100%',
+        backgroundColor: 'white',
       }}
     >
       <List
