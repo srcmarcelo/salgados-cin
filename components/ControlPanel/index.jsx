@@ -13,12 +13,10 @@ import {
   doc,
   setDoc,
   getFirestore,
-  increment,
 } from 'firebase/firestore';
 import BookingNumberButton from '../BookingNumberButton';
-import { toUpper } from 'lodash';
 
-export default function ControlPanel({ person }) {
+export default function ControlPanel() {
   const [copyText, setCopyText] = useState(false);
   const [mode, setMode] = useState('Vender');
   const [mobile, setMobile] = useState(false);
@@ -31,7 +29,7 @@ export default function ControlPanel({ person }) {
   const db = getFirestore(firebase);
 
   useEffect(() => {
-    getAvailabes();
+    getAvailables();
     getBooking();
   }, []);
 
@@ -60,21 +58,13 @@ export default function ControlPanel({ person }) {
     }
   }, [copyText]);
 
-  const getAvailabes = async () => {
+  const getAvailables = async () => {
     const docRef = doc(db, 'salgados', 'disponiveis');
     const docSnap = await getDoc(docRef);
     setAvailables(docSnap.data().disponiveis);
     const docRef2 = doc(db, 'salgados', 'refrigerantes');
     const docSnap2 = await getDoc(docRef2);
     setSoda(docSnap2.data().disponiveis);
-  };
-
-  const increaseCounter = async () => {
-    const counterRef = doc(db, 'salgados', 'contador');
-
-    await updateDoc(counterRef, {
-      [person]: increment(1),
-    });
   };
 
   const resetAvailables = async (key) => {
@@ -91,13 +81,13 @@ export default function ControlPanel({ person }) {
       zerar: noFoodMock,
     };
     await setDoc(doc(db, 'salgados', newKey), { disponiveis: mock[key] });
-    getAvailabes();
+    getAvailables();
   };
 
   const changeAvailables = async (index, value, confirm) => {
     const availablesRef = doc(db, 'salgados', 'disponiveis');
     const docSnap2 = await getDoc(availablesRef);
-    const newAvailables = docSnap2.data().disponiveis;
+    const newAvailables = confirm ? availables : docSnap2.data().disponiveis;
     const changingNumber = value || 1;
     if (newAvailables[index].available > 0 || mode === 'Repor') {
       newAvailables[index].available =
@@ -107,8 +97,7 @@ export default function ControlPanel({ person }) {
       await updateDoc(availablesRef, {
         disponiveis: newAvailables,
       });
-      mode === 'Vender' && increaseCounter();
-      getAvailabes();
+      getAvailables();
     }
   };
 
@@ -136,13 +125,13 @@ export default function ControlPanel({ person }) {
     await updateDoc(sodaRef, {
       disponiveis: newAvailablesSoda,
     });
-    getAvailabes();
+    getAvailables();
   };
 
   const changeAvailablesSoda = async (index, value, confirm) => {
     const availablesRef = doc(db, 'salgados', 'refrigerantes');
     const docSnap1 = await getDoc(availablesRef);
-    const newAvailables = docSnap1.data().disponiveis;
+    const newAvailables = confirm ? soda : docSnap1.data().disponiveis;
     const changingNumber = value || 1;
     if (newAvailables[index].available > 0 || mode === 'Repor') {
       newAvailables[index].available =
@@ -152,8 +141,7 @@ export default function ControlPanel({ person }) {
       await updateDoc(availablesRef, {
         disponiveis: newAvailables,
       });
-      index !== 0 && mode === 'Vender' && increaseCounter();
-      getAvailabes();
+      getAvailables();
     }
   };
 
@@ -282,7 +270,7 @@ export default function ControlPanel({ person }) {
           }}
         >
           <RenderDropdown overlay={menuReset} label='Resetar' />
-          <RenderButton onClick={getAvailabes} label='Atualizar' />
+          <RenderButton onClick={getAvailables} label='Atualizar' />
           {/* <RenderButton
             onClick={() => setCopyText(true)}
             label='Gerar Disponíveis'
@@ -294,17 +282,6 @@ export default function ControlPanel({ person }) {
 
   return (
     <div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexDirection: 'column',
-          fontSize: '2rem',
-        }}
-      >
-        <h2 style={{ color: 'white' }}>{toUpper(person)}</h2>
-      </div>
       <OrderModal isVisible={orderModalVisible} openModal={openOrderModal} />
       <ControlPanelTable
         availables={availables}
@@ -322,6 +299,7 @@ export default function ControlPanel({ person }) {
           onConfirm={changeAvailables}
           onUndo={restoreCancelOrder}
           onConfirmPizza={changeAvailablesSoda}
+          getAvailables={getAvailables}
         />
       </div>
     </div>

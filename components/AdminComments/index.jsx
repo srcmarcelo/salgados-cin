@@ -28,8 +28,7 @@ export default function AdminComments() {
     <div
       style={{
         padding: 10,
-        background: '#91e2de',
-        borderRadius: 5,
+        background: '#ececec',
         margin: 10,
       }}
     >
@@ -92,19 +91,20 @@ export default function AdminComments() {
                   content: (
                     <div>
                       <h2>Qualquer salgado por R$ 3,50!</h2>
-                      <p style={{ marginBottom: 3 }}>
+                      <h2>Pizza R$ 5,00!</h2>
+                      {/* <p style={{ marginBottom: 3 }}>
                         <strong>CAFÉ:</strong>
                       </p>
                       <p style={{ margin: 0 }}>Copo pequeno (50ml) -- R$1,00</p>
                       <p style={{ marginBottom: 20 }}>
                         Copo grande (150ml) -- R$2,00
-                      </p>
-                      <h2>Refrigerantes</h2>
+                      </p> */}
+                      {/* <h2>Refrigerantes</h2>
                       <p style={{ margin: 0 }}>Coca-Cola -- R$3,50</p>
                       <p style={{ margin: 0 }}>Guaraná Antarctica -- R$2,50</p>
                       <p style={{ marginBottom: 20 }}>
                         Pepsi -- R$2,50
-                      </p>
+                      </p> */}
                       <p>Aceitamos PIX, dinheiro ou cartão!</p>
                       <p><strong>Chave PIX:</strong></p>
                       <p>marcelo.cristian.969@gmail.com</p>

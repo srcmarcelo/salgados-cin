@@ -10,6 +10,7 @@ export default function BookingList({
   onConfirm,
   onConfirmPizza,
   onUndo,
+  getAvailables,
 }) {
   const db = getFirestore(firebase);
 
@@ -47,6 +48,9 @@ export default function BookingList({
     const docSnap = await getDoc(bookingRef);
     const newOrders = docSnap.data().booking;
 
+    await getAvailables()
+
+
     if (
       newOrders[item.id].status > 1 &&
       newOrders[item.id].status < 4 &&
@@ -62,10 +66,12 @@ export default function BookingList({
     }
 
     if (newOrders[item.id].status === 2) {
-      item.order.forEach((product) => {
-        if (product.item.includes('Pizza'))
-          onConfirmPizza(product.index, product.value, true);
-        else onConfirm(product.index, product.value, true);
+      item.order.forEach(async (product) => {
+        if (product.item.includes('Pizza')) {
+          await onConfirmPizza(product.index - 1, product.value, true);
+        } else {
+          await onConfirm(product.index, product.value, true);
+        }
       });
     }
 
@@ -114,7 +120,6 @@ export default function BookingList({
         border: '1px solid rgba(140, 140, 140, 0.35)',
         margin: '30px 0px',
         width: '100%',
-        backgroundColor: 'white',
       }}
     >
       <List

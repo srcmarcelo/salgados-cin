@@ -8,7 +8,6 @@ import AdminPageModal from '../../components/AdminPageModal';
 
 export default function Painel() {
   const [admin, setAdmin] = useState(true);
-  const [person, setPerson] = useState('');
 
   useEffect(() => {
     setAdmin(false);
@@ -26,7 +25,7 @@ export default function Painel() {
 
         <p className={styles.description}>PAINEL DE CONTROLE DO MARCELINHO</p>
 
-        <ControlPanel person={person} />
+        <ControlPanel />
 
         <AdminCommentsCP />
 
@@ -34,7 +33,6 @@ export default function Painel() {
           visible={!admin}
           success={(person) => {
             setAdmin(true);
-            setPerson(person);
           }}
         />
       </main>

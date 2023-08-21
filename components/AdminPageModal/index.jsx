@@ -20,17 +20,11 @@ export default function AdminPageModal({ visible, success }) {
   };
 
   const VerifyPassword = () => {
-    const secrets = {
-      1448: 'larissa',
-      '0523': 'ricardo',
-      3369: 'will',
-      7993: 'pedro',
-      evodia: 'marcelo',
-    };
+    const secret = '5129';
     //Sim, entendo que este tipo de verificação é vulnerável, pois pessoas como você tem acesso à ela.
     //Peço que não faça alterações nos dados. Nunca tive problemas com usando este método, e como
     //os dados aqui presentes não são sensíveis, deixarei assim até que eu enfrente algum.
-    Object.keys(secrets).includes(password) ? success(secrets[password]) : NotAdmin();
+    password == secret ? success() : NotAdmin();
   };
 
   return (

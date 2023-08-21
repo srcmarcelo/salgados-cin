@@ -18,7 +18,9 @@ export default function OrderModal(props) {
   const [didRetry, setDidRetry] = useState(false);
   const [copyText, setCopyText] = useState(false);
   const [mode, setMode] = useState('manhã');
-  const [coffeLiters, setCoffeLiters] = useState(1);
+  const [meatPizza, setMeatPizza] = useState(10);
+  const [chickenPizza, setChickenPizza] = useState(6);
+  const [cheesePizza, setCheesePizza] = useState(4);
 
   useEffect(() => {
     getBackup();
@@ -42,12 +44,27 @@ export default function OrderModal(props) {
             : textAvailables + '\n' + `${item} ${backup[index].name}`;
       });
       textAvailables += '\n\n';
-      textAvailables += `${totalAvailables} salgados.\n`;
-      textAvailables += `\n${coffeLiters} litro${
-        coffeLiters > 1 ? 's' : ''
-      } de café.\n\n`;
-      textAvailables += `Valor: *R$${parseFloat(
-        totalAvailables * 2.5 + coffeLiters * 8
+      textAvailables += `*${totalAvailables} salgados.*\n`;
+      textAvailables += `Valor: R$${parseFloat(totalAvailables * 2.5).toFixed(
+        2
+      )}.\n`;
+      textAvailables += `\n${meatPizza} pizza${
+        meatPizza > 1 ? 's' : ''
+      } de calabresa.\n`;
+      textAvailables += `\n${chickenPizza} pizza${
+        chickenPizza > 1 ? 's' : ''
+      } de frango.\n`;
+      textAvailables += `\n${cheesePizza} pizza${
+        cheesePizza > 1 ? 's' : ''
+      } de mussarela.\n`;
+      textAvailables += `\n*${
+        meatPizza + chickenPizza + cheesePizza
+      } pizzas.*\n`;
+      textAvailables += `Valor: R$${parseFloat(
+        (meatPizza + chickenPizza + cheesePizza) * 3.5
+      ).toFixed(2)}.\n\n`;
+      textAvailables += `Valor total: *R$${parseFloat(
+        totalAvailables * 2.5 + (meatPizza + chickenPizza + cheesePizza) * 3.5
       ).toFixed(2)}*.`;
       navigator.clipboard.writeText(textAvailables);
       updateBackup();
@@ -90,8 +107,7 @@ export default function OrderModal(props) {
             onAfterChange={(value) => onChangeValue(value, index)}
             style={{ flex: 1 }}
             min={0}
-            // max={(index === 5 || index === 1) ? 30 : 20}
-            max={(index === 5 || index === 1) ? 80 : 40}
+            max={index === 5 || index === 1 ? 30 : 20}
           />
           <InputNumber
             defaultValue={item}
@@ -105,22 +121,66 @@ export default function OrderModal(props) {
     ));
 
     elements.push(
-      <div key='coffe_item'>
-        <h4>Litros de café</h4>
+      <div key='meat_pizza_item'>
+        <h4>Pizza de calabresa</h4>
         <div style={{ display: 'flex' }}>
           <Slider
-            defaultValue={coffeLiters}
-            onAfterChange={(value) => setCoffeLiters(value)}
+            defaultValue={meatPizza}
+            onAfterChange={(value) => setMeatPizza(value)}
             style={{ flex: 1 }}
             min={0}
-            max={5}
+            max={20}
           />
           <InputNumber
-            defaultValue={coffeLiters}
+            defaultValue={meatPizza}
             style={{
               margin: '0 0px 0px 16px',
             }}
-            onChange={(value) => setCoffeLiters(value)}
+            onChange={(value) => setMeatPizza(value)}
+          />
+        </div>
+      </div>
+    );
+
+    elements.push(
+      <div key='chicken_pizza_item'>
+        <h4>Pizza de frango</h4>
+        <div style={{ display: 'flex' }}>
+          <Slider
+            defaultValue={chickenPizza}
+            onAfterChange={(value) => setChickenPizza(value)}
+            style={{ flex: 1 }}
+            min={0}
+            max={20}
+          />
+          <InputNumber
+            defaultValue={chickenPizza}
+            style={{
+              margin: '0 0px 0px 16px',
+            }}
+            onChange={(value) => setChickenPizza(value)}
+          />
+        </div>
+      </div>
+    );
+
+    elements.push(
+      <div key='cheese_pizza_item'>
+        <h4>Pizza de mussarela</h4>
+        <div style={{ display: 'flex' }}>
+          <Slider
+            defaultValue={cheesePizza}
+            onAfterChange={(value) => setCheesePizza(value)}
+            style={{ flex: 1 }}
+            min={0}
+            max={20}
+          />
+          <InputNumber
+            defaultValue={cheesePizza}
+            style={{
+              margin: '0 0px 0px 16px',
+            }}
+            onChange={(value) => setCheesePizza(value)}
           />
         </div>
       </div>

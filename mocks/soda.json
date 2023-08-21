@@ -1,16 +1,6 @@
 [
   {
-    "available": 1,
-    "media": {
-      "width": 225,
-      "height": 183,
-      "src": "/images/cafe.jpg"
-    },
-    "type": "café",
-    "name": "Café"
-  },
-  {
-    "available": 15,
+    "available": 10,
     "media": {
       "width": 225,
       "height": 183,
@@ -20,7 +10,7 @@
     "name": "Pizza de calabresa"
   },
   {
-    "available": 10,
+    "available": 6,
     "media": {
       "width": 225,
       "height": 183,
@@ -30,7 +20,7 @@
     "name": "Pizza de frango"
   },
   {
-    "available": 5,
+    "available": 4,
     "media": {
       "width": 225,
       "height": 183,
