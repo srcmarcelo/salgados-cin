@@ -67,7 +67,7 @@ export default function BookingForm() {
       else total += parseInt(item.value);
     });
     setTotalOrder(total);
-    setTotalPizzaOrder(pizzas);
+    // setTotalPizzaOrder(pizzas);
   }, [order, didRetry]);
 
   const getTime = async () => {
@@ -86,13 +86,14 @@ export default function BookingForm() {
       'salgados',
       time > 0 ? docs[0] : docs[mode > 0 ? 1 : 0]
     );
-    const docRef2 = doc(db, 'salgados', 'refrigerantes');
+    // const docRef2 = doc(db, 'salgados', 'refrigerantes');
     const docSnap = await getDoc(docRef);
-    const docSnap2 = await getDoc(docRef2);
-    const pizzas = docSnap2
-      .data()
-      .disponiveis.filter((item) => item.type === 'pizza');
-    const availables = [...pizzas, ...docSnap.data().disponiveis];
+    // const docSnap2 = await getDoc(docRef2);
+    // const pizzas = docSnap2
+    //   .data()
+    //   .disponiveis.filter((item) => item.type === 'pizza');
+    // const availables = [...pizzas, ...docSnap.data().disponiveis];
+    const availables = [...docSnap.data().disponiveis];
     availables.forEach((item, index) => (availables[index].value = 0));
     setOrder(availables);
   };
@@ -103,13 +104,14 @@ export default function BookingForm() {
       'salgados',
       time > 0 ? docs[0] : docs[mode > 0 ? 1 : 0]
     );
-    const docRef2 = doc(db, 'salgados', 'refrigerantes');
+    // const docRef2 = doc(db, 'salgados', 'refrigerantes');
     const docSnap = await getDoc(docRef);
-    const docSnap2 = await getDoc(docRef2);
-    const pizzas = docSnap2
-      .data()
-      .disponiveis.filter((item) => item.type === 'pizza');
-    const availables = [...pizzas, ...docSnap.data().disponiveis];
+    // const docSnap2 = await getDoc(docRef2);
+    // const pizzas = docSnap2
+    //   .data()
+    //   .disponiveis.filter((item) => item.type === 'pizza');
+    // const availables = [...pizzas, ...docSnap.data().disponiveis];
+    const availables = [...docSnap.data().disponiveis];
     order.forEach(
       (item, index) => (availables[index].value = order[index].value)
     );
@@ -163,7 +165,8 @@ export default function BookingForm() {
       id: orders.length,
       name: userData.name,
       order: sendOrder,
-      price: `R$ ${totalOrder * 3.5 + totalPizzaOrder * 5},00`,
+      // price: `R$ ${totalOrder * 3.5 + totalPizzaOrder * 5},00`,
+      price: `R$ ${totalOrder * 3.5},00`,
       status: 0,
       time: mode,
     };
@@ -383,7 +386,7 @@ export default function BookingForm() {
           valueStyle={{ fontSize: '1.2rem' }}
         />
       </div>
-      <div
+      {/* <div
         style={{
           display: 'flex',
           width: '100%',
@@ -404,8 +407,8 @@ export default function BookingForm() {
           precision={2}
           valueStyle={{ fontSize: '1.2rem' }}
         />
-      </div>
-      <div
+      </div> */}
+      {/* <div
         style={{
           display: 'flex',
           width: '100%',
@@ -425,7 +428,7 @@ export default function BookingForm() {
           precision={2}
           valueStyle={{ fontSize: '1.5rem' }}
         />
-      </div>
+      </div> */}
     </div>
   );
 
@@ -435,7 +438,7 @@ export default function BookingForm() {
       <Button
         type='primary'
         onClick={handleOpenUserModal}
-        disabled={totalOrder + totalPizzaOrder < 1}
+        disabled={totalOrder < 1}
       >
         Confirmar
       </Button>
@@ -486,7 +489,8 @@ export default function BookingForm() {
         <div style={{ fontSize: '1rem' }}>{modes[mode]?.label}</div>
         <ModalConfirmContent>
           {order.map((item, index) => {
-            const rightIndex = item.name.includes('Pizza') ? index + 1 : index - 3;
+            // const rightIndex = item.name.includes('Pizza') ? index + 1 : index - 3;
+            const rightIndex = index;
             if (item.value > 0) {
               sendOrder.push({
                 item: item.name,

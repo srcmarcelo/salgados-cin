@@ -47,25 +47,25 @@ export default function OrderModal(props) {
       textAvailables += `*${totalAvailables} salgados.*\n`;
       textAvailables += `Valor: R$${parseFloat(totalAvailables * 2.5).toFixed(
         2
-      )}.\n`;
-      textAvailables += `\n${meatPizza} pizza${
-        meatPizza > 1 ? 's' : ''
-      } de calabresa.\n`;
-      textAvailables += `\n${chickenPizza} pizza${
-        chickenPizza > 1 ? 's' : ''
-      } de frango.\n`;
-      textAvailables += `\n${cheesePizza} pizza${
-        cheesePizza > 1 ? 's' : ''
-      } de mussarela.\n`;
-      textAvailables += `\n*${
-        meatPizza + chickenPizza + cheesePizza
-      } pizzas.*\n`;
-      textAvailables += `Valor: R$${parseFloat(
-        (meatPizza + chickenPizza + cheesePizza) * 3.5
-      ).toFixed(2)}.\n\n`;
-      textAvailables += `Valor total: *R$${parseFloat(
-        totalAvailables * 2.5 + (meatPizza + chickenPizza + cheesePizza) * 3.5
-      ).toFixed(2)}*.`;
+      )}.`;
+      // textAvailables += `\n${meatPizza} pizza${
+      //   meatPizza > 1 ? 's' : ''
+      // } de calabresa.\n`;
+      // textAvailables += `\n${chickenPizza} pizza${
+      //   chickenPizza > 1 ? 's' : ''
+      // } de frango.\n`;
+      // textAvailables += `\n${cheesePizza} pizza${
+      //   cheesePizza > 1 ? 's' : ''
+      // } de mussarela.\n`;
+      // textAvailables += `\n*${
+      //   meatPizza + chickenPizza + cheesePizza
+      // } pizzas.*\n`;
+      // textAvailables += `Valor: R$${parseFloat(
+      //   (meatPizza + chickenPizza + cheesePizza) * 3.5
+      // ).toFixed(2)}.\n\n`;
+      // textAvailables += `Valor total: *R$${parseFloat(
+      //   totalAvailables * 2.5 + (meatPizza + chickenPizza + cheesePizza) * 3.5
+      // ).toFixed(2)}*.`;
       navigator.clipboard.writeText(textAvailables);
       updateBackup();
       setCopyText(false);
@@ -120,71 +120,71 @@ export default function OrderModal(props) {
       </div>
     ));
 
-    elements.push(
-      <div key='meat_pizza_item'>
-        <h4>Pizza de calabresa</h4>
-        <div style={{ display: 'flex' }}>
-          <Slider
-            defaultValue={meatPizza}
-            onAfterChange={(value) => setMeatPizza(value)}
-            style={{ flex: 1 }}
-            min={0}
-            max={20}
-          />
-          <InputNumber
-            defaultValue={meatPizza}
-            style={{
-              margin: '0 0px 0px 16px',
-            }}
-            onChange={(value) => setMeatPizza(value)}
-          />
-        </div>
-      </div>
-    );
+    // elements.push(
+    //   <div key='meat_pizza_item'>
+    //     <h4>Pizza de calabresa</h4>
+    //     <div style={{ display: 'flex' }}>
+    //       <Slider
+    //         defaultValue={meatPizza}
+    //         onAfterChange={(value) => setMeatPizza(value)}
+    //         style={{ flex: 1 }}
+    //         min={0}
+    //         max={20}
+    //       />
+    //       <InputNumber
+    //         defaultValue={meatPizza}
+    //         style={{
+    //           margin: '0 0px 0px 16px',
+    //         }}
+    //         onChange={(value) => setMeatPizza(value)}
+    //       />
+    //     </div>
+    //   </div>
+    // );
 
-    elements.push(
-      <div key='chicken_pizza_item'>
-        <h4>Pizza de frango</h4>
-        <div style={{ display: 'flex' }}>
-          <Slider
-            defaultValue={chickenPizza}
-            onAfterChange={(value) => setChickenPizza(value)}
-            style={{ flex: 1 }}
-            min={0}
-            max={20}
-          />
-          <InputNumber
-            defaultValue={chickenPizza}
-            style={{
-              margin: '0 0px 0px 16px',
-            }}
-            onChange={(value) => setChickenPizza(value)}
-          />
-        </div>
-      </div>
-    );
+    // elements.push(
+    //   <div key='chicken_pizza_item'>
+    //     <h4>Pizza de frango</h4>
+    //     <div style={{ display: 'flex' }}>
+    //       <Slider
+    //         defaultValue={chickenPizza}
+    //         onAfterChange={(value) => setChickenPizza(value)}
+    //         style={{ flex: 1 }}
+    //         min={0}
+    //         max={20}
+    //       />
+    //       <InputNumber
+    //         defaultValue={chickenPizza}
+    //         style={{
+    //           margin: '0 0px 0px 16px',
+    //         }}
+    //         onChange={(value) => setChickenPizza(value)}
+    //       />
+    //     </div>
+    //   </div>
+    // );
 
-    elements.push(
-      <div key='cheese_pizza_item'>
-        <h4>Pizza de mussarela</h4>
-        <div style={{ display: 'flex' }}>
-          <Slider
-            defaultValue={cheesePizza}
-            onAfterChange={(value) => setCheesePizza(value)}
-            style={{ flex: 1 }}
-            min={0}
-            max={20}
-          />
-          <InputNumber
-            defaultValue={cheesePizza}
-            style={{
-              margin: '0 0px 0px 16px',
-            }}
-            onChange={(value) => setCheesePizza(value)}
-          />
-        </div>
-      </div>
-    );
+    // elements.push(
+    //   <div key='cheese_pizza_item'>
+    //     <h4>Pizza de mussarela</h4>
+    //     <div style={{ display: 'flex' }}>
+    //       <Slider
+    //         defaultValue={cheesePizza}
+    //         onAfterChange={(value) => setCheesePizza(value)}
+    //         style={{ flex: 1 }}
+    //         min={0}
+    //         max={20}
+    //       />
+    //       <InputNumber
+    //         defaultValue={cheesePizza}
+    //         style={{
+    //           margin: '0 0px 0px 16px',
+    //         }}
+    //         onChange={(value) => setCheesePizza(value)}
+    //       />
+    //     </div>
+    //   </div>
+    // );
 
     return elements;
   };
@@ -192,7 +192,7 @@ export default function OrderModal(props) {
   const RenderButton = ({ onClick, label, type }) => (
     <Button
       type={type || 'primary'}
-      style={{ height: '48px' }}
+      style={{ height: '48px', marginTop: 20 }}
       onClick={onClick}
     >
       {label}
