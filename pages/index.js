@@ -11,12 +11,15 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Salgados CIn!</title>
+        <title>Marcelinho dos Salgados</title>
         <meta
           name='google-site-verification'
           content='fsWu403nKM_dN5xMNZ61YSDli-w5kUUAwTXJZzy9MvQ'
         />
-        <meta name='description' content='Marcelinho dos salgados!' />
+        <meta
+          name='description'
+          content='Faça reservas e veja salgados disponíveis em tempo real!'
+        />
         <script
           async
           src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3814344175379935'
@@ -26,9 +29,11 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Salgados CIn!</h1>
+        <h1 className={styles.title}>Marcelinho dos Salgados</h1>
 
-        <p className={styles.description}>Marcelinho dos Salgados</p>
+        <p className={styles.description}>
+          Faça reservas e veja salgados disponíveis em tempo real!
+        </p>
 
         <Affix offsetTop={30}>
           <Link href='/reservar'>

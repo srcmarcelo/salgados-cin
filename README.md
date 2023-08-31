@@ -1,2 +1,2 @@
-# salgados-cin
-Sistema de gerenciamento dos salgados do CIn - UFPE.
+# marcelinho-salgados
+Sistema de gerenciamento dos salgados no CIn - UFPE.
