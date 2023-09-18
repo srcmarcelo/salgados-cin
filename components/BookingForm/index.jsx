@@ -67,7 +67,7 @@ export default function BookingForm() {
       else total += parseInt(item.value);
     });
     setTotalOrder(total);
-    // setTotalPizzaOrder(pizzas);
+    setTotalPizzaOrder(pizzas);
   }, [order, didRetry]);
 
   const getTime = async () => {
@@ -86,14 +86,14 @@ export default function BookingForm() {
       'salgados',
       time > 0 ? docs[0] : docs[mode > 0 ? 1 : 0]
     );
-    // const docRef2 = doc(db, 'salgados', 'refrigerantes');
+    const docRef2 = doc(db, 'salgados', 'refrigerantes');
     const docSnap = await getDoc(docRef);
-    // const docSnap2 = await getDoc(docRef2);
-    // const pizzas = docSnap2
-    //   .data()
-    //   .disponiveis.filter((item) => item.type === 'pizza');
-    // const availables = [...pizzas, ...docSnap.data().disponiveis];
-    const availables = [...docSnap.data().disponiveis];
+    const docSnap2 = await getDoc(docRef2);
+    const pizzas = docSnap2
+      .data()
+      .disponiveis.filter((item) => item.type === 'pizza');
+    const availables = [...pizzas, ...docSnap.data().disponiveis];
+    // const availables = [...docSnap.data().disponiveis];
     availables.forEach((item, index) => (availables[index].value = 0));
     setOrder(availables);
   };
@@ -104,14 +104,14 @@ export default function BookingForm() {
       'salgados',
       time > 0 ? docs[0] : docs[mode > 0 ? 1 : 0]
     );
-    // const docRef2 = doc(db, 'salgados', 'refrigerantes');
+    const docRef2 = doc(db, 'salgados', 'refrigerantes');
     const docSnap = await getDoc(docRef);
-    // const docSnap2 = await getDoc(docRef2);
-    // const pizzas = docSnap2
-    //   .data()
-    //   .disponiveis.filter((item) => item.type === 'pizza');
-    // const availables = [...pizzas, ...docSnap.data().disponiveis];
-    const availables = [...docSnap.data().disponiveis];
+    const docSnap2 = await getDoc(docRef2);
+    const pizzas = docSnap2
+      .data()
+      .disponiveis.filter((item) => item.type === 'pizza');
+    const availables = [...pizzas, ...docSnap.data().disponiveis];
+    // const availables = [...docSnap.data().disponiveis];
     order.forEach(
       (item, index) => (availables[index].value = order[index].value)
     );
@@ -165,8 +165,8 @@ export default function BookingForm() {
       id: orders.length,
       name: userData.name,
       order: sendOrder,
-      // price: `R$ ${totalOrder * 3.5 + totalPizzaOrder * 5},00`,
-      price: `R$ ${totalOrder * 3.5},00`,
+      price: `R$ ${totalOrder * 3.5 + totalPizzaOrder * 7},00`,
+      // price: `R$ ${totalOrder * 3.5},00`,
       status: 0,
       time: mode,
     };
@@ -386,7 +386,7 @@ export default function BookingForm() {
           valueStyle={{ fontSize: '1.2rem' }}
         />
       </div>
-      {/* <div
+      <div
         style={{
           display: 'flex',
           width: '100%',
@@ -397,18 +397,18 @@ export default function BookingForm() {
         <Statistic
           title='Quantidade'
           value={totalPizzaOrder}
-          suffix='pizzas'
+          suffix='bolos'
           valueStyle={{ fontSize: '1.2rem' }}
         />
         <Statistic
           title='Valor'
-          value={totalPizzaOrder * 5}
+          value={totalPizzaOrder * 7}
           prefix='R$'
           precision={2}
           valueStyle={{ fontSize: '1.2rem' }}
         />
-      </div> */}
-      {/* <div
+      </div>
+      <div
         style={{
           display: 'flex',
           width: '100%',
@@ -423,12 +423,12 @@ export default function BookingForm() {
         />
         <Statistic
           title='Valor total'
-          value={totalOrder * 3.5 + totalPizzaOrder * 5}
+          value={totalOrder * 3.5 + totalPizzaOrder * 7}
           prefix='R$'
           precision={2}
           valueStyle={{ fontSize: '1.5rem' }}
         />
-      </div> */}
+      </div>
     </div>
   );
 
@@ -438,7 +438,7 @@ export default function BookingForm() {
       <Button
         type='primary'
         onClick={handleOpenUserModal}
-        disabled={totalOrder < 1}
+        disabled={totalOrder + totalPizzaOrder < 1}
       >
         Confirmar
       </Button>
@@ -489,8 +489,8 @@ export default function BookingForm() {
         <div style={{ fontSize: '1rem' }}>{modes[mode]?.label}</div>
         <ModalConfirmContent>
           {order.map((item, index) => {
-            // const rightIndex = item.name.includes('Pizza') ? index + 1 : index - 3;
-            const rightIndex = index;
+            const rightIndex = item.name.includes('Bolo') ? index + 1 : index - 2;
+            // const rightIndex = index;
             if (item.value > 0) {
               sendOrder.push({
                 item: item.name,
@@ -527,10 +527,10 @@ export default function BookingForm() {
         </p>
       </div>
       <Controls />
-      {/* <ExtraAlert
+      <ExtraAlert
         title={
           <p style={{ color: 'green', margin: 0 }}>
-            RESERVAS DE PIZZAS LIBERADAS!
+            RESERVAS DE BOLOS DE POTE LIBERADAS!
           </p>
         }
         content={
@@ -539,10 +539,10 @@ export default function BookingForm() {
               textAlign: 'center',
             }}
           >
-            Agora você pode reservar também pizzas dos seus sabores favoritos!
+            Agora você pode reservar também bolos de pote de chocolate e prestígio!
           </div>
         }
-      /> */}
+      />
       <Form didRetry={didRetry} />
       <Footer />
     </FormContainer>

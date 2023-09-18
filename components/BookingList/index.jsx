@@ -67,7 +67,7 @@ export default function BookingList({
 
     if (newOrders[item.id].status === 2) {
       item.order.forEach(async (product) => {
-        if (product.item.includes('Pizza')) {
+        if (product.item.includes('Bolo')) {
           await onConfirmPizza(product.index - 1, product.value, true);
         } else {
           await onConfirm(product.index, product.value, true);

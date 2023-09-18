@@ -141,9 +141,9 @@ export default function AvailablesList() {
         <Spin />
       ) : (
         <>
-          {/* <div className={styles.grid}>
+          <div className={styles.grid}>
             <RenderSodaList data={soda} />
-          </div> */}
+          </div>
           <div className={styles.grid}>
             <RenderGroup types={['doce', 'misto']} />
             <RenderGroup types={['frango']} />

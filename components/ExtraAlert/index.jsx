@@ -19,7 +19,7 @@ export default function ExtraAlert({ title, content }) {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          width: 280,
+          width: 350,
           minHeight: 130,
         }}
       >

@@ -91,6 +91,7 @@ export default function AdminComments() {
                   content: (
                     <div>
                       <h2>Qualquer salgado por R$ 3,50!</h2>
+                      <h2>Bolo de pote R$ 7,00!</h2>
                       {/* <h2>Pizza R$ 5,00!</h2> */}
                       {/* <p style={{ marginBottom: 3 }}>
                         <strong>CAFÉ:</strong>

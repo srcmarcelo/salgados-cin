@@ -157,7 +157,7 @@ export default function ControlPanelTable(props) {
       <Button type='primary' onClick={openOrderModal}>
         Fazer Encomenda
       </Button>
-      {availables === [] ? (
+      {availables.length === 0 ? (
         <Spin />
       ) : (
         <div className={styles.grid}>
@@ -167,13 +167,13 @@ export default function ControlPanelTable(props) {
           <RenderGroup types={['queijo', 'especial']} />
         </div>
       )}
-      {/* {soda === [] ? (
+      {soda.length === 0 ? (
         <Spin />
       ) : (
         <div className={styles.grid}>
           <RenderSodaList data={soda} />
         </div>
-      )} */}
+      )}
     </div>
   );
 }

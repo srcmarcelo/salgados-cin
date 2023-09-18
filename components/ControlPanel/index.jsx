@@ -89,7 +89,7 @@ export default function ControlPanel() {
     const docSnap2 = await getDoc(availablesRef);
     const newAvailables = confirm ? availables : docSnap2.data().disponiveis;
     const changingNumber = value || 1;
-    if (newAvailables[index].available > 0 || mode === 'Repor') {
+    if (newAvailables[index]?.available > 0 || mode === 'Repor') {
       newAvailables[index].available =
         mode === 'Vender' || confirm
           ? newAvailables[index].available - changingNumber
@@ -112,7 +112,7 @@ export default function ControlPanel() {
       const index = order.index;
       const value = order.value;
 
-      if (order.item.includes('Pizza')) {
+      if (order.item.includes('Bolo')) {
         newAvailablesSoda[index].available += value;
       } else {
         newAvailables[index].available += value;
@@ -133,7 +133,7 @@ export default function ControlPanel() {
     const docSnap1 = await getDoc(availablesRef);
     const newAvailables = confirm ? soda : docSnap1.data().disponiveis;
     const changingNumber = value || 1;
-    if (newAvailables[index].available > 0 || mode === 'Repor') {
+    if (newAvailables[index]?.available > 0 || mode === 'Repor') {
       newAvailables[index].available =
         mode === 'Vender' || confirm
           ? newAvailables[index].available - changingNumber
