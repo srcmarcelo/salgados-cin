@@ -34,7 +34,7 @@ export default function OrderModal(props) {
 
   useEffect(() => {
     if (copyText) {
-      const nextLine = [2, 3, 5, 8, 11, 13, 14, 15];
+      const nextLine = [2, 3, 5, 7, 10, 12, 14, 15];
       let textAvailables = `Pedido da *${mode}*\n`;
       orderList.forEach((item, index) => {
         if (nextLine.includes(index)) textAvailables += '\n';

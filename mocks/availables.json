@@ -7,7 +7,7 @@
       "height": 153
     },
     "type": "doce",
-    "available": 10
+    "available": 3
   },
   {
     "name": "Tortinha de limão",
@@ -17,10 +17,10 @@
       "height": 153
     },
     "type": "doce",
-    "available": 15
+    "available": 3
   },
   {
-    "available": 10,
+    "available": 6,
     "type": "frango",
     "media": {
       "width": 245,
@@ -32,7 +32,7 @@
   {
     "type": "frango",
     "name": "Coxinha frango e cheddar",
-    "available": 5,
+    "available": 2,
     "media": {
       "height": 153,
       "src": "/images/coxinha_cheddar.webp",
@@ -40,7 +40,7 @@
     }
   },
   {
-    "available": 10,
+    "available": 6,
     "name": "Esfiha frango e cheddar",
     "type": "frango",
     "media": {
@@ -50,7 +50,7 @@
     }
   },
   {
-    "available": 20,
+    "available": 15,
     "type": "frango2",
     "media": {
       "width": 245,
@@ -60,16 +60,6 @@
     "name": "Pastel de forno de frango"
   },
   {
-    "name": "Empada",
-    "media": {
-      "src": "/images/empada.jpg",
-      "width": 245,
-      "height": 153
-    },
-    "available": 3,
-    "type": "frango2"
-  },
-  {
     "media": {
       "src": "/images/coxinha_catupiry.webp",
       "height": 153,
@@ -77,12 +67,12 @@
     },
     "type": "frango",
     "name": "Coxinha frango e catupiry",
-    "available": 5
+    "available": 2
   },
   {
     "type": "queijo",
     "name": "Pastel de forno de queijo",
-    "available": 5,
+    "available": 7,
     "media": {
       "src": "/images/pastel_queijo.jpg",
       "height": 153,
@@ -111,7 +101,7 @@
   },
   {
     "name": "Pão pizza",
-    "available": 4,
+    "available": 10,
     "media": {
       "width": 245,
       "height": 153,
@@ -127,7 +117,17 @@
     },
     "name": "Risole misto",
     "type": "misto",
-    "available": 10
+    "available": 8
+  },
+  {
+    "media": {
+      "src": "/images/hamburguer_cheddar.webp",
+      "width": 245,
+      "height": 153
+    },
+    "available": 6,
+    "name": "Hamburguer c/ cheddar",
+    "type": "carne"
   },
   {
     "media": {
@@ -137,7 +137,7 @@
     },
     "name": "Hamburguer",
     "type": "carne",
-    "available": 10
+    "available": 6
   },
   {
     "type": "salsicha",
@@ -146,17 +146,17 @@
       "src": "/images/doguinho.jpg",
       "width": 245
     },
-    "available": 3,
+    "available": 6,
     "name": "Doguinho"
   },
   {
     "media": {
-      "src": "/images/hamburguer_cheddar.webp",
+      "src": "/images/risole_carne.jpg",
       "width": 245,
       "height": 153
     },
-    "available": 10,
-    "name": "Hamburguer c/ Cheddar",
+    "available": 4,
+    "name": "Risole de carne",
     "type": "especial"
   }
 ]

@@ -30,16 +30,6 @@
     "name": "Coxinha de frango"
   },
   {
-    "media": {
-      "src": "/images/coxinha_catupiry.webp",
-      "height": 153,
-      "width": 245
-    },
-    "type": "frango",
-    "name": "Coxinha frango e catupiry",
-    "available": 0
-  },
-  {
     "type": "frango",
     "name": "Coxinha frango e cheddar",
     "available": 0,
@@ -51,7 +41,7 @@
   },
   {
     "available": 0,
-    "name": "Esfiha de frango",
+    "name": "Esfiha frango e cheddar",
     "type": "frango",
     "media": {
       "width": 245,
@@ -70,14 +60,14 @@
     "name": "Pastel de forno de frango"
   },
   {
-    "name": "Empada",
     "media": {
-      "src": "/images/empada.jpg",
-      "width": 245,
-      "height": 153
+      "src": "/images/coxinha_catupiry.webp",
+      "height": 153,
+      "width": 245
     },
-    "available": 0,
-    "type": "frango2"
+    "type": "frango",
+    "name": "Coxinha frango e catupiry",
+    "available": 0
   },
   {
     "type": "queijo",
@@ -131,6 +121,16 @@
   },
   {
     "media": {
+      "src": "/images/hamburguer_cheddar.webp",
+      "width": 245,
+      "height": 153
+    },
+    "available": 0,
+    "name": "Hamburguer c/ cheddar",
+    "type": "carne"
+  },
+  {
+    "media": {
       "src": "/images/hamburguer.jpg",
       "width": 245,
       "height": 153
@@ -151,12 +151,12 @@
   },
   {
     "media": {
-      "src": "/images/hamburguer_cheddar.webp",
+      "src": "/images/risole_carne.jpg",
       "width": 245,
       "height": 153
     },
     "available": 0,
-    "name": "Hamburguer c/ cheddar",
+    "name": "Risole de carne",
     "type": "especial"
   }
 ]
