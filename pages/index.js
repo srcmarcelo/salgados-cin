@@ -14,7 +14,7 @@ export default function Home() {
         <title>Marcelinho dos Salgados</title>
         <meta
           name='google-site-verification'
-          content='fsWu403nKM_dN5xMNZ61YSDli-w5kUUAwTXJZzy9MvQ'
+          content='iwyrBczlKuMV6lWj2nLkGYxK00c4nLLbcrap8LSWYe8'
         />
         <meta
           name='description'
