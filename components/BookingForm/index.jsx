@@ -40,6 +40,7 @@ export default function BookingForm() {
   const [modes, setModes] = useState([]);
   const [totalOrder, setTotalOrder] = useState(0);
   const [totalPizzaOrder, setTotalPizzaOrder] = useState(0);
+  const [totalSandOrder, setTotalSandOrder] = useState(0);
   const [userData, setUserData] = useState({});
   const [mode, setMode] = useState(0);
   const [time, setTime] = useState(0);
@@ -62,12 +63,15 @@ export default function BookingForm() {
   useEffect(() => {
     let total = 0;
     let pizzas = 0;
+    let sands = 0;
     order.forEach((item) => {
       if (item.type === 'pizza') pizzas += parseInt(item.value);
+      else if (item.type === 'sand') sands += parseInt(item.value);
       else total += parseInt(item.value);
     });
     setTotalOrder(total);
     setTotalPizzaOrder(pizzas);
+    setTotalSandOrder(sands);
   }, [order, didRetry]);
 
   const getTime = async () => {
@@ -91,7 +95,7 @@ export default function BookingForm() {
     const docSnap2 = await getDoc(docRef2);
     const pizzas = docSnap2
       .data()
-      .disponiveis.filter((item) => item.type === 'pizza');
+      .disponiveis.filter((item) => ['sand', 'pizza'].includes(item.type));
     const availables = [...pizzas, ...docSnap.data().disponiveis];
     // const availables = [...docSnap.data().disponiveis];
     availables.forEach((item, index) => (availables[index].value = 0));
@@ -109,7 +113,7 @@ export default function BookingForm() {
     const docSnap2 = await getDoc(docRef2);
     const pizzas = docSnap2
       .data()
-      .disponiveis.filter((item) => item.type === 'pizza');
+      .disponiveis.filter((item) => ['sand', 'pizza'].includes(item.type));
     const availables = [...pizzas, ...docSnap.data().disponiveis];
     // const availables = [...docSnap.data().disponiveis];
     order.forEach(
@@ -165,7 +169,9 @@ export default function BookingForm() {
       id: orders.length,
       name: userData.name,
       order: sendOrder,
-      price: `R$ ${totalOrder * 3.5 + totalPizzaOrder * 7},00`,
+      price: `R$ ${
+        totalOrder * 3.5 + totalPizzaOrder * 7 + totalSandOrder * 5
+      },00`,
       // price: `R$ ${totalOrder * 3.5},00`,
       status: 0,
       time: mode,
@@ -391,7 +397,7 @@ export default function BookingForm() {
           display: 'flex',
           width: '100%',
           justifyContent: 'space-between',
-          marginBottom: '15px',
+          marginBottom: '5px',
         }}
       >
         <Statistic
@@ -413,17 +419,39 @@ export default function BookingForm() {
           display: 'flex',
           width: '100%',
           justifyContent: 'space-between',
+          marginBottom: '15px',
         }}
       >
         <Statistic
           title='Quantidade'
-          value={totalOrder + totalPizzaOrder}
+          value={totalSandOrder}
+          suffix='sanduiches'
+          valueStyle={{ fontSize: '1.2rem' }}
+        />
+        <Statistic
+          title='Valor'
+          value={totalSandOrder * 5}
+          prefix='R$'
+          precision={2}
+          valueStyle={{ fontSize: '1.2rem' }}
+        />
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Statistic
+          title='Quantidade'
+          value={totalOrder + totalPizzaOrder + totalSandOrder}
           suffix='items'
           valueStyle={{ fontSize: '1.2rem' }}
         />
         <Statistic
           title='Valor total'
-          value={totalOrder * 3.5 + totalPizzaOrder * 7}
+          value={totalOrder * 3.5 + totalPizzaOrder * 7 + totalSandOrder * 5}
           prefix='R$'
           precision={2}
           valueStyle={{ fontSize: '1.5rem' }}
@@ -438,7 +466,7 @@ export default function BookingForm() {
       <Button
         type='primary'
         onClick={handleOpenUserModal}
-        disabled={totalOrder + totalPizzaOrder < 1}
+        disabled={totalOrder + totalPizzaOrder + totalSandOrder < 1}
       >
         Confirmar
       </Button>
@@ -489,7 +517,9 @@ export default function BookingForm() {
         <div style={{ fontSize: '1rem' }}>{modes[mode]?.label}</div>
         <ModalConfirmContent>
           {order.map((item, index) => {
-            const rightIndex = item.name.includes('Bolo') ? index + 1 : index - 2;
+            const rightIndex = item.name.includes('Bolo')
+              ? index + 1
+              : index - 2;
             // const rightIndex = index;
             if (item.value > 0) {
               sendOrder.push({
@@ -530,7 +560,7 @@ export default function BookingForm() {
       <ExtraAlert
         title={
           <p style={{ color: 'green', margin: 0 }}>
-            RESERVAS DE BOLOS DE POTE LIBERADAS!
+            RESERVAS DE SANDUICHES LIBERADAS!
           </p>
         }
         content={
@@ -539,7 +569,8 @@ export default function BookingForm() {
               textAlign: 'center',
             }}
           >
-            Agora você pode reservar também bolos de pote de chocolate e prestígio!
+            Agora você pode reservar também sanduíches naturais de frango e
+            atum!
           </div>
         }
       />

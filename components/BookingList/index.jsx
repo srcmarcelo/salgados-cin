@@ -50,7 +50,6 @@ export default function BookingList({
 
     await getAvailables()
 
-
     if (
       newOrders[item.id].status > 1 &&
       newOrders[item.id].status < 4 &&
@@ -69,8 +68,10 @@ export default function BookingList({
       item.order.forEach(async (product) => {
         if (product.item.includes('Bolo')) {
           await onConfirmPizza(product.index - 1, product.value, true);
+        } else if (product.item.includes('Sand.')) {
+          await onConfirmPizza(product.index + 2, product.value, true);
         } else {
-          await onConfirm(product.index, product.value, true);
+          await onConfirm(product.index - 2, product.value, true);
         }
       });
     }

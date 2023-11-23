@@ -18,5 +18,25 @@
     },
     "type": "pizza",
     "name": "Bolo pote prestigio"
+  },
+  {
+    "available": 15,
+    "media": {
+      "width": 300,
+      "height": 200,
+      "src": "/images/sanduiche_frango.jpeg"
+    },
+    "type": "sand",
+    "name": "Sand. natural frango"
+  },
+  {
+    "available": 5,
+    "media": {
+      "width": 300,
+      "height": 200,
+      "src": "/images/sanduiche_atum.jpeg"
+    },
+    "type": "sand",
+    "name": "Sand. natural atum"
   }
 ]

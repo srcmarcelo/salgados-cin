@@ -113,9 +113,11 @@ export default function ControlPanel() {
       const value = order.value;
 
       if (order.item.includes('Bolo')) {
-        newAvailablesSoda[index].available += value;
+        newAvailablesSoda[index - 1].available += value;
+      } else if (order.item.includes('Sand')) {
+        newAvailablesSoda[index + 2].available += value;
       } else {
-        newAvailables[index].available += value;
+        newAvailables[index - 2].available += value;
       }
     });
 
