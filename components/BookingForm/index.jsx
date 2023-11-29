@@ -39,7 +39,8 @@ export default function BookingForm() {
   const [order, setOrder] = useState([]);
   const [modes, setModes] = useState([]);
   const [totalOrder, setTotalOrder] = useState(0);
-  const [totalPizzaOrder, setTotalPizzaOrder] = useState(0);
+  const [totalSodaOrder, setTotalSodaOrder] = useState(0);
+  const [totalSoda2Order, setTotalSoda2Order] = useState(0);
   const [totalSandOrder, setTotalSandOrder] = useState(0);
   const [userData, setUserData] = useState({});
   const [mode, setMode] = useState(0);
@@ -62,15 +63,18 @@ export default function BookingForm() {
 
   useEffect(() => {
     let total = 0;
-    let pizzas = 0;
+    let sodas = 0;
+    let sodas2 = 0;
     let sands = 0;
     order.forEach((item) => {
-      if (item.type === 'pizza') pizzas += parseInt(item.value);
+      if (item.type === 'soda') sodas += parseInt(item.value);
+      else if (item.type === 'soda2') sodas2 += parseInt(item.value);
       else if (item.type === 'sand') sands += parseInt(item.value);
       else total += parseInt(item.value);
     });
     setTotalOrder(total);
-    setTotalPizzaOrder(pizzas);
+    setTotalSodaOrder(sodas);
+    setTotalSoda2Order(sodas2);
     setTotalSandOrder(sands);
   }, [order, didRetry]);
 
@@ -93,10 +97,12 @@ export default function BookingForm() {
     const docRef2 = doc(db, 'salgados', 'refrigerantes');
     const docSnap = await getDoc(docRef);
     const docSnap2 = await getDoc(docRef2);
-    const pizzas = docSnap2
+    const sodas = docSnap2
       .data()
-      .disponiveis.filter((item) => ['sand', 'pizza'].includes(item.type));
-    const availables = [...pizzas, ...docSnap.data().disponiveis];
+      .disponiveis.filter((item) =>
+        ['sand', 'soda', 'soda2'].includes(item.type)
+      );
+    const availables = [...sodas, ...docSnap.data().disponiveis];
     // const availables = [...docSnap.data().disponiveis];
     availables.forEach((item, index) => (availables[index].value = 0));
     setOrder(availables);
@@ -111,10 +117,12 @@ export default function BookingForm() {
     const docRef2 = doc(db, 'salgados', 'refrigerantes');
     const docSnap = await getDoc(docRef);
     const docSnap2 = await getDoc(docRef2);
-    const pizzas = docSnap2
+    const sodas = docSnap2
       .data()
-      .disponiveis.filter((item) => ['sand', 'pizza'].includes(item.type));
-    const availables = [...pizzas, ...docSnap.data().disponiveis];
+      .disponiveis.filter((item) =>
+        ['sand', 'soda', 'soda2'].includes(item.type)
+      );
+    const availables = [...sodas, ...docSnap.data().disponiveis];
     // const availables = [...docSnap.data().disponiveis];
     order.forEach(
       (item, index) => (availables[index].value = order[index].value)
@@ -170,7 +178,9 @@ export default function BookingForm() {
       name: userData.name,
       order: sendOrder,
       price: `R$ ${
-        totalOrder * 3.5 + totalPizzaOrder * 7 + totalSandOrder * 5
+        totalOrder * 3.5 +
+        totalSodaOrder * 2.5 * totalSoda2Order * 3.5 +
+        totalSandOrder * 5
       },00`,
       // price: `R$ ${totalOrder * 3.5},00`,
       status: 0,
@@ -402,13 +412,13 @@ export default function BookingForm() {
       >
         <Statistic
           title='Quantidade'
-          value={totalPizzaOrder}
-          suffix='bolos'
+          value={totalSodaOrder + totalSoda2Order}
+          suffix='refrigerantes'
           valueStyle={{ fontSize: '1.2rem' }}
         />
         <Statistic
           title='Valor'
-          value={totalPizzaOrder * 7}
+          value={totalSodaOrder * 2.5 + totalSoda2Order * 3.5}
           prefix='R$'
           precision={2}
           valueStyle={{ fontSize: '1.2rem' }}
@@ -445,13 +455,18 @@ export default function BookingForm() {
       >
         <Statistic
           title='Quantidade'
-          value={totalOrder + totalPizzaOrder + totalSandOrder}
+          value={totalOrder + totalSodaOrder + totalSoda2Order + totalSandOrder}
           suffix='items'
           valueStyle={{ fontSize: '1.2rem' }}
         />
         <Statistic
           title='Valor total'
-          value={totalOrder * 3.5 + totalPizzaOrder * 7 + totalSandOrder * 5}
+          value={
+            totalOrder * 3.5 +
+            totalSodaOrder * 2.5 +
+            totalSoda2Order * 3.5 +
+            totalSandOrder * 5
+          }
           prefix='R$'
           precision={2}
           valueStyle={{ fontSize: '1.5rem' }}
@@ -466,7 +481,9 @@ export default function BookingForm() {
       <Button
         type='primary'
         onClick={handleOpenUserModal}
-        disabled={totalOrder + totalPizzaOrder + totalSandOrder < 1}
+        disabled={
+          totalOrder + totalSodaOrder + totalSoda2Order + totalSandOrder < 1
+        }
       >
         Confirmar
       </Button>
@@ -517,19 +534,16 @@ export default function BookingForm() {
         <div style={{ fontSize: '1rem' }}>{modes[mode]?.label}</div>
         <ModalConfirmContent>
           {order.map((item, index) => {
-            const rightIndex = item.name.includes('Bolo')
-              ? index + 1
-              : index - 2;
-            // const rightIndex = index;
             if (item.value > 0) {
               sendOrder.push({
                 item: item.name,
                 value: item.value,
-                index: rightIndex,
+                type: item.type,
+                index: index,
               });
               return (
                 <div
-                  key={`${item.name}_${rightIndex}`}
+                  key={`${item.name}_${index}`}
                   style={{ fontSize: '1.2rem' }}
                 >{`${item.value} ${item.name}`}</div>
               );
@@ -560,7 +574,7 @@ export default function BookingForm() {
       <ExtraAlert
         title={
           <p style={{ color: 'green', margin: 0 }}>
-            RESERVAS DE SANDUICHES LIBERADAS!
+            RESERVAS DE REFRIGERANTES LIBERADAS!
           </p>
         }
         content={
@@ -569,8 +583,8 @@ export default function BookingForm() {
               textAlign: 'center',
             }}
           >
-            Agora você pode reservar também sanduíches naturais de frango e
-            atum!
+            Agora você pode reservar também REFRIGERANTES e sanduíches naturais
+            de frango e atum!
           </div>
         }
       />

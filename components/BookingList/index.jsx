@@ -48,7 +48,7 @@ export default function BookingList({
     const docSnap = await getDoc(bookingRef);
     const newOrders = docSnap.data().booking;
 
-    await getAvailables()
+    await getAvailables();
 
     if (
       newOrders[item.id].status > 1 &&
@@ -66,12 +66,10 @@ export default function BookingList({
 
     if (newOrders[item.id].status === 2) {
       item.order.forEach(async (product) => {
-        if (product.item.includes('Bolo')) {
-          await onConfirmPizza(product.index - 1, product.value, true);
-        } else if (product.item.includes('Sand.')) {
-          await onConfirmPizza(product.index + 2, product.value, true);
+        if (['sand', 'soda', 'soda2'].includes(product.type)) {
+          await onConfirmPizza(product.index, product.value, true);
         } else {
-          await onConfirm(product.index - 2, product.value, true);
+          await onConfirm(product.index - 6, product.value, true);
         }
       });
     }

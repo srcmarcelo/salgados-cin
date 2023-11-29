@@ -1,23 +1,43 @@
 [
   {
-    "available": 10,
+    "type": "soda",
+    "name": "Guaraná Antarctica",
+    "available": 12,
     "media": {
-      "width": 300,
-      "height": 200,
-      "src": "/images/bolo_chocolate.jpeg"
-    },
-    "type": "pizza",
-    "name": "Bolo pote chocolate"
+      "width": 225,
+      "src": "/images/guarana.webp",
+      "height": 183
+    }
   },
   {
-    "available": 6,
+    "type": "soda",
+    "name": "Pepsi",
     "media": {
-      "width": 300,
-      "height": 200,
-      "src": "/images/bolo_prestigio.jpeg"
+      "width": 225,
+      "height": 183,
+      "src": "/images/pepsi.jpeg"
     },
-    "type": "pizza",
-    "name": "Bolo pote prestigio"
+    "available": 12
+  },
+  {
+    "available": 12,
+    "media": {
+      "width": 225,
+      "height": 183,
+      "src": "/images/coca.jpg"
+    },
+    "type": "soda2",
+    "name": "Coca-Cola"
+  },
+  {
+    "available": 12,
+    "media": {
+      "width": 225,
+      "height": 183,
+      "src": "/images/coca_zero.png"
+    },
+    "type": "soda2",
+    "name": "Coca Zero"
   },
   {
     "available": 15,
