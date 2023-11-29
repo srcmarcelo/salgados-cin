@@ -112,12 +112,10 @@ export default function ControlPanel() {
       const index = order.index;
       const value = order.value;
 
-      if (order.item.includes('Bolo')) {
-        newAvailablesSoda[index - 1].available += value;
-      } else if (order.item.includes('Sand')) {
-        newAvailablesSoda[index + 2].available += value;
+      if (['sand', 'soda', 'soda2'].includes(order.item.type)) {
+        newAvailablesSoda[index].available += value;
       } else {
-        newAvailables[index - 2].available += value;
+        newAvailables[index - 6].available += value;
       }
     });
 
