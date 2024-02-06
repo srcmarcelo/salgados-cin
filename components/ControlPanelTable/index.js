@@ -167,13 +167,13 @@ export default function ControlPanelTable(props) {
           <RenderGroup types={['queijo', 'especial']} />
         </div>
       )}
-      {soda.length === 0 ? (
+      {/*soda.length === 0 ? (
         <Spin />
       ) : (
         <div className={styles.grid}>
           <RenderSodaList data={soda} />
         </div>
-      )}
+      )*/}
     </div>
   );
 }

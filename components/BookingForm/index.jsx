@@ -571,7 +571,7 @@ export default function BookingForm() {
         </p>
       </div>
       <Controls />
-      <ExtraAlert
+      {/*<ExtraAlert
         title={
           <p style={{ color: 'green', margin: 0 }}>
             RESERVAS DE REFRIGERANTES LIBERADAS!
@@ -587,7 +587,7 @@ export default function BookingForm() {
             de frango e atum!
           </div>
         }
-      />
+      />*/}
       <Form didRetry={didRetry} />
       <Footer />
     </FormContainer>
