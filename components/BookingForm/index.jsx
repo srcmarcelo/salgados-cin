@@ -402,7 +402,7 @@ export default function BookingForm() {
           valueStyle={{ fontSize: '1.2rem' }}
         />
       </div>
-      <div
+      {/* <div
         style={{
           display: 'flex',
           width: '100%',
@@ -423,8 +423,8 @@ export default function BookingForm() {
           precision={2}
           valueStyle={{ fontSize: '1.2rem' }}
         />
-      </div>
-      <div
+      </div> */}
+      {/* <div
         style={{
           display: 'flex',
           width: '100%',
@@ -445,7 +445,7 @@ export default function BookingForm() {
           precision={2}
           valueStyle={{ fontSize: '1.2rem' }}
         />
-      </div>
+      </div> */}
       <div
         style={{
           display: 'flex',
