@@ -115,7 +115,7 @@ export default function ControlPanel() {
       if (['sand', 'soda', 'soda2'].includes(order.item.type)) {
         newAvailablesSoda[index].available += value;
       } else {
-        newAvailables[index - 6].available += value;
+        newAvailables[index].available += value;
       }
     });
 

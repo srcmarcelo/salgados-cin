@@ -69,7 +69,7 @@ export default function BookingList({
         if (['sand', 'soda', 'soda2'].includes(product.type)) {
           await onConfirmPizza(product.index, product.value, true);
         } else {
-          await onConfirm(product.index - 6, product.value, true);
+          await onConfirm(product.index, product.value, true);
         }
       });
     }

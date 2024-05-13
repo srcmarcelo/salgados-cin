@@ -102,8 +102,8 @@ export default function BookingForm() {
       .disponiveis.filter((item) =>
         ['sand', 'soda', 'soda2'].includes(item.type)
       );
-    const availables = [...sodas, ...docSnap.data().disponiveis];
-    // const availables = [...docSnap.data().disponiveis];
+    // const availables = [...sodas, ...docSnap.data().disponiveis];
+    const availables = [...docSnap.data().disponiveis];
     availables.forEach((item, index) => (availables[index].value = 0));
     setOrder(availables);
   };
@@ -122,8 +122,8 @@ export default function BookingForm() {
       .disponiveis.filter((item) =>
         ['sand', 'soda', 'soda2'].includes(item.type)
       );
-    const availables = [...sodas, ...docSnap.data().disponiveis];
-    // const availables = [...docSnap.data().disponiveis];
+    // const availables = [...sodas, ...docSnap.data().disponiveis];
+    const availables = [...docSnap.data().disponiveis];
     order.forEach(
       (item, index) => (availables[index].value = order[index].value)
     );
@@ -177,12 +177,12 @@ export default function BookingForm() {
       id: orders.length,
       name: userData.name,
       order: sendOrder,
-      price: `R$ ${
-        totalOrder * 4 +
-        totalSodaOrder * 2.5 * totalSoda2Order * 3.5 +
-        totalSandOrder * 5
-      },00`,
-      // price: `R$ ${totalOrder * 4},00`,
+      // price: `R$ ${
+      //   totalOrder * 4 +
+      //   totalSodaOrder * 2.5 * totalSoda2Order * 3.5 +
+      //   totalSandOrder * 5
+      // },00`,
+      price: `R$ ${totalOrder * 3.5}`,
       status: 0,
       time: mode,
     };
@@ -396,7 +396,7 @@ export default function BookingForm() {
         />
         <Statistic
           title='Valor'
-          value={totalOrder * 4}
+          value={totalOrder * 3.5}
           prefix='R$'
           precision={2}
           valueStyle={{ fontSize: '1.2rem' }}
@@ -461,12 +461,13 @@ export default function BookingForm() {
         />
         <Statistic
           title='Valor total'
-          value={
-            totalOrder * 4 +
-            totalSodaOrder * 2.5 +
-            totalSoda2Order * 3.5 +
-            totalSandOrder * 5
-          }
+          // value={
+          //   totalOrder * 4 +
+          //   totalSodaOrder * 2.5 +
+          //   totalSoda2Order * 3.5 +
+          //   totalSandOrder * 5
+          // }
+          value={totalOrder * 3.5}
           prefix='R$'
           precision={2}
           valueStyle={{ fontSize: '1.5rem' }}
