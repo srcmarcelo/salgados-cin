@@ -182,7 +182,7 @@ export default function BookingForm() {
       //   totalSodaOrder * 2.5 * totalSoda2Order * 3.5 +
       //   totalSandOrder * 5
       // },00`,
-      price: `R$ ${totalOrder * 3.5}`,
+      price: `R$ ${totalOrder * 4}`,
       status: 0,
       time: mode,
     };
@@ -396,7 +396,7 @@ export default function BookingForm() {
         />
         <Statistic
           title='Valor'
-          value={totalOrder * 3.5}
+          value={totalOrder * 4}
           prefix='R$'
           precision={2}
           valueStyle={{ fontSize: '1.2rem' }}
@@ -467,7 +467,7 @@ export default function BookingForm() {
           //   totalSoda2Order * 3.5 +
           //   totalSandOrder * 5
           // }
-          value={totalOrder * 3.5}
+          value={totalOrder * 4}
           prefix='R$'
           precision={2}
           valueStyle={{ fontSize: '1.5rem' }}

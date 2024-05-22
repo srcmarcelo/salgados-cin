@@ -97,7 +97,7 @@ export default function AdminComments() {
                   title: 'Tabela de preços',
                   content: (
                     <div>
-                      <h2>Qualquer salgado por R$ 3,50!</h2>
+                      <h2>Qualquer salgado por R$ 4,00!</h2>
                       {/*<h2>Sanduiche natural R$ 5,00!</h2>
                       <h2>Bolo de pote R$ 7,00!</h2> */}
                       {/* <h2>Pizza R$ 5,00!</h2> */}
@@ -119,7 +119,7 @@ export default function AdminComments() {
                       <p>
                         <strong>Chave PIX:</strong>
                       </p>
-                      <p>marcelo.cristian.969@gmail.com</p>
+                      <p>salgadosecompanhiacin@gmail.com</p>
                     </div>
                   ),
                 })
